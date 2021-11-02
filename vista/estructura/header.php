@@ -26,7 +26,7 @@ include_once '../../configuracion.php';
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#">Supermerk2</a>
+                <a class="navbar-brand" href="#">MercadoPrivado</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">

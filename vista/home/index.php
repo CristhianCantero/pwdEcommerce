@@ -1,6 +1,6 @@
 <?php
 
-$titulo = 'Programación Web Dinámica - TP Final';
+$titulo = 'MercadoPrivado';
 
 include_once '../estructura/header.php';
 
@@ -9,8 +9,8 @@ include_once '../estructura/header.php';
 <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Si tu viejo es zapatero</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Zarpale la lata</p>
+                    <h1 class="display-4 fw-bolder">Lo bueno, nos lo guardamos</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">:)</p>
                 </div>
             </div>
         </header>
