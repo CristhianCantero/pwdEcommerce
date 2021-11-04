@@ -11,10 +11,7 @@ class Session
 
     public function setAtributo($nombreAtributo, $valor)
     {
-        if (
-            session_status() === PHP_SESSION_ACTIVE
-            && is_string($nombreAtributo)
-        ) {
+        if (session_status() === PHP_SESSION_ACTIVE && is_string($nombreAtributo)) {
             $_SESSION[$nombreAtributo] = $valor;
         }
     }
@@ -22,11 +19,7 @@ class Session
     public function getAtributo($nombreAtributo)
     {
         $atributo = null;
-        if (
-            session_status() === PHP_SESSION_ACTIVE
-            && is_string($nombreAtributo)
-            && isset($_SESSION[$nombreAtributo])
-        ) {
+        if (session_status() === PHP_SESSION_ACTIVE && is_string($nombreAtributo) && isset($_SESSION[$nombreAtributo])) {
             $atributo = $_SESSION[$nombreAtributo];
         }
 
@@ -35,11 +28,7 @@ class Session
 
     public function borrarAtributo($nombreAtributo)
     {
-        if (
-            session_status() === PHP_SESSION_ACTIVE
-            && is_string($nombreAtributo)
-            && isset($_SESSION[$nombreAtributo])
-        ) {
+        if (session_status() === PHP_SESSION_ACTIVE && is_string($nombreAtributo) && isset($_SESSION[$nombreAtributo])) {
             unset($_SESSION[$nombreAtributo]);
         }
     }
@@ -47,9 +36,9 @@ class Session
     public function iniciarSession($datos)
     {
         $this->session_started;
-        $this->setAtributo("usuario", $datos["NombreUsuario"]);
+        $this->setAtributo("usuario", $datos["usuario"]);
         $this->setAtributo("login", $datos["login"]);
-        $this->setAtributo("rol", $datos["roles"]);
+        $this->setAtributo("rol", $datos["rol"]);
         $this->setAtributo("idusuario", $datos["idusuario"]);
 
         $resp = true;
@@ -95,7 +84,7 @@ class Session
         $resp = false;
         if (isset($_SESSION["login"])) {
             $pag = $_SERVER["REQUEST_URI"];
-            //echo($pag);
+            
             if ($pag == "/tpfinal/vista/listarUsuario.php" || $pag == "/tpfinal/vista/listarRoles.php" || $pag == "/tpfinal/vista/actualizarlogin.php" || $pag == "/tpfinal/vista/eliminarUsuario.php") {
                 if ($this->esAdministrador() != true) {
                     header("location: http://localhost/tpfinal/vista/home/index.php");
