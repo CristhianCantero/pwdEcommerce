@@ -1,130 +1,118 @@
 <?php
-class Session{
-    private $usuarioActual;
-    private $pass;
-    private $mensajeError;
-    //Constructor que inicia la sesion
+
+class Session
+{
     public function __construct()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
-    // Getters
-    public function getUsuarioActual()
+    public function setAtributo($nombreAtributo, $valor)
     {
-        return $_SESSION['usuario'];
-    }
-    
-    public function getPass()
-    {
-        return $_SESSION['pass'];
-    }
-    
-    public function getMensajeError()
-    {
-        return $_SESSION['error'];
-    }
-    
-    // Setters
-    public function setUsuarioActual($usuario)
-    {
-        $_SESSION['usuario']=$usuario;
+        if (
+            session_status() === PHP_SESSION_ACTIVE
+            && is_string($nombreAtributo)
+        ) {
+            $_SESSION[$nombreAtributo] = $valor;
+        }
     }
 
-    public function setPass($pass)
+    public function getAtributo($nombreAtributo)
     {
-        $_SESSION['pass']=$pass;
+        $atributo = null;
+        if (
+            session_status() === PHP_SESSION_ACTIVE
+            && is_string($nombreAtributo)
+            && isset($_SESSION[$nombreAtributo])
+        ) {
+            $atributo = $_SESSION[$nombreAtributo];
+        }
+
+        return $atributo;
     }
 
-    public function setMensajeError($mensajeError)
+    public function borrarAtributo($nombreAtributo)
     {
-        $_SESSION['error'] = $mensajeError;
+        if (
+            session_status() === PHP_SESSION_ACTIVE
+            && is_string($nombreAtributo)
+            && isset($_SESSION[$nombreAtributo])
+        ) {
+            unset($_SESSION[$nombreAtributo]);
+        }
     }
-    
-    // Metodos
-    // Actualiza las variables de sesion con los valores ingresados
-    public function iniciar($nombreUsuario,$psw){
-        $this->setUsuarioActual($nombreUsuario);
-        $this->setPass($psw);
+
+    public function iniciarSession($datos)
+    {
+        $this->session_started;
+        $this->setAtributo("usuario", $datos["NombreUsuario"]);
+        $this->setAtributo("login", $datos["login"]);
+        $this->setAtributo("rol", $datos["roles"]);
+        $this->setAtributo("idusuario", $datos["idusuario"]);
+
+        $resp = true;
+
+        return $resp;
+
+        /*	OPCIÓN PARA RECUPERAR $ID DE SESSION
+		LA DEJO PARA TENERLA
+		$id= session_id();
+		$this-> setSession_id ($id);
+		return $id;
+		}
+		public function setSession_id ($id){
+			$_SESSION["key"]= $id;
+		}*/
     }
-    
-    // Valida si la sesion actual tiene usuario y psw validos. Devuelve TRUE or FALSE
-    public function validar(){
-        $valido = false;
-        $nombre = $this->getUsuarioActual();
-        $pass = $this->getPass();
-        $objUsuario = new AbmUsuario();
-        $usuario = $objUsuario->buscar(['usnombre'=>$nombre,'uspass'=>$pass]);
-        
-        if (count($usuario) == 1){
-            //Chequeo que no haya sido borrado
-            if ($usuario[0]->getUsdeshabilitado()=="0000-00-00 00:00:00"){
-                $valido=true;
-            }else{
-                $this->setMensajeError("El usuario no está habilitado en la base.");
+
+
+    public function esAdministrador()
+    {
+        $resp = false;
+        $roles = $_SESSION["rol"];
+        foreach ($roles as $rol) {
+            if ($rol == "admin") {
+                $resp = true;
             }
-            //Chequeo que tenga un rol asignado
-            $rolUsuario = new AbmUsuarioRol();
-            $roles = $rolUsuario->buscar(['idusuario'=>$usuario[0]->getIdusuario()]);
-            
-            if (count($roles) < 1){
-                $valido = false;
-                $this->setMensajeError("El usuario no posee ningun rol en la base.");
+        }
+        return $resp;
+    }
+
+    public function activa()
+    {
+        $resp = true;
+        session_status();
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            $resp = false;
+        }
+        return $resp;
+    }
+
+    public function validar()
+    {
+        $resp = false;
+        if (isset($_SESSION["login"])) {
+            $pag = $_SERVER["REQUEST_URI"];
+            //echo($pag);
+            if ($pag == "/tpfinal/vista/listarUsuario.php" || $pag == "/tpfinal/vista/listarRoles.php" || $pag == "/tpfinal/vista/actualizarlogin.php" || $pag == "/tpfinal/vista/eliminarUsuario.php") {
+                if ($this->esAdministrador() != true) {
+                    header("location: http://localhost/tpfinal/vista/home/index.php");
+                }
             }
-        }else{
-            $this->setMensajeError("Usuario y/o contraseña incorrecto.");
+            $resp = true;
         }
-        
-        return $valido;
+        return $resp;
     }
     
-    // Devuelve TRUE o FALSE si la sesion esta activa o no
-    public function activa(){
-        $activa=false;
-        
-        if (isset($_SESSION['usuario'])){
-            $activa=true;
-        }
-        
-        return $activa;
-    }
-    
-    // Devuelve el usuario logeado
-    public function getUsuario(){
-        $objUs=null;
-        $abmUs = new AbmUsuario();
-        $arrayUs = $abmUs->buscar(['usnombre'=>$this->getUsuarioActual(),'uspass'=>$this->getPass()]);
-        
-        if (count($arrayUs) == 1){
-            $objUs=$arrayUs[0];
-        }
-        
-        return $objUs;
-    }
-    
-    // Devuelve array de roles del usuario logeado
-    public function getRol(){
-        $roles = [];
-        $nombre = ['usnombre'=>$this->getUsuarioActual()];
-        $abmUs = new AbmUsuario();
-        $arreglo = $abmUs->buscar($nombre);
-        
-        if (count($arreglo) == 1){
-            $id=$arreglo[0]->getIdusuario();
-            $abmRelacion=new AbmUsuarioRol();
-            $roles=$abmRelacion->buscar(['idusuario'=>$id]);
-        }
-        
-        return $roles;
-    }
-    
-    // Cierra la sesion actual
-    public function cerrar(){
-        session_unset();
+    public function cerrarSession()
+    {
         session_destroy();
     }
 
-
-    
+    /*public function mostrarValorVariables()
+    {
+        print_object($_SESSION);
+    }*/
 }
-?>
