@@ -43,12 +43,45 @@ include_once '../../configuracion.php';
                             </ul>
                         </li>
                     </ul>
+                    
+                    <ul class="navbar-nav d-flex">
+                    <!-- Icon carrito -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/carrito.php" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span><span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </a>
+                    </li>
+                    <!-- Icon visitante -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Visitante" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sign-in-alt"></i><span class="d-lg-none">Usuario</span></a>
 
-                    <form class="d-flex">
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Visitante">
+                            <a class="dropdown-item" href="../pages/login.php"><span class="fas fa-sign-in-alt fa-fw" aria-hidden="true" title="Log in"></span>Entrar</a>
+                            <a class="dropdown-item" href="../pages/registrar.php"><span class="fas fa-pencil-alt fa-fw" aria-hidden="true" title="Sign up"></span>Registrarse</a>
+                        </div>
+                    </li>
+                    <!-- Icon usuario -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Usuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i> <span class="d-lg-none">Usuario</span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
+                            <a class="dropdown-item" href="../pages/perfil.php"><span class="fas fa-user fa-fw" aria-hidden="true" title="Perfil"></span>&nbsp;Perfil</a>
+                            <a class="dropdown-item" href="../pages/configuracion.php"><span class="fas fa-cog fa-fw " aria-hidden="true" title="Configuración"></span>&nbsp;Configuración</a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item logout" href="#"><span class="fas fa-sign-out-alt fa-fw" aria-hidden="true" title="Cerrar sesión"></span>&nbsp;Cerrar sesión</a>
+                        </div>
+                    </li>
+                </ul>
+
+                    <!-- <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>Carrito<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </nav>
