@@ -127,12 +127,14 @@ CREATE TABLE `menurol` (
 
 CREATE TABLE `producto` (
   `idproducto` bigint(20) NOT NULL,
+  `proingreso` timestamp DEFAULT current_timestamp(),
   `proprecio` bigint(20) NOT NULL,
   `prodescuento` int(20) NOT NULL,
   `pronombre` varchar(150) NOT NULL,
   `prodetalle` varchar(512) NOT NULL,
   `provecescomprado` varchar(512) NOT NULL,
-  `procantstock` int(11) NOT NULL
+  `procantstock` int(11) NOT NULL,
+  `prodeshabilitado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
