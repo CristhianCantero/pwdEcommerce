@@ -192,12 +192,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES 
-('1', 'JuanmaGonzalez', '0f0816827c17422bee4a4b634e3d025f', 'juanma@gmail.com', '0000-00-00 00:00:00'),
-('2', 'CristhianCantero', '9b5ec25e6054e385dcf3149873f7eba6', 'criis2021@gmail.com', '0000-00-00 00:00:00'),
-('3', 'RoGalecio', '920cad0d8f9a5d4a3fe20b0ef6c087eb', 'rogalecio@gmail.com', '0000-00-00 00:00:00'),
-('4', 'Rufus2590', '611a28b9d74fc04544baa63b22adc6ac', 'rufus2021@gmail.com', '0000-00-00 00:00:00'),
-('5', 'Pepito450', 'c20d6f7c518386005a2dcb1115b73cee', 'pepito450@gmail.com', '0000-00-00 00:00:00'),
-('6', 'Juancarlos3000', '227c5ea7070009c29f8b02a0f28c0892', 'juancarlos3000@gmail.com', '0000-00-00 00:00:00');
+('1', 'JuanmaGonzalez', 'd663148d38fc201d1df5e4d4e2371fec', 'juanma@gmail.com', '0000-00-00 00:00:00'),
+('2', 'CristhianCantero', '18caba35d8c174f20484860ec41974cf', 'criis2021@gmail.com', '0000-00-00 00:00:00'),
+('3', 'RoGalecio', 'ccb49a37f7900db9fb1d2e06bfcd2aa6', 'rogalecio@gmail.com', '0000-00-00 00:00:00'),
+('4', 'PepPerez', '49828fe2aa731c1d6562f71fe77e389a', 'rufus2021@gmail.com', '0000-00-00 00:00:00'),
+('5', 'Pepito450', '04c119ea51fb165c4cfa1d27a069cb96', 'pepito450@gmail.com', '0000-00-00 00:00:00'),
+('6', 'JuanCarlos', '9bf988e530e44a1ab4b18b6cb2622e1d', 'juancarlos3000@gmail.com', '0000-00-00 00:00:00');
 
 
 -- --------------------------------------------------------
