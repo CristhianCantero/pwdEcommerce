@@ -78,7 +78,7 @@ INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdeta
 
 CREATE TABLE `compraitem` (
   `idcompraitem` bigint(20) UNSIGNED NOT NULL,
-  `idproducto` bigint(20) NOT NULL,
+  `idproducto` varchar(150) NOT NULL,
   `idcompra` bigint(20) NOT NULL,
   `cicantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -126,16 +126,31 @@ CREATE TABLE `menurol` (
 --
 
 CREATE TABLE `producto` (
-  `idproducto` bigint(20) NOT NULL,
+  `idproducto` varchar(150) NOT NULL,
   `proingreso` timestamp DEFAULT current_timestamp(),
   `proprecio` bigint(20) NOT NULL,
-  `prodescuento` int(20) NOT NULL,
+  `prodescuento` int(20),
   `pronombre` varchar(150) NOT NULL,
   `prodetalle` varchar(512) NOT NULL,
-  `provecescomprado` varchar(512) NOT NULL,
+  `provecescomprado` int(20),
   `procantstock` int(11) NOT NULL,
   `prodeshabilitado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idproducto`, `proingreso`, `proprecio`, `prodescuento`, `pronombre`, `prodetalle`, `provecescomprado`, `procantstock`, `prodeshabilitado`) VALUES 
+('GDDFF2015', '', 5300, '0', 'Guardabarro Delantero Derecho','Ford Focus 2015', '0', 7,'0000-00-00 00:00:00'),
+('GDIFF2015', '', 5300, '0','Guardabarro Delantero Izquierdo','Ford Focus 2015', '0', 7,'0000-00-00 00:00:00'),
+('CFF2015', '', 12590, '15','Capot','Ford Focus 2015', '0', 4,'0000-00-00 00:00:00'),
+('PDDVWGT2014', '', 18700, '0','Puerta Delantera Derecha','Volkswagen Gol Trend 2014', '0', 3,'0000-00-00 00:00:00'),
+('PDIVWGT2014', '', 18700, '0','Puerta Delantera Izquierda','Volkswagen Gol Trend 2014', '0', 3,'0000-00-00 00:00:00'),
+('GDDVWGT2014', '', 8400, '20','Guardabarro Delantero Derecho','Volkswagen Gol Trend 2014', '0', 7,'0000-00-00 00:00:00'),
+('GDIVWGT2014', '', 8400, '20','Guardabarro Delantero Derecho','Volkswagen Gol Trend 2014', '0', 7,'0000-00-00 00:00:00'),
+('CVWGT2014', '', 14300, '0','Capot','Volkswagen Gol Trend 2014', '0', 5,'0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -147,6 +162,16 @@ CREATE TABLE `rol` (
   `idrol` bigint(20) NOT NULL,
   `rodescripcion` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES 
+('1', 'Admin'),
+('2', 'Manager Deposito'),
+('3', 'Deposito'),
+('4', 'Cliente');
 
 -- --------------------------------------------------------
 
@@ -162,6 +187,19 @@ CREATE TABLE `usuario` (
   `usdeshabilitado` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES 
+('1', 'JuanmaGonzalez', '0f0816827c17422bee4a4b634e3d025f', 'juanma@gmail.com', '0000-00-00 00:00:00'),
+('2', 'CristhianCantero', '9b5ec25e6054e385dcf3149873f7eba6', 'criis2021@gmail.com', '0000-00-00 00:00:00'),
+('3', 'RoGalecio', '920cad0d8f9a5d4a3fe20b0ef6c087eb', 'rogalecio@gmail.com', '0000-00-00 00:00:00'),
+('4', 'Rufus2590', '611a28b9d74fc04544baa63b22adc6ac', 'rufus2021@gmail.com', '0000-00-00 00:00:00'),
+('5', 'Pepito450', 'c20d6f7c518386005a2dcb1115b73cee', 'pepito450@gmail.com', '0000-00-00 00:00:00'),
+('6', 'Juancarlos3000', '227c5ea7070009c29f8b02a0f28c0892', 'juancarlos3000@gmail.com', '0000-00-00 00:00:00');
+
+
 -- --------------------------------------------------------
 
 --
@@ -174,8 +212,16 @@ CREATE TABLE `usuariorol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Índices para tablas volcadas
+-- Volcado de datos para la tabla `usuariorol`
 --
+
+INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES 
+('1', '1'),
+('2', '1'),
+('3', '2'),
+('4', '3'),
+('5', '4'),
+('6', '4');
 
 --
 -- Indices de la tabla `compra`
@@ -280,12 +326,6 @@ ALTER TABLE `compraitem`
 --
 ALTER TABLE `menu`
   MODIFY `idmenu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT de la tabla `producto`
---
-ALTER TABLE `producto`
-  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
