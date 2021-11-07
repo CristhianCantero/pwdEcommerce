@@ -30,53 +30,53 @@ class Producto
     {
         return $this->idProducto;
     }
-    
+
     public function getProPrecio()
     {
         return $this->proPrecio;
     }
-    
+
     public function getProDescuento()
     {
         return $this->proDescuento;
     }
-    
+
     public function getProNombre()
     {
         return $this->proNombre;
     }
-    
+
     public function getProDetalle()
     {
         return $this->proDetalle;
     }
-    
+
     public function getProVecesComprado()
     {
         return $this->proVecesComprado;
     }
-    
+
     public function getProCantStock()
     {
         return $this->proCantStock;
     }
-    
+
     public function getMensajeOperacion()
     {
         return $this->mensajeOperacion;
     }
-    
+
     // Setters
     public function setIdProducto($idProducto)
     {
         $this->idProducto = $idProducto;
     }
-    
+
     public function setProPrecio($proPrecio)
     {
         $this->proPrecio = $proPrecio;
     }
-    
+
     public function setProDescuento($proDescuento)
     {
         $this->proDescuento = $proDescuento;
@@ -91,7 +91,7 @@ class Producto
     {
         $this->proDetalle = $proDetalle;
     }
-    
+
     public function setProVecesComprado($proVecesComprado)
     {
         $this->proVecesComprado = $proVecesComprado;
@@ -106,7 +106,7 @@ class Producto
     {
         $this->mensajeOperacion = $mensajeOperacion;
     }
-    
+
     // Metodos
     public function setear($idproducto, $proprecio, $prodescuento, $pronombre, $prodetalle, $provecescomprado, $procantstock)
     {
@@ -123,9 +123,9 @@ class Producto
     {
         $resp = false;
         $base = new BaseDatos();
-        
+
         $sql = "SELECT * FROM producto WHERE idproducto = " . $this->getIdProducto();
-        
+
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -138,7 +138,7 @@ class Producto
         } else {
             $this->setMensajeOperacion("Producto->listar: " . $base->getError());
         }
-        
+
         return $resp;
     }
 
@@ -146,9 +146,9 @@ class Producto
     {
         $resp = false;
         $base = new BaseDatos();
-        
+
         $sql = "INSERT INTO producto (proprecio, prodescuento, pronombre, prodetalle, provecescomprado, procantstock) VALUES ('" . $this->getProPrecio() . "','" . $this->getProDescuento() . "','" . $this->getProNombre() . "','" . $this->getProDetalle() . "','" . $this->getProVecesComprado() . "','" . $this->getProCantStock() . "'";
-        
+
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdProducto($base);

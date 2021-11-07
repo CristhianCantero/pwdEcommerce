@@ -17,38 +17,38 @@ class Usuario
         $this->usdeshabilitado = "";
         $this->mensajeOperacion = "";
     }
-    
+
     // Getters
     public function getIdusuario()
     {
         return $this->idusuario;
     }
-    
+
     public function getUsnombre()
     {
         return $this->usnombre;
     }
-    
+
     public function getUspass()
     {
         return $this->uspass;
     }
-    
+
     public function getUsmail()
     {
         return $this->usmail;
     }
-    
+
     public function getUsdeshabilitado()
     {
         return $this->usdeshabilitado;
     }
-    
+
     public function getMensajeOperacion()
     {
         return $this->mensajeOperacion;
     }
-    
+
     // Setters
     public function setIdusuario($idusuario)
     {
@@ -199,14 +199,10 @@ class Usuario
                     array_push($arreglo, $obj);
                 }
             }
-
         } else {
             $this->setMensajeOperacion("Usuario->seleccionar: " . $base->getError());
         }
 
         return $arreglo;
     }
-
-
-
 }

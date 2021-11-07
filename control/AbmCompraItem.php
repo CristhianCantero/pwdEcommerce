@@ -3,27 +3,20 @@ class AbmCompraItem
 {
     private function cargarObjeto($param)
     {
-        //print_r ($param);
         $obj = null;
-        if (
-            array_key_exists('idcompraitem', $param) and array_key_exists('idproducto', $param)
-            and array_key_exists('idcompra', $param) and array_key_exists('cicantidad', $param)
-        ) {
-
-            //creo objeto estadotipos
+        if (array_key_exists('idcompraitem', $param) && array_key_exists('idproducto', $param) && array_key_exists('idcompra', $param) && array_key_exists('cicantidad', $param)) {
             $objProducto = new Producto();
             $objProducto->setIdProducto($param['idproducto']);
             $objProducto->cargar();
 
-            //creo objeto usuario
             $objCompra = new Compra();
             $objCompra->setIdCompra($param['idcompra']);
             $objCompra->cargar();
 
-            //agregarle los otros objetos
             $obj = new CompraItem();
             $obj->setear($param['idcompraitem'], $objProducto, $objCompra, $param['cicantidad']);
         }
+
         return $obj;
     }
 
@@ -34,14 +27,17 @@ class AbmCompraItem
             $obj = new CompraItem();
             $obj->setear($param['idcompraitem'], null, null, null);
         }
+
         return $obj;
     }
 
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idcompraitem']))
+        if (isset($param['idcompraitem'])) {
             $resp = true;
+        }
+
         return $resp;
     }
 

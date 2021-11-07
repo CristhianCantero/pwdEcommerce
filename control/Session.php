@@ -84,7 +84,7 @@ class Session
         $resp = false;
         if (isset($_SESSION["login"])) {
             $pag = $_SERVER["REQUEST_URI"];
-            
+
             if ($pag == "/tpfinal/vista/listarUsuario.php" || $pag == "/tpfinal/vista/listarRoles.php" || $pag == "/tpfinal/vista/actualizarlogin.php" || $pag == "/tpfinal/vista/eliminarUsuario.php") {
                 if ($this->esAdministrador() != true) {
                     header("location: http://localhost/tpfinal/vista/home/index.php");
@@ -94,7 +94,7 @@ class Session
         }
         return $resp;
     }
-    
+
     public function cerrarSession()
     {
         session_destroy();

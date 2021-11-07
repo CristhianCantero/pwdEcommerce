@@ -10,7 +10,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "-03:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -127,7 +127,7 @@ CREATE TABLE `menurol` (
 
 CREATE TABLE `producto` (
   `idproducto` varchar(150) NOT NULL,
-  `proingreso` timestamp DEFAULT current_timestamp(),
+  `proingreso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `proprecio` bigint(20) NOT NULL,
   `prodescuento` int(20),
   `pronombre` varchar(150) NOT NULL,
@@ -181,9 +181,9 @@ INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES
 
 CREATE TABLE `usuario` (
   `idusuario` bigint(20) NOT NULL,
-  `usnombre` varchar(50) NOT NULL,
-  `uspass` int(11) NOT NULL,
-  `usmail` varchar(50) NOT NULL,
+  `usnombre` varchar(150) NOT NULL,
+  `uspass` varchar(150) NOT NULL,
+  `usmail` varchar(150) NOT NULL,
   `usdeshabilitado` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -195,8 +195,8 @@ INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabili
 ('1', 'JuanmaGonzalez', 'd663148d38fc201d1df5e4d4e2371fec', 'juanma@gmail.com', '0000-00-00 00:00:00'),
 ('2', 'CristhianCantero', '18caba35d8c174f20484860ec41974cf', 'criis2021@gmail.com', '0000-00-00 00:00:00'),
 ('3', 'RoGalecio', 'ccb49a37f7900db9fb1d2e06bfcd2aa6', 'rogalecio@gmail.com', '0000-00-00 00:00:00'),
-('4', 'PepPerez', '49828fe2aa731c1d6562f71fe77e389a', 'rufus2021@gmail.com', '0000-00-00 00:00:00'),
-('5', 'Pepito450', '04c119ea51fb165c4cfa1d27a069cb96', 'pepito450@gmail.com', '0000-00-00 00:00:00'),
+('4', 'RuFUs', '49828fe2aa731c1d6562f71fe77e389a', 'rufus2021@gmail.com', '0000-00-00 00:00:00'),
+('5', 'PepPerez', '04c119ea51fb165c4cfa1d27a069cb96', 'pepito450@gmail.com', '0000-00-00 00:00:00'),
 ('6', 'JuanCarlos', '9bf988e530e44a1ab4b18b6cb2622e1d', 'juancarlos3000@gmail.com', '0000-00-00 00:00:00');
 
 
