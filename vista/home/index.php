@@ -6,6 +6,7 @@ include_once '../estructura/header.php';
 
 $abmProductos = new AbmProducto();
 $listaProductos = $abmProductos->buscar(null);
+shuffle($listaProductos);
 
 ?>
 <!-- Header-->
