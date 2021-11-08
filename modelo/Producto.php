@@ -9,6 +9,8 @@ class Producto
     private $proDetalle;
     private $proVecesComprado;
     private $proCantStock;
+    private $proIngreso;
+    private $proDeshabilitado;
     private $mensajeOperacion;
 
 
@@ -22,6 +24,8 @@ class Producto
         $this->proDetalle = "";
         $this->proVecesComprado = "";
         $this->proCantStock = "";
+        $this->proIngreso = "";
+        $this->deshabilitado = "";
         $this->mensajeOperacion = "";
     }
 
@@ -59,6 +63,16 @@ class Producto
     public function getProCantStock()
     {
         return $this->proCantStock;
+    }
+
+    public function getProIngreso()
+    {
+        return $this->proIngreso;
+    }
+
+    public function getProDeshabilitado()
+    {
+        return $this->proDeshabilitado;
     }
 
     public function getMensajeOperacion()
@@ -102,21 +116,33 @@ class Producto
         $this->proCantStock = $proCantStock;
     }
 
+    public function setProIngreso($proIngreso)
+    {
+        $this->proIngreso = $proIngreso;
+    }
+
+    public function setProDeshabilitado($proDeshabilitado)
+    {
+        $this->proDeshabilitado = $proDeshabilitado;
+    }
+
     public function setMensajeOperacion($mensajeOperacion)
     {
         $this->mensajeOperacion = $mensajeOperacion;
     }
 
     // Metodos
-    public function setear($idproducto, $proprecio, $prodescuento, $pronombre, $prodetalle, $provecescomprado, $procantstock)
+    public function setear($idproducto, $proingreso, $proprecio, $prodescuento, $pronombre, $prodetalle, $provecescomprado, $procantstock, $prodeshabilitado)
     {
         $this->setIdProducto($idproducto);
+        $this->setProIngreso($proingreso);
         $this->setProPrecio($proprecio);
         $this->setProDescuento($prodescuento);
         $this->setProNombre($pronombre);
         $this->setProDetalle($prodetalle);
         $this->setProVecesComprado($provecescomprado);
         $this->setProStock($procantstock);
+        $this->setProDeshabilitado($prodeshabilitado);
     }
 
     public function cargar()
@@ -131,7 +157,7 @@ class Producto
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
-                    $this->setear($row['idproducto'], $row['proprecio'], $row['prodescuento'], $row['pronombre'], $row['prodetalle'], $row['provecescomprado'], $row['procantstock']);
+                    $this->setear($row['idproducto'], $row['proingreso'], $row['proprecio'], $row['prodescuento'], $row['pronombre'], $row['prodetalle'], $row['provecescomprado'], $row['procantstock'], $row['prodeshabilitado']);
                     $resp = true;
                 }
             }
@@ -147,7 +173,7 @@ class Producto
         $resp = false;
         $base = new BaseDatos();
 
-        $sql = "INSERT INTO producto (proprecio, prodescuento, pronombre, prodetalle, provecescomprado, procantstock) VALUES ('" . $this->getProPrecio() . "','" . $this->getProDescuento() . "','" . $this->getProNombre() . "','" . $this->getProDetalle() . "','" . $this->getProVecesComprado() . "','" . $this->getProCantStock() . "'";
+        $sql = "INSERT INTO producto (idproducto, proprecio, prodescuento, pronombre, prodetalle, provecescomprado, procantstock, prodeshabilitado) VALUES ('" . $this->getIdProducto() . "'," . $this->getProPrecio() . "," . $this->getProDescuento() . ",'" . $this->getProNombre() . "','" . $this->getProDetalle() . "'," . $this->getProVecesComprado() . "," . $this->getProCantStock() . ", '0000-00-00 00:00:00')";
 
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
@@ -166,7 +192,7 @@ class Producto
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE producto SET idproducto='" . $this->getIdProducto() . "', proprecio'" . $this->getProPrecio() . "', prodescuento'" . $this->getProDescuento() . "', pronombre='" . $this->getProNombre() . "', prodetalle='" . $this->getProDetalle() . "', provecescomprado='" . $this->getProVecesComprado() . "', procantstock='" . $this->getProCantStock() . "' WHERE idproducto='" . $this->getIdProducto() . "'";
+        $sql = "UPDATE producto SET idproducto='" . $this->getIdProducto() . "', proprecio=" . $this->getProPrecio() . ", prodescuento=" . $this->getProDescuento() . ", pronombre='" . $this->getProNombre() . "', prodetalle='" . $this->getProDetalle() . "', provecescomprado=" . $this->getProVecesComprado() . ", procantstock=" . $this->getProCantStock() . ", prodeshabilitado='0000-00-00 00:00:00' WHERE idproducto='" . $this->getIdProducto() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -183,7 +209,7 @@ class Producto
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE FROM producto WHERE idproducto=" . $this->getIdProducto();
+        $sql = "DELETE FROM producto WHERE idproducto='" . $this->getIdProducto() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -207,10 +233,10 @@ class Producto
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
-
                 while ($row = $base->Registro()) {
+                    // print_r($row);
                     $obj = new Producto();
-                    $obj->setear($row['idproducto'], $row['proprecio'], $row['prodescuento'], $row['pronombre'], $row['prodetalle'], $row['provecescomprado'], $row['procantstock']);
+                    $obj->setear($row['idproducto'], $row['proingreso'], $row['proprecio'], $row['prodescuento'], $row['pronombre'], $row['prodetalle'], $row['provecescomprado'], $row['procantstock'], $row['prodeshabilitado']);
                     array_push($arreglo, $obj);
                 }
             }
@@ -219,5 +245,22 @@ class Producto
         }
 
         return $arreglo;
+    }
+
+    public function estado($param = "")
+    {
+        $resp = false;
+        $base = new BaseDatos();
+        $sql = "UPDATE producto SET prodeshabilitado= '" . $param . "' WHERE idproducto='" . $this->getIdProducto() . "'";
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $resp = true;
+            } else {
+                $this->setmensajeoperacion("Producto->estado: " . $base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("Producto->estado: " . $base->getError());
+        }
+        return $resp;
     }
 }

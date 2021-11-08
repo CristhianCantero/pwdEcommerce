@@ -1,8 +1,16 @@
 <?php
 
-$titulo = 'Nuevos Productos';
+$titulo = 'Actualizar Producto';
 
 include_once '../estructura/header.php';
+
+$datos = data_submitted();
+$abmProducto = new AbmProducto();
+
+$arrayBusqueda = ["idproducto"=>$datos['id']];
+
+$listaProductos = $abmProducto->buscar($arrayBusqueda);
+$objProducto = $listaProductos[0];
 
 ?>
 
@@ -10,40 +18,40 @@ include_once '../estructura/header.php';
     <h1 class="text-center">Cargar nuevo producto</h1>
     <div class="col-md-4"></div>
     <div class="offset-md-4">
-        <form action="../acciones/accionNuevoProducto.php" method="post" class="col-md-6 mt-3 " id="productoNuevo" name="productoNuevo">
+        <form action="../acciones/accionActualizarProducto.php" method="post" class="col-md-6 mt-3 " id="actualizarProducto" name="actualizarProducto">
             <div class="">
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="idproducto" name="idproducto" type="text" placeholder="Codigo producto" required>
+                    <input class="form-control" id="idproducto" name="idproducto" type="text" placeholder="Codigo producto" value="<?php echo $objProducto->getIdProducto() ?>" hidden>
                     <label for="idproducto">Codigo del producto: </label>
                 </div>
             </div>
             <div class="">
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="pronombre" name="pronombre" type="text" placeholder="Nombre producto" required>
+                    <input class="form-control" id="pronombre" name="pronombre" type="text" placeholder="Nombre producto" value="<?php echo $objProducto->getProNombre() ?>" required>
                     <label for="pronombre">Nombre del producto: </label>
                 </div>
             </div>
             <div class="">
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="prodetalle" name="prodetalle" type="text" placeholder="Detalle producto" required>
+                    <input class="form-control" id="prodetalle" name="prodetalle" type="text" placeholder="Detalle producto" value="<?php echo $objProducto->getProDetalle() ?>" required>
                     <label for="prodetalle">Detalle del producto: </label>
                 </div>
             </div>
             <div class="">
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="proprecio" name="proprecio" type="text" placeholder="Precio producto" required>
+                    <input class="form-control" id="proprecio" name="proprecio" type="text" placeholder="Precio producto" value="<?php echo $objProducto->getProPrecio() ?>" required>
                     <label for="proprecio">Precio del producto: </label>
                 </div>
             </div>
             <div class="">
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="prodescuento" name="prodescuento" type="text" placeholder="Descuento producto" required>
+                    <input class="form-control" id="prodescuento" name="prodescuento" type="text" placeholder="Descuento producto" value="<?php echo $objProducto->getProDescuento() ?>" required>
                     <label for="prodescuento">Descuento aplicado al producto: </label>
                 </div>
             </div>
             <div class="">
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="procantstock" name="procantstock" type="text" placeholder="Stock producto" required>
+                    <input class="form-control" id="procantstock" name="procantstock" type="text" placeholder="Stock producto" value="<?php echo $objProducto->getProCantStock() ?>" required>
                     <label for="procantstock">Stock del producto: </label>
                 </div>
             </div>

@@ -7,7 +7,7 @@
 // CONFIGURACION APP//
 /////////////////////////////
 
-$PROYECTO = 'tpfinal';
+$PROYECTO = 'tpfinalLocal';
 
 //variable que almacena el directorio del proyecto
 $ROOT = $_SERVER['DOCUMENT_ROOT'] . "/$PROYECTO/";

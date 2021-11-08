@@ -26,7 +26,8 @@ shuffle($listaProductos);
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <?php
             if (count($listaProductos) > 0) {
-                foreach ($listaProductos as $producto) {
+                for($cont_prod=0; $cont_prod<=7; $cont_prod++){
+                    $producto = $listaProductos[$cont_prod];
                     echo "<div class='col mb-5'>";
                     echo "<div class='card h-100'>";
 

@@ -142,15 +142,15 @@ CREATE TABLE `producto` (
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idproducto`, `proingreso`, `proprecio`, `prodescuento`, `pronombre`, `prodetalle`, `provecescomprado`, `procantstock`, `prodeshabilitado`) VALUES 
-('GDDFF2015', '', 5300, '0', 'Guardabarro Delantero Derecho','Ford Focus 2015', '0', 7,'0000-00-00 00:00:00'),
-('GDIFF2015', '', 5300, '0','Guardabarro Delantero Izquierdo','Ford Focus 2015', '0', 7,'0000-00-00 00:00:00'),
-('CFF2015', '', 12590, '15','Capot','Ford Focus 2015', '0', 4,'0000-00-00 00:00:00'),
-('PDDVWGT2014', '', 18700, '0','Puerta Delantera Derecha','Volkswagen Gol Trend 2014', '0', 3,'0000-00-00 00:00:00'),
-('PDIVWGT2014', '', 18700, '0','Puerta Delantera Izquierda','Volkswagen Gol Trend 2014', '0', 3,'0000-00-00 00:00:00'),
-('GDDVWGT2014', '', 8400, '20','Guardabarro Delantero Derecho','Volkswagen Gol Trend 2014', '0', 7,'0000-00-00 00:00:00'),
-('GDIVWGT2014', '', 8400, '20','Guardabarro Delantero Derecho','Volkswagen Gol Trend 2014', '0', 7,'0000-00-00 00:00:00'),
-('CVWGT2014', '', 14300, '0','Capot','Volkswagen Gol Trend 2014', '0', 5,'0000-00-00 00:00:00');
+INSERT INTO `producto` (`idproducto`, `proprecio`, `prodescuento`, `pronombre`, `prodetalle`, `provecescomprado`, `procantstock`, `prodeshabilitado`) VALUES 
+('GDDFF2015', 5300, '0', 'Guardabarro Delantero Derecho','Ford Focus 2015', '0', 7,'0000-00-00 00:00:00'),
+('GDIFF2015', 5300, '0','Guardabarro Delantero Izquierdo','Ford Focus 2015', '0', 7,'0000-00-00 00:00:00'),
+('CFF2015', 12590, '15','Capot','Ford Focus 2015', '0', 4,'0000-00-00 00:00:00'),
+('PDDVWGT2014', 18700, '0','Puerta Delantera Derecha','Volkswagen Gol Trend 2014', '0', 3,'0000-00-00 00:00:00'),
+('PDIVWGT2014', 18700, '0','Puerta Delantera Izquierda','Volkswagen Gol Trend 2014', '0', 3,'0000-00-00 00:00:00'),
+('GDDVWGT2014', 8400, '20','Guardabarro Delantero Derecho','Volkswagen Gol Trend 2014', '0', 7,'0000-00-00 00:00:00'),
+('GDIVWGT2014', 8400, '20','Guardabarro Delantero Derecho','Volkswagen Gol Trend 2014', '0', 7,'0000-00-00 00:00:00'),
+('CVWGT2014', 14300, '0','Capot','Volkswagen Gol Trend 2014', '0', 5,'0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

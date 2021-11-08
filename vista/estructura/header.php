@@ -19,7 +19,7 @@ include_once '../../configuracion.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- Cabecera redirect index php htdocs -->
-    <title><?php echo $titulo; ?></title>
+    <title><?php echo $titulo ?></title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -41,7 +41,16 @@ include_once '../../configuracion.php';
                                 <hr class="dropdown-divider" />
                             </li>
                             <li><a class="dropdown-item" href="../pages/productosPopulares.php">Items Populares</a></li>
-                            <li><a class="dropdown-item" href="../pages/nuevosProductos.php">Nuevos Ingresos</a></li>
+                            <li><a class="dropdown-item" href="../pages/nuevosIngresos.php">Nuevos Ingresos</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="../pages/nuevosProductos.php">Cargar nuevo producto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../pages/administrarProductos.php">Administrar productos</a></li> -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar productos</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="../pages/administrarProductos.php">Administrar</a></li>
+                            <li><a class="dropdown-item" href="../pages/nuevosProductos.php">Cargar Nuevo Producto</a></li>
                         </ul>
                     </li>
                 </ul>
