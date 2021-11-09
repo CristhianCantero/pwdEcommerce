@@ -77,12 +77,12 @@ class AbmRol
     {
         $where = " true ";
         if ($param != null) {
-            if (isset($param['id_rol'])) {
-                $where .= " and id_rol = '" . $param['id_rol'] . "'";
+            if (isset($param['idrol'])) {
+                $where .= " and idrol = '" . $param['idrol'] . "'";
             }
 
-            if (isset($param['rol_descripcion'])) {
-                $where .= " and rol_descripcion = '" . $param['rol_descripcion'] . "'";
+            if (isset($param['rodescripcion'])) {
+                $where .= " and rodescripcion = '" . $param['rodescripcion'] . "'";
             }
         }
 

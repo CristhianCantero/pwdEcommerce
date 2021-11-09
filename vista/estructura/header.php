@@ -53,6 +53,7 @@ include_once '../../configuracion.php';
                             <li><a class="dropdown-item" href="../pages/nuevosProductos.php">Cargar Nuevo Producto</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link" href="../pages/administrarUsuarios.php">Administrar Usuarios</a></li>
                 </ul>
 
                 <ul class="navbar-nav d-flex">
