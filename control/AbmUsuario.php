@@ -1,5 +1,6 @@
 <?php
-class AbmUsuario {
+class AbmUsuario
+{
     /**
      * permite buscar un objeto
      * @param array $param
@@ -27,44 +28,103 @@ class AbmUsuario {
             if (isset($param['usdeshabilitado'])) {
                 $where .= " and usdeshabilitado ='" . $param['usdeshabilitado'] . "'";
             }
-
         }
         $arreglo = Usuario::seleccionar($where);
         return $arreglo;
     }
 
-    public function modificacion($param){
+    private function cargarObjeto($param)
+    {
+        $objUs = null;
+        if (array_key_exists('usnombre', $param) && array_key_exists('usmail', $param) && array_key_exists('uspass', $param)) {
+            $objUs = new Usuario();
+            $pass = md5($param['uspass']);
+            $objUs->setear(
+                '',
+                $param['usnombre'],
+                $pass,
+                $param['usmail'],
+                ''
+            );
+        }
+        return $objUs;
+    }
+
+    private function seteadosCamposClaves($param)
+    {
         $resp = false;
-        $objUs= new Usuario();
-        $pass=md5($param['uspass']);
-        $objUs->setear($param['idusuario'],$param['usnombre'],$pass,$param['usmail'],$param['usdeshabilitado']);
-        if ($objUs->modificar()){
-            $resp=true;
+        if (isset($param['idusuario'])) {
+            $resp = true;
+        }
+        return $resp;
+    }
+
+    private function cargarObjetoConClave($param)
+    {
+        $objUs = null;
+
+        if (isset($param['idusuario'])) {
+            $objUs = new Usuario();
+            $objUs->setear($param['idusuario'], null, null, null, null);
+        }
+        return $objUs;
+    }
+
+    public function modificacion($param)
+    {
+        $resp = false;
+        $objUs = new Usuario();
+        $pass = md5($param['uspass']);
+        $objUs->setear($param['idusuario'], $param['usnombre'], $pass, $param['usmail'], $param['usdeshabilitado']);
+        if ($objUs->modificar()) {
+            $resp = true;
+        }
+        return $resp;
+    }
+
+
+    public function baja($param)
+    {
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)) {
+            $objUsuario = $this->cargarObjetoConClave($param);
+            if ($objUsuario != null and $objUsuario->eliminar()) {
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+
+    public function alta($param)
+    {
+        $resp = false;
+        $objUsuario = $this->cargarObjeto($param);
+
+        if ($objUsuario->insertar()) {
+            $resp = true;
         }
         return $resp;
     }
 
     //Hace un borrado logico del usuario. 
     //En caso de que ya estuviese deshabilitado, lo vuelve a habilitar.
-    public function baja ($param){
+    public function deshabilitarUsuario($param){
         $resp=false;
-        $objUs=new Usuario();
-        $objUs->setear($param['idusuario'],"","","","");
-        $arreglo=$objUs->seleccionar("idusuario= ".$param['idusuario']);
-        if (count($arreglo)==1){
-            $estado=$arreglo[0]->getUsdeshabilitado();
-            if ($estado=="0000-00-00 00:00:00"){
-                if ($objUs->estado(date("Y-m-d H:i:s"))){
+        $objUsuario = $this->cargarObjetoConClave($param);
+        $listadoProductos = $objUsuario->seleccionar("idusuario=".$param['idusuario']);
+        if(count($listadoProductos)>0){
+            // print_r($listadoProductos[0]);
+            $estadoUsuario = $listadoProductos[0]->getUsDeshabilitado();
+            if($estadoUsuario=='0000-00-00 00:00:00'){
+                if($objUsuario->estado(date("Y-m-d H:i:s"))){
                     $resp=true;
                 }
             }else{
-                if ($objUs->estado()){
+                if($objUsuario->estado()){
                     $resp=true;
                 }
             }
         }
-        
         return $resp;
     }
 }
-?>

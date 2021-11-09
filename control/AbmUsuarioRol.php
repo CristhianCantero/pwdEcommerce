@@ -43,8 +43,8 @@ class AbmUsuarioRol{
         $abmUs=new AbmUsuario();
         $arrayUs=$abmUs->buscar(['idusuario'=>$param['idusuario']]);
         $abmRol=new AbmRol();
-        $objRol=$abmRol->buscar($param['idrol']);
-        $objRel->setear($arrayUs[0], $objRol);
+        $objRol=$abmRol->buscar(['idrol'=>$param['idrol']]);
+        $objRel->setear($arrayUs[0], $objRol[0]);
         
         if ($objRel->insertar()){
             $resp = true;

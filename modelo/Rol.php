@@ -53,15 +53,15 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM 'rol' WHERE id_rol = " . $this->getIdRol();
+        $sql = "SELECT * FROM 'rol' WHERE idrol = " . $this->getIdRol();
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
                     $this->setear(
-                        $row['id_rol'],
-                        $row['rol_descripcion'],
+                        $row['idrol'],
+                        $row['rodescripcion'],
                     );
                 }
             }
@@ -76,7 +76,7 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE rol SET rol_descripcion = '{$this->getRolDescripcion()}' WHERE id_rol = '" . $this->getIdRol() . "'";
+        $sql = "UPDATE rol SET rodescripcion = '{$this->getRolDescripcion()}' WHERE idrol = '" . $this->getIdRol() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -94,7 +94,7 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE FROM 'rol' WHERE id_rol = '" . $this->getIdRol() . "'";
+        $sql = "DELETE FROM 'rol' WHERE idrol = '" . $this->getIdRol() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -122,8 +122,8 @@ class Rol
                 while ($row = $base->Registro()) {
                     $objRol = new rol();
                     $objRol->setear(
-                        $row['id_rol'],
-                        $row['rol_descripcion'],
+                        $row['idrol'],
+                        $row['rodescripcion'],
                     );
                     array_push($arreglo, $objRol);
                 }
@@ -139,7 +139,7 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO rol (rol_descripcion) VALUES('" . $this->getRolDescripcion() . "')";
+        $sql = "INSERT INTO rol (rodescripcion) VALUES('" . $this->getRolDescripcion() . "')";
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdRol($elid);
