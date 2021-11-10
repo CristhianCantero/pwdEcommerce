@@ -44,13 +44,11 @@ include_once '../../configuracion.php';
                             <li><a class="dropdown-item" href="../pages/nuevosIngresos.php">Nuevos Ingresos</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-item"><a class="nav-link" href="../pages/nuevosProductos.php">Cargar nuevo producto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/administrarProductos.php">Administrar productos</a></li> -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar productos</a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar Productos</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="../pages/administrarProductos.php">Administrar</a></li>
-                            <li><a class="dropdown-item" href="../pages/nuevosProductos.php">Cargar Nuevo Producto</a></li>
+                            <li><a class="dropdown-item" href="../pages/nuevoProducto.php">Cargar Nuevo Producto</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="../pages/administrarUsuarios.php">Administrar Usuarios</a></li>

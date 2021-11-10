@@ -1,6 +1,5 @@
 <?php
-// $titulo = 'Deshabilitacion del usuario';
-// include_once '../estructura/header.php';
+$titulo = 'Deshabilitación del usuario';
 include_once "../../configuracion.php";
 
 $datos = data_submitted();

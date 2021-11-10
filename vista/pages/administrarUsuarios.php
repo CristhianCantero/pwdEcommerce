@@ -1,5 +1,5 @@
 <?php
-$titulo = 'Listado Usuarios';
+$titulo = 'Administración de Usuarios';
 include_once '../estructura/header.php';
 
 $abmUsuario = new AbmUsuario();
@@ -22,59 +22,56 @@ $listadoUsuarios = $abmUsuario->buscar(null);
                         <tr>
                             <th scope="col" class='text-center'>ID Usuario</th>
                             <th scope="col" class='text-center'>Nombre Usuario</th>
-                            <?php
-                            // if ($idRol == 1) {
-                            echo "<th scope='col' class='text-center'>Contraseña MD5</th>";
-                            // }
-                            ?>
+                            <th scope='col' class='text-center'>Contraseña MD5</th>
                             <th scope="col" class='text-center'>Correo Electronico</th>
                             <th scope="col" class='text-center'>Deshabilitado</th>
-                            <?php
-                            // if ($idRol == 1) {
-                            echo "<th scope='col' class='text-center'>Editar</th>";
-                            echo "<th scope='col' class='text-center'>Eliminar</th>";
-                            echo "<th scope='col' class='text-center'>Deshabilitar</th>";
-                            // }
-                            ?>
+                            <th scope='col' class='text-center'>Editar</th>
+                            <th scope='col' class='text-center'>Eliminar</th>
+                            <th scope='col' class='text-center'>Deshabilitar</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         <?php
                         foreach ($listadoUsuarios as $usuario) {
-                            $id = $usuario->getIdusuario();
-                            echo "<tr>";
-                            echo "<td scope='row' class='text-center'>" . $usuario->getIdusuario() . "</td>";
-                            echo "<td scope='row' class='text-center'>" . $usuario->getUsnombre() . "</td>";
-                            // if ($idRol == 1 || $idRol == 2) {
-                            echo "<td scope='row' class='text-center'>" . $usuario->getUspass() . "</td>";
-                            // }
-                            echo "<td scope='row' class='text-center'>" . $usuario->getUsmail() . "</td>";
-                            $estado = $usuario->getUsdeshabilitado();
-                            if ($estado == "0000-00-00 00:00:00") {
-                                $estado = "";
-                            }
-                            echo "<td scope='row'>" . $estado . "</td>";
-                            // if ($idRol == 1) {
-                            echo "<form method='post' action='actualizarUsuario.php'>
+                            $id = $usuario->getIdusuario(); ?>
+                            <tr>
+                                <td scope='row' class='text-center'><?php echo $id ?></td>
+                                <td scope='row' class='text-center'><?php echo $usuario->getUsnombre() ?></td>
+                                <td scope='row' class='text-center'><?php echo $usuario->getUsPass() ?></td>
+                                <td scope='row' class='text-center'><?php echo $usuario->getUsmail() ?></td>
+
+                                <?php
+                                $estado = $usuario->getUsdeshabilitado();
+                                if ($estado == "0000-00-00 00:00:00") {
+                                    $estado = "";
+                                }
+                                ?>
+
+                                <td scope='row'><?php echo $estado ?></td>
+
+                                <form method='post' action='actualizarUsuario.php'>
                                     <td class='text-center'>
-                                    <input name='idUsuario' id='idUsuario' type='hidden' value='$id'>
-                                    <button class='btn btn-warning btn-sm' type='submit' value='$id' name='idUsuario' id='idUsuario' role='button' formaction='actualizarUsuario.php'><i class='bi bi-pencil-square'></i></button>
+                                        <input name='idproducto' id='idproducto' type='hidden' value='<?php echo $id ?>'>
+                                        <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i></button>
                                     </td>
-                                </form>";
-                            echo "<form method='post' action='eliminarUsuario.php'>
+                                </form>
+
+                                <form method='post' action='eliminarUsuario.php'>
                                     <td class='text-center'>
-                                    <input name='idUsuario' id='idUsuario' type='hidden' value='$id'>
-                                    <button class='btn btn-danger btn-sm' type='submit' value='$id' name='idUsuario' id='idUsuario' role='button' formaction='eliminarUsuario.php'><i class='bi bi-trash'></i></button>
+                                        <input name='id' id='id' type='hidden' value='<?php echo $id ?>'>
+                                        <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
                                     </td>
-                                </form>";
-                            echo "<form method='post' action='deshabilitarUsuario.php'>
+                                </form>
+
+                                <form method='post' action='deshabilitarUsuario.php'>
                                     <td class='text-center'>
-                                    <input name='idUsuario' id='idUsuario' type='hidden' value='$id'>
-                                    <button class='btn btn-secondary btn-sm' type='submit' value='$id' name='idUsuario' id='idUsuario' role='button' formaction='deshabilitarUsuario.php'><i class='fas fa-ban'></i></button>
+                                        <input name='id' id='id' type='hidden' value='<?php echo $id ?>'>
+                                        <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
                                     </td>
-                                </form>";
-                            // }
-                            echo "</tr>";
+                                </form>
+                            </tr>
+                        <?php
                         }
                         ?>
                     </tbody>

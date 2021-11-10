@@ -1,11 +1,11 @@
 <?php
-$titulo = 'Carrito de productos';
+$titulo = 'Nuevos Ingresos';
 include_once '../estructura/header.php';
 
 ?>
 
 <div class="container mt-2">
-    
+
 </div>
 
 <?php

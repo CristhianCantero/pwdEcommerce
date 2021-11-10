@@ -1,5 +1,5 @@
 <?php
-$titulo = 'Listado Productos';
+$titulo = 'Acerca';
 include_once '../estructura/header.php';
 ?>
 

@@ -1,13 +1,13 @@
 <?php
 
-$titulo = 'Actualizar Producto';
+$titulo = 'Actualización de Producto';
 
 include_once '../estructura/header.php';
 
 $datos = data_submitted();
 $abmProducto = new AbmProducto();
 
-$arrayBusqueda = ["idproducto"=>$datos['id']];
+$arrayBusqueda = ["idproducto" => $datos['idproducto']];
 
 $listaProductos = $abmProducto->buscar($arrayBusqueda);
 $objProducto = $listaProductos[0];
@@ -15,7 +15,7 @@ $objProducto = $listaProductos[0];
 ?>
 
 <div class="container mt-3">
-    <h1 class="text-center">Cargar nuevo producto</h1>
+    <h1 class="text-center">Actualizar producto</h1>
     <div class="col-md-4"></div>
     <div class="offset-md-4">
         <form action="../acciones/accionActualizarProducto.php" method="post" class="col-md-6 mt-3 " id="actualizarProducto" name="actualizarProducto">
