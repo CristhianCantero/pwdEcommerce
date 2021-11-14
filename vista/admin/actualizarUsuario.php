@@ -7,7 +7,7 @@ include_once '../estructura/header.php';
 $datos = data_submitted();
 $abmUsuario = new AbmUsuario();
 
-$arrayBusqueda = ["idusuario" => $datos['idUsuario']];
+$arrayBusqueda = ["idusuario" => $datos['idusuario']];
 
 $listaProductos = $abmUsuario->buscar($arrayBusqueda);
 $objProducto = $listaProductos[0];

@@ -24,7 +24,7 @@ $listadoUsuarios = $abmUsuario->buscar(null);
                             <th scope="col" class='text-center'>Nombre Usuario</th>
                             <th scope='col' class='text-center'>Contraseña MD5</th>
                             <th scope="col" class='text-center'>Correo Electronico</th>
-                            <th scope="col" class='text-center'>Deshabilitado</th>
+                            <th scope="col" class='text-center'>Fecha Deshabilitado</th>
                             <th scope='col' class='text-center'>Editar</th>
                             <th scope='col' class='text-center'>Eliminar</th>
                             <th scope='col' class='text-center'>Deshabilitar</th>
@@ -52,21 +52,21 @@ $listadoUsuarios = $abmUsuario->buscar(null);
 
                                 <form method='post' action='actualizarUsuario.php'>
                                     <td class='text-center'>
-                                        <input name='idproducto' id='idproducto' type='hidden' value='<?php echo $id ?>'>
+                                        <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
                                         <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i></button>
                                     </td>
                                 </form>
 
                                 <form method='post' action='eliminarUsuario.php'>
                                     <td class='text-center'>
-                                        <input name='id' id='id' type='hidden' value='<?php echo $id ?>'>
+                                        <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
                                         <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
                                     </td>
                                 </form>
 
                                 <form method='post' action='deshabilitarUsuario.php'>
                                     <td class='text-center'>
-                                        <input name='id' id='id' type='hidden' value='<?php echo $id ?>'>
+                                        <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
                                         <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
                                     </td>
                                 </form>

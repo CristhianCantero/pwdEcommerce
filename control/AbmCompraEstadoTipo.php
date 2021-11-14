@@ -37,9 +37,9 @@ class AbmCompraEstadoTipo
     {
         $resp = false;
 
-        $elObjtCompraEstadoTipo = $this->cargarObjeto($param);
+        $objCompraEstadoTipo = $this->cargarObjeto($param);
 
-        if ($elObjtCompraEstadoTipo != null and $elObjtCompraEstadoTipo->insertar()) {
+        if ($objCompraEstadoTipo != null and $objCompraEstadoTipo->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -49,8 +49,8 @@ class AbmCompraEstadoTipo
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtCompraEstadoTipo = $this->cargarObjetoConClave($param);
-            if ($elObjtCompraEstadoTipo != null and $elObjtCompraEstadoTipo->eliminar()) {
+            $objCompraEstadoTipo = $this->cargarObjetoConClave($param);
+            if ($objCompraEstadoTipo != null and $objCompraEstadoTipo->eliminar()) {
                 $resp = true;
             }
         }
@@ -62,8 +62,8 @@ class AbmCompraEstadoTipo
         //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtCompraEstadoTipo = $this->cargarObjeto($param);
-            if ($elObjtCompraEstadoTipo != null and $elObjtCompraEstadoTipo->modificar()) {
+            $objCompraEstadoTipo = $this->cargarObjeto($param);
+            if ($objCompraEstadoTipo != null and $objCompraEstadoTipo->modificar()) {
                 $resp = true;
             }
         }

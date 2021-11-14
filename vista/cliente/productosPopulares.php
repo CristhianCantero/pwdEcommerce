@@ -62,7 +62,7 @@ for ($i = 1; $i < $cantProductos; $i++) {
                                             <span>$<?php echo $producto->getProPrecio() ?></span>
                                         <?php
                                         } ?>
-                                        <p>Veces comprado: <?php echo $producto->getProVecesComprado() ?></p>
+
                                     </div>
                                 </div>
 

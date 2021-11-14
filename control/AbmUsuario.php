@@ -76,9 +76,11 @@ class AbmUsuario
         $objUs = new Usuario();
         $pass = md5($param['uspass']);
         $objUs->setear($param['idusuario'], $param['usnombre'], $pass, $param['usmail'], $param['usdeshabilitado']);
+
         if ($objUs->modificar()) {
             $resp = true;
         }
+
         return $resp;
     }
 
@@ -108,20 +110,20 @@ class AbmUsuario
 
     //Hace un borrado logico del usuario. 
     //En caso de que ya estuviese deshabilitado, lo vuelve a habilitar.
-    public function deshabilitarUsuario($param){
-        $resp=false;
+    public function deshabilitarUsuario($param)
+    {
+        $resp = false;
         $objUsuario = $this->cargarObjetoConClave($param);
-        $listadoProductos = $objUsuario->seleccionar("idusuario=".$param['idusuario']);
-        if(count($listadoProductos)>0){
-            // print_r($listadoProductos[0]);
+        $listadoProductos = $objUsuario->seleccionar("idusuario=" . $param['idusuario']);
+        if (count($listadoProductos) > 0) {
             $estadoUsuario = $listadoProductos[0]->getUsDeshabilitado();
-            if($estadoUsuario=='0000-00-00 00:00:00'){
-                if($objUsuario->estado(date("Y-m-d H:i:s"))){
-                    $resp=true;
+            if ($estadoUsuario == '0000-00-00 00:00:00') {
+                if ($objUsuario->estado(date("Y-m-d H:i:s"))) {
+                    $resp = true;
                 }
-            }else{
-                if($objUsuario->estado()){
-                    $resp=true;
+            } else {
+                if ($objUsuario->estado()) {
+                    $resp = true;
                 }
             }
         }

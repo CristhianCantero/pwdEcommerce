@@ -1,186 +1,162 @@
 <?php
-class UsuarioRol
+class Usuariorol
 {
-    private $objUsuario;
-    private $objRol;
-    private $mensajeOperacion;
+    private $idrol;
+    private $idusuario;
+    private $mensajeoperacion;
 
+
+    // Constructor
     public function __construct()
     {
-        $this->objUsuario = null;
-        $this->objRol = null;
+        $this->idusuario = new Usuario();
+        $this->idrol = new Rol();
+        $this->mensajeoperacion = "";
     }
 
-    // Getters 
+    // Getters
     public function getObjUsuario()
     {
-        return $this->objUsuario;
+        return $this->idusuario;
     }
 
     public function getObjRol()
     {
-        return $this->objRol;
+        return $this->idrol;
     }
 
     public function getMensajeOperacion()
     {
-        return $this->mensajeOperacion;
+        return $this->mensajeoperacion;
     }
 
     // Setters
-    public function setObjUsuario($objUsuario)
+    public function setObjUsuario($idusuario)
     {
-        $this->objUsuario = $objUsuario;
+        $this->idusuario = $idusuario;
     }
 
-    public function setObjRol($objRol)
+    public function setObjRol($idrol)
     {
-        $this->objRol = $objRol;
+        $this->idrol = $idrol;
     }
 
-    public function setMensajeOperacion($mensajeOperacion)
+    public function setMensajeOperacion($mensajeoperacion)
     {
-        $this->mensajeOperacion = $mensajeOperacion;
+        $this->mensajeoperacion = $mensajeoperacion;
     }
 
-    // Metodos
-    public function setear($usuario, $rol)
+    /** SETEAR **/
+    public function setear($idusuario, $idrol)
     {
-        $this->setObjUsuario($usuario);
-        $this->setObjRol($rol);
+        $this->setobjusuario($idusuario);
+        $this->setobjrol($idrol);
     }
 
+    /** CARGAR **/
     public function cargar()
     {
         $resp = false;
         $base = new BaseDatos();
-        $idUsuario = $this->getObjUsuario()->getIdusuario();
-        $idRol = $this->getObjRol()->getIdRol();
-        $sql = "SELECT * FROM usuariorol WHERE idusuario= " . $idUsuario . " AND idrol= " . $idRol;
-
+        $sql = "SELECT * FROM usuariorol WHERE idusuario = " . $this->getObjUsuario() . "and idrol =" . $this->getObjRol();
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
                 if ($res > 0) {
-                    $objRol = null;
-                    $objUsuario = null;
                     $row = $base->Registro();
-
+                    $objUsuario = NULL;
+                    if ($row['idusuario'] != null) {
+                        $objUsuario = new Usuario();
+                        $objUsuario->setIdUsuario($row['idusuario']);
+                        $objUsuario->cargar();
+                    }
+                    $objRol = NULL;
                     if ($row['idrol'] != null) {
                         $objRol = new Rol();
                         $objRol->setIdRol($row['idrol']);
                         $objRol->cargar();
                     }
-
-                    if ($row['idusuario'] != null) {
-
-                        $objUsuario = new Usuario();
-                        $objUsuario->setIdusuario($row['idusuario']);
-                        $objUsuario->cargar();
-                    }
-                    $this->setear($objUsuario, $objRol);
+                    $this->setear($row['idusuario'], $row['idrol']);
                 }
             }
         } else {
-            $this->setMensajeOperacion("UsuarioRol->cargar: " . $base->getError());
+            $this->setmensajeoperacion("usuariorol->listar: " . $base->getError());
         }
-
         return $resp;
     }
 
+
+    /** INSERTAR **/
     public function insertar()
     {
         $resp = false;
         $base = new BaseDatos();
-        $objUsuario = $this->getObjUsuario();
-        $objRol = $this->getObjRol();
-        $idUsuario = $objUsuario->getIdusuario();
-        $idRol = $objRol->getIdRol();
-        $sql = "INSERT INTO usuariorol(idusuario,idrol)  VALUES(" . $idUsuario . "," . $idRol . ")";
-
+        $sql = "INSERT INTO usuariorol (idusuario,idrol)  VALUES ('" . $this->getObjUsuario()->getIdUsuario() . "','" . $this->getObjRol()->getIdRol() . "')";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
             } else {
-                $this->setmensajeoperacion("Relacion->insertar: " . $base->getError());
+                $this->setmensajeoperacion("usuariorol->insertar: " . $base->getError());
             }
         } else {
-            $this->setmensajeoperacion("Relacion->insertar: " . $base->getError());
+            $this->setmensajeoperacion("usuariorol->insertar: " . $base->getError());
         }
-
-        return $resp;
-    }
-
-    public function modificar()
-    {
-        $resp = false;
-        $base = new BaseDatos();
-        $idUsuario = $this->getObjUsuario()->getIdusuario();
-        $idRol = $this->getObjRol()->getIdRol();
-        $sql = " UPDATE usuariorol SET ";
-        $sql .= " idrol = " . $idRol;
-        $sql .= " WHERE idusuario =" . $idUsuario;
-
-        if ($base->Iniciar()) {
-            if ($base->Ejecutar($sql)) {
-                $resp = true;
-            } else {
-                $this->setMensajeOperacion("Relacion->modificar 1: " . $base->getError());
-            }
-        } else {
-            $this->setMensajeOperacion("Relacion->modificar 2: " . $base->getError());
-        }
-
         return $resp;
     }
 
 
+    /** ELIMINAR **/
     public function eliminar()
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE FROM usuariorol WHERE idusuario=" . $this->getObjUsuario()->getIdusuario() . " and idrol= " . $this->getObjRol()->getIdRol();
-
+        $sql = "DELETE FROM usuariorol WHERE idusuario = " . $this->getObjUsuario() . "and idrol =" . $this->getObjRol();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
-                $resp = true;
+                return true;
             } else {
-                $this->setMensajeOperacion("Relacion->eliminar: " . $base->getError());
+                $this->setmensajeoperacion("usuariorol->eliminar: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Relacion->eliminar: " . $base->getError());
+            $this->setmensajeoperacion("usuariorol->eliminar: " . $base->getError());
         }
-
         return $resp;
     }
 
 
-
-    public static function seleccionar($condicion = "")
+    /** LISTAR **/
+    public static function listar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();
-        $sql = "SELECT * FROM usuariorol ";
-        if ($condicion != "") {
-            $sql .= 'WHERE ' . $condicion;
+        $consultasql = "SELECT * FROM usuariorol ";
+        if ($parametro != "") {
+            $consultasql .= 'WHERE ' . $parametro;
         }
-        $res = $base->Ejecutar($sql);
+        $res = $base->Ejecutar($consultasql);
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
-                    $objRel = new Relacion();
-                    $abmUs = new abmUsuario();
-                    $arrayUs = $abmUs->buscar(['idusuario' => $row['idusuario']]);
-                    $abmRol = new abmRol();
-                    $objRol = $abmRol->buscar($row['idrol']);
-                    $objRel->setear($arrayUs[0], $objRol);
-                    array_push($arreglo, $objRel);
+                    $objUsuario = NULL;
+                    if ($row['idusuario'] != null) {
+                        $objUsuario = new Usuario();
+                        $objUsuario->setIdUsuario($row['idusuario']);
+                        $objUsuario->cargar();
+                    }
+                    $objRol = NULL;
+                    if ($row['idrol'] != null) {
+                        $objRol = new Rol();
+                        $objRol->setIdRol($row['idrol']);
+                        $objRol->cargar();
+                    }
+                    $obj = new Usuariorol();
+                    $obj->setear($objUsuario, $objRol);
+                    array_push($arreglo, $obj);
                 }
             }
         } else {
-            $this->setMensajeOperacion("Relacion->seleccionar: " . $base->getError());
+            // $this->setmensajeoperacion("Auto->listar: ".$base->getError());
         }
-
         return $arreglo;
     }
 }

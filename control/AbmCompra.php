@@ -43,9 +43,9 @@ class AbmCompra
     {
         $resp = false;
         $param['idcompra'] = null;
-        $elObjtArchivoE = $this->cargarObjeto($param);
-        //print_r($elObjtArchivoE);
-        if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
+        $objCompra = $this->cargarObjeto($param);
+        //print_r($objCompra);
+        if ($objCompra != null and $objCompra->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -54,8 +54,8 @@ class AbmCompra
     /* public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $elObjtArchivoE = $this->cargarObjetoConClave($param);
-            if ($elObjtArchivoE!=null and $elObjtArchivoE->eliminar()){
+            $objCompra = $this->cargarObjetoConClave($param);
+            if ($objCompra!=null and $objCompra->eliminar()){
                 $resp = true;
             }
         }
@@ -68,8 +68,8 @@ class AbmCompra
         //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtArchivoE = $this->cargarObjeto($param);
-            if ($elObjtArchivoE != null and $elObjtArchivoE->modificar()) {
+            $objCompra = $this->cargarObjeto($param);
+            if ($objCompra != null and $objCompra->modificar()) {
                 $resp = true;
             }
         }

@@ -1,5 +1,23 @@
 <?php
 include_once '../../configuracion.php';
+
+$sesion = new Session();
+
+if ($sesion->activa()) {
+    list($sesionValidar, $error) = $sesion->validar();
+    if ($sesionValidar) {
+        $titulo = "MercadoPrivado";
+        $user = $sesion->getUsuario();
+        $name = $user->getUsNombre();
+        $mail = $user->getUsMail();
+
+        $abmUsuarioRol = new AbmUsuarioRol;
+        $descrp = $abmUsuarioRol->buscarRolesUsuario($user);
+    } else {
+        header('Location: ../home/index.php');
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +50,7 @@ include_once '../../configuracion.php';
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="../home/index.php">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/acerca.php">Acerca</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../home/acerca.php">Acerca</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -66,7 +84,7 @@ include_once '../../configuracion.php';
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Visitante" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sign-in-alt"></i><span class="d-lg-none">Usuario</span></a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Visitante">
-                            <a class="dropdown-item" href="../pages/login.php"><span class="fas fa-sign-in-alt fa-fw" aria-hidden="true" title="Log in"></span>Entrar</a>
+                            <a class="dropdown-item" href="../login/login.php"><span class="fas fa-sign-in-alt fa-fw" aria-hidden="true" title="Log in"></span>Entrar</a>
                             <a class="dropdown-item" href="../pages/registrar.php"><span class="fas fa-pencil-alt fa-fw" aria-hidden="true" title="Sign up"></span>Registrarse</a>
                         </div>
                     </li>

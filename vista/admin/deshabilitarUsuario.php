@@ -5,7 +5,7 @@ include_once "../../configuracion.php";
 $datos = data_submitted();
 $abmUsuario = new AbmUsuario();
 
-$arrayBusqueda = ["idusuario" => $datos['idUsuario']];
+$arrayBusqueda = ["idusuario" => $datos['idusuario']];
 
 ?>
 

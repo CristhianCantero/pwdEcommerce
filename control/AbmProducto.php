@@ -36,7 +36,7 @@ class AbmProducto
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idproducto'])){
+        if (isset($param['idproducto'])) {
             $resp = true;
         }
         return $resp;
@@ -46,9 +46,9 @@ class AbmProducto
     {
         $resp = false;
 
-        $elObjtProducto = $this->cargarObjeto($param);
+        $ObjProducto = $this->cargarObjeto($param);
 
-        if ($elObjtProducto != null and $elObjtProducto->insertar()) {
+        if ($ObjProducto != null and $ObjProducto->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -58,8 +58,8 @@ class AbmProducto
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtProducto = $this->cargarObjetoConClave($param);
-            if ($elObjtProducto != null and $elObjtProducto->eliminar()) {
+            $ObjProducto = $this->cargarObjetoConClave($param);
+            if ($ObjProducto != null and $ObjProducto->eliminar()) {
                 $resp = true;
             }
         }
@@ -70,27 +70,28 @@ class AbmProducto
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtProducto = $this->cargarObjeto($param);
-            if ($elObjtProducto != null and $elObjtProducto->modificar()) {
+            $ObjProducto = $this->cargarObjeto($param);
+            if ($ObjProducto != null and $ObjProducto->modificar()) {
                 $resp = true;
             }
         }
         return $resp;
     }
 
-    public function deshabilitarProd($param){
-        $resp=false;
+    public function deshabilitarProd($param)
+    {
+        $resp = false;
         $objProducto = $this->cargarObjetoConClave($param);
-        $listadoProductos = $objProducto->listar("idproducto='".$param['idproducto']."'");
-        if(count($listadoProductos)>0){
+        $listadoProductos = $objProducto->listar("idproducto='" . $param['idproducto'] . "'");
+        if (count($listadoProductos) > 0) {
             $estadoProducto = $listadoProductos[0]->getProDeshabilitado();
-            if($estadoProducto=='0000-00-00 00:00:00'){
-                if($objProducto->estado(date("Y-m-d H:i:s"))){
-                    $resp=true;
+            if ($estadoProducto == '0000-00-00 00:00:00') {
+                if ($objProducto->estado(date("Y-m-d H:i:s"))) {
+                    $resp = true;
                 }
-            }else{
-                if($objProducto->estado()){
-                    $resp=true;
+            } else {
+                if ($objProducto->estado()) {
+                    $resp = true;
                 }
             }
         }

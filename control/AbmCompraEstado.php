@@ -50,9 +50,9 @@ class AbmCompraEstado
     {
         $resp = false;
         $param['idcompraestadotipoestado'] = null;
-        $elObjtArchivoE = $this->cargarObjeto($param);
-        //print_r($elObjtArchivoE);
-        if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
+        $objCompraEstado = $this->cargarObjeto($param);
+        //print_r($objCompraEstado);
+        if ($objCompraEstado != null and $objCompraEstado->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -61,8 +61,8 @@ class AbmCompraEstado
     /* public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $elObjtArchivoE = $this->cargarObjetoConClave($param);
-            if ($elObjtArchivoE!=null and $elObjtArchivoE->eliminar()){
+            $objCompraEstado = $this->cargarObjetoConClave($param);
+            if ($objCompraEstado!=null and $objCompraEstado->eliminar()){
                 $resp = true;
             }
         }
@@ -75,8 +75,8 @@ class AbmCompraEstado
         //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtArchivoE = $this->cargarObjeto($param);
-            if ($elObjtArchivoE != null and $elObjtArchivoE->modificar()) {
+            $objCompraEstado = $this->cargarObjeto($param);
+            if ($objCompraEstado != null and $objCompraEstado->modificar()) {
                 $resp = true;
             }
         }

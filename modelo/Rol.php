@@ -13,7 +13,7 @@ class Rol
         $this->rolDescripcion = "";
         $this->mensajeOperacion = "";
     }
-    
+
     // Getters
     public function getIdRol()
     {
@@ -27,7 +27,7 @@ class Rol
     {
         return $this->rolDescripcion;
     }
-    
+
     // Setters
     public function setIdRol($idRol)
     {
@@ -53,7 +53,7 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM 'rol' WHERE idrol = " . $this->getIdRol();
+        $sql = "SELECT * FROM rol WHERE idrol = " . $this->getIdRol();
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -66,9 +66,9 @@ class Rol
                 }
             }
         } else {
-            $this->setMensajeOperacion("Tabla->listar: " . $base->getError());
+            $this->setMensajeOperacion("rol->listar: " . $base->getError());
         }
-        
+
         return $resp;
     }
 
@@ -81,12 +81,12 @@ class Rol
             if ($base->Ejecutar($sql)) {
                 $resp = true;
             } else {
-                $this->setMensajeOperacion("Rol->modificar: " . $base->getError());
+                $this->setMensajeOperacion("rol->modificar: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Rol->modificar: " . $base->getError());
+            $this->setMensajeOperacion("rol->modificar: " . $base->getError());
         }
-        
+
         return $resp;
     }
 
@@ -99,12 +99,12 @@ class Rol
             if ($base->Ejecutar($sql)) {
                 return true;
             } else {
-                $this->setMensajeOperacion("Rol->eliminar: " . $base->getError());
+                $this->setMensajeOperacion("rol->eliminar: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Rol->eliminar: " . $base->getError());
+            $this->setMensajeOperacion("rol->eliminar: " . $base->getError());
         }
-        
+
         return $resp;
     }
 
@@ -129,9 +129,9 @@ class Rol
                 }
             }
         } else {
-            $this->setMensajeOperacion("Tabla->listar: " . $base->getError());
+            $this->setMensajeOperacion("rol->listar: " . $base->getError());
         }
-        
+
         return $arreglo;
     }
 
@@ -145,12 +145,12 @@ class Rol
                 $this->setIdRol($elid);
                 $resp = true;
             } else {
-                $this->setMensajeOperacion("Rol->insertar: " . $base->getError());
+                $this->setMensajeOperacion("rol->insertar: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Rol->insertar: " . $base->getError());
+            $this->setMensajeOperacion("rol->insertar: " . $base->getError());
         }
-        
+
         return $resp;
     }
 }

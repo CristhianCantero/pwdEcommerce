@@ -32,7 +32,7 @@ $listaProductos = $abmProductos->buscar(null);
                             <th scope='col' class='text-center'>Fecha Deshabilitado</th>
                             <th scope='col' class='text-center'>Editar</th>
                             <th scope='col' class='text-center'>Eliminar</th>
-                            <th scope='col' class='text-center'>Alta / Baja</th>
+                            <th scope='col' class='text-center'>Deshabilitar</th>
                         </tr>
                     </thead>
 
