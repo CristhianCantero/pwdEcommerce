@@ -18,7 +18,7 @@ $objProducto = $listaProductos[0];
     <h1 class="text-center">Modificación de Usuario</h1>
     <div class="col-md-4"></div>
     <div class="offset-md-4">
-        <form action="../acciones/accionActualizarUsuario.php" method="post" class="col-md-6 mt-3 " id="actualizarProducto" name="actualizarProducto">
+        <form action="../acciones/accionActualizarUsuario.php" method="post" class="col-md-6 mt-3 " id="actualizarUsuario" name="actualizarUsuario">
             <div class="">
                 <div class="form-floating mb-3">
                     <input class="form-control" id="usnombre" name="usnombre" type="text" placeholder="Nombre de usuario" value="<?php echo $objProducto->getUsnombre(); ?>" required>

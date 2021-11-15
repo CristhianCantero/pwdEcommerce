@@ -8,8 +8,8 @@ $modificado = $abmUsuario->modificacion($datos);
 
 if ($modificado) {
     $message = "Modificacion exitosa";
-    header('Location: ../pages/administrarUsuarios.php?Message=' . urlencode($message));
+    header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
 } else {
     $message = "Modificacion erronea";
-    header('Location: ../pages/administrarUsuarios.php?Message=' . urlencode($message));
+    header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
 }

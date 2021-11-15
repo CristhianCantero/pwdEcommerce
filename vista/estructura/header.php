@@ -13,10 +13,10 @@ if ($sesion->activa()) {
         $iduser = $user->getIdUsuario();
         $name = $user->getUsNombre();
         $mail = $user->getUsMail();
-        
+
         $abmUsuarioRol = new AbmUsuarioRol;
         $idRol = $abmUsuarioRol->buscarRolesUsuario($user);
-        
+
         $abmMenuRol = new AbmMenuRol();
         $arrayMenusRol = $abmMenuRol->buscar(['idrol' => $idRol[0]]);
         if (count($arrayMenusRol) > 0) {
@@ -85,8 +85,6 @@ if ($sesion->activa()) {
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $menu->getMeNombre(); ?></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <?php
-                                    // $enlace = "../";
-
                                     foreach ($arraySubMenus as $subMenu) {
                                         switch ($idRol[0]) {
                                             case '1':
@@ -125,8 +123,8 @@ if ($sesion->activa()) {
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Visitante" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sign-in-alt"></i><span class="d-lg-none">Usuario</span></a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Visitante">
-                                <a class="dropdown-item" href="../login/login.php"><span class="fas fa-sign-in-alt fa-fw" aria-hidden="true" title="Log in"></span>Entrar</a>
-                                <a class="dropdown-item" href="../login/registrar.php"><span class="fas fa-pencil-alt fa-fw" aria-hidden="true" title="Sign up"></span>Registrarse</a>
+                                <a class="dropdown-item" href="../login/login.php"><span class="fas fa-sign-in-alt fa-fw" aria-hidden="true" title="Log in"></span>&nbsp;Entrar</a>
+                                <a class="dropdown-item" href="../login/registrar.php"><span class="fas fa-pencil-alt fa-fw" aria-hidden="true" title="Sign up"></span>&nbsp;Registrarse</a>
                             </div>
                         </li>
                     <?php
@@ -134,12 +132,27 @@ if ($sesion->activa()) {
                         <!-- Usuario logeado -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Usuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i> <span class="d-lg-none">Usuario</span>
+                                <i class="fas fa-user"></i><span class="">&nbsp;&nbsp;<?php echo $name ?></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
-                                <!-- <li class="nav-item"></li> -->
-                                <span class="" aria-hidden="true" title="Perfil"></span>&nbsp;<?php echo $idRol[0]; ?>
+                                <?php
+                                switch ($idRol[0]) {
+                                    case 1: ?>
+                                        <a class="dropdown-item" href="#">&nbsp;<span class="fas fa-user-tag" aria-hidden="true" title="Admin"></span>&nbsp;Admin</a>
+                                    <?php
+                                        break;
+                                    case 2: ?>
+                                        <a class="dropdown-item" href="#">&nbsp;<span class="fas fa-id-card-alt" aria-hidden="true" title="Manager Deposito"></span>&nbsp;Manager Deposito</a>
+                                    <?php
+                                        break;
+                                    default: ?>
+                                        <a class="dropdown-item" href="#">&nbsp;<span class="fas fa-id-card-alt" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</a>
+                                <?php
+                                        break;
+                                }
+                                ?>
+
                                 <a class="dropdown-item" href="../pages/perfil.php"><span class="fas fa-user fa-fw" aria-hidden="true" title="Perfil"></span>&nbsp;Perfil</a>
                                 <a class="dropdown-item" href="../pages/configuracion.php"><span class="fas fa-cog fa-fw " aria-hidden="true" title="Configuración"></span>&nbsp;Configuración</a>
 
@@ -163,30 +176,30 @@ if ($sesion->activa()) {
                                     foreach ($idRol as $rol) {
                                         switch ($rol) {
                                             case '1':
-                                                ?>
+                                    ?>
                                                 <form method='post' action=''>
                                                     <input name='idrol' id='idrol' type='hidden' value='<?php echo $rol ?>'>
                                                     <button class='dropdown-item' type='submit' value='<?php echo $rol ?>' role='button'><span class="fas fa-users-cog" aria-hidden="true" title="Admin"></span>&nbsp;Admin</button>
                                                 </form>
-                                                <?php
+                                            <?php
                                                 break;
                                             case '2':
                                                 // echo '<a class="dropdown-item" href=""><span class="fas fa-tasks" aria-hidden="true" title="Configuración"></span>&nbsp;Manager Deposito</a>';
-                                                ?>
+                                            ?>
                                                 <form method='post' action=''>
                                                     <input name='idrol' id='idrol' type='hidden' value='<?php echo $rol ?>'>
                                                     <button class='dropdown-item' type='submit' value='<?php echo $rol ?>' role='button'><span class="fas fa-tasks" aria-hidden="true" title="ManagerDeposito"></span>&nbsp;Manager Deposito</button>
                                                 </form>
-                                                <?php
+                                            <?php
                                                 break;
                                             case '3':
-                                                ?>
+                                            ?>
                                                 <div class="dropdown-divider"></div>
                                                 <form method='post' action=''>
                                                     <input name='idrol' id='idrol' type='hidden' value='<?php echo $rol ?>'>
                                                     <button class='dropdown-item' type='submit' value='<?php echo $rol ?>' role='button'><span class="fas fa-user" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</button>
                                                 </form>
-                                                <?php
+                                    <?php
                                                 // echo '<a class="dropdown-item" href=""><span class="fas fa-user" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</a>';
                                                 break;
                                         }

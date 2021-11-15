@@ -20,8 +20,6 @@ class AbmMenu
         return $obj;
     }
 
-
-
     /**
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
@@ -39,8 +37,6 @@ class AbmMenu
         return $obj;
     }
 
-
-
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -54,8 +50,6 @@ class AbmMenu
         return $resp;
     }
 
-
-
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
@@ -66,15 +60,13 @@ class AbmMenu
     {
         $resp = false;
 
-        $elObjtMenu = $this->cargarObjeto($param);
+        $objMenu = $this->cargarObjeto($param);
 
-        if ($elObjtMenu != null and $elObjtMenu->insertar()) {
+        if ($objMenu != null and $objMenu->insertar()) {
             $resp = true;
         }
         return $resp;
     }
-
-
 
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
@@ -86,15 +78,13 @@ class AbmMenu
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtMenu = $this->cargarObjetoConClave($param);
-            if ($elObjtMenu != null and $elObjtMenu->eliminar()) {
+            $objMenu = $this->cargarObjetoConClave($param);
+            if ($objMenu != null and $objMenu->eliminar()) {
                 $resp = true;
             }
         }
         return $resp;
     }
-
-
 
     /**
      * Carga un obj con los datos pasados por parámetro y lo modifica en base de datos (update)
@@ -103,18 +93,16 @@ class AbmMenu
      */
     public function modificacion($param)
     {
-        //echo "Estoy en modificacion";
         $resp = false;
-        if ($this->seteadosCamposClaves($param)) {
-            $elObjtMenu = $this->cargarObjeto($param);
-            if ($elObjtMenu != null and $elObjtMenu->modificar()) {
-                $resp = true;
-            }
+        $objMenu = new Menu();
+        $objMenu->setear($param['idmenu'], $param['menombre'], $param['medescripcion'], $param['idpadre'], $param['medeshabilitado']);
+
+        if ($objMenu->modificar()) {
+            $resp = true;
         }
+
         return $resp;
     }
-
-
 
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
@@ -139,5 +127,27 @@ class AbmMenu
         }
         $arreglo = Menu::listar($where);
         return $arreglo;
+    }
+
+    //Hace un borrado logico del menu. 
+    //En caso de que ya estuviese deshabilitado, lo vuelve a habilitar.
+    public function deshabilitarMenu($param)
+    {
+        $resp = false;
+        $objMenu = $this->cargarObjetoConClave($param);
+        $listadoMenus = $objMenu->listar("idmenu=" . $param['idmenu']);
+        if (count($listadoMenus) > 0) {
+            $estadoMenu = $listadoMenus[0]->getMeDeshabilitado();
+            if ($estadoMenu == '0000-00-00 00:00:00') {
+                if ($estadoMenu->estado(date("Y-m-d H:i:s"))) {
+                    $resp = true;
+                }
+            } else {
+                if ($estadoMenu->estado()) {
+                    $resp = true;
+                }
+            }
+        }
+        return $resp;
     }
 }

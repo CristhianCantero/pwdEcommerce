@@ -13,24 +13,24 @@ $abmUsuario = new AbmUsuario();
     $busquedaCorreo = ["usmail" => $datos['usmail']];
     $existeUsuario = $abmUsuario->buscar($busquedaUsuario);
     $existeCorreo = $abmUsuario->buscar($busquedaCorreo);
-    if(($existeUsuario == null && $existeCorreo == null)){
+    if (($existeUsuario == null && $existeCorreo == null)) {
         $exito = $abmUsuario->alta($datos);
     }
     if ($exito) {
         $usuarioNuevo = $abmUsuario->buscar($busquedaUsuario);
         $idUsuario = $usuarioNuevo[0]->getIdusuario();
 
-        $arrayRolUsuario = ["idrol"=>4, "idusuario"=>$idUsuario];
+        $arrayRolUsuario = ["idrol" => 4, "idusuario" => $idUsuario];
 
         $abmUsuarioRol = new AbmUsuarioRol();
         $exitoUsuarioRol = $abmUsuarioRol->alta($arrayRolUsuario);
-        if($exitoUsuarioRol){
+        if ($exitoUsuarioRol) {
             $message = 'Se cargo correctamente el usuario y el rol';
             header("Location: ../home/index.php?Message=" . urlencode($message));
         }
     } else {
         $message = 'Hubo un error al registrar el usuario';
-        header("Location: ../pages/registrar.php?Message=" . urlencode($message));
+        header("Location: ../login/registrar.php?Message=" . urlencode($message));
     }
     ?>
 </div>

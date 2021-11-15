@@ -12,10 +12,10 @@ $abmProducto = new AbmProducto();
     $exito = $abmProducto->alta($datos);
     if ($exito) {
         $message = 'Se cargo correctamente el articulo';
-        header("Location: ../pages/administrarProductos.php?Message=" . urlencode($message));
+        header("Location: ../managerDeposito/administrarProductos.php?Message=" . urlencode($message));
     } else {
         $message = 'Hubo un error al cargar el articulo';
-        header("Location: ../pages/administrarProductos.php?Message=" . urlencode($message));
+        header("Location: ../managerDeposito/administrarProductos.php?Message=" . urlencode($message));
     }
     ?>
 </div>

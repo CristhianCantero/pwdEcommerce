@@ -12,10 +12,10 @@ $abmProducto = new AbmProducto();
     $exito = $abmProducto->baja($datos);
     if ($exito) {
         $message = 'Eliminacion exitosa';
-        header("Location: ../pages/administrarProductos.php?Message=" . urlencode($message));
+        header("Location: ../managerDeposito/administrarProductos.php?Message=" . urlencode($message));
     } else {
         $message = 'Eliminacion erronea';
-        header("Location: ../pages/administrarProductos.php?Message=" . urlencode($message));
+        header("Location: ../managerDeposito/administrarProductos.php?Message=" . urlencode($message));
     }
     ?>
 </div>

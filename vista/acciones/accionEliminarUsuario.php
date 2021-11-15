@@ -12,10 +12,10 @@ $abmUsuario = new AbmUsuario();
     $exito = $abmUsuario->baja($datos);
     if ($exito) {
         $message = 'Eliminacion exitosa';
-        header("Location: ../pages/administrarUsuarios.php?Message=" . urlencode($message));
+        header("Location: ../admin/administrarUsuarios.php?Message=" . urlencode($message));
     } else {
         $message = 'Eliminacion erronea';
-        header("Location: ../pages/administrarUsuarios.php?Message=" . urlencode($message));
+        header("Location: ../admin/administrarUsuarios.php?Message=" . urlencode($message));
     }
     ?>
 </div>
