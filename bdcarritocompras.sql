@@ -102,11 +102,15 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(7, 'nuevo', 'kkkkk', NULL, NULL),
-(8, 'nuevo', 'kkkkk', NULL, NULL),
-(9, 'nuevo', 'kkkkk', 7, NULL),
-(10, 'nuevo', 'kkkkk', NULL, NULL),
-(11, 'nuevo', 'kkkkk', NULL, NULL);
+(1, 'Administrador', '#', NULL, '0000-00-00 00:00:00'),
+(2, 'Manager Deposito', '#', NULL, '0000-00-00 00:00:00'),
+(3, 'Cliente', '#', NULL, '0000-00-00 00:00:00'),
+(4, 'Administrar Usuarios', 'administrarUsuarios', 1, '0000-00-00 00:00:00'),
+(5, 'Administrar Menus', 'administrarMenus', 1, '0000-00-00 00:00:00'),
+(6, 'Administrar Compras', 'administrarCompras', 2, '0000-00-00 00:00:00'),
+(7, 'Administrar Productos', 'administrarProductos', 2, '0000-00-00 00:00:00'),
+(8, 'Cargar Producto', 'nuevoProducto', 2, '0000-00-00 00:00:00'),
+(9, 'Carrito', 'carrito', 3, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -118,6 +122,15 @@ CREATE TABLE `menurol` (
   `idmenu` bigint(20) NOT NULL,
   `idrol` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `menu`
+--
+
+INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -170,8 +183,7 @@ CREATE TABLE `rol` (
 INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES 
 ('1', 'Admin'),
 ('2', 'Manager Deposito'),
-('3', 'Deposito'),
-('4', 'Cliente');
+('3', 'Cliente');
 
 -- --------------------------------------------------------
 
@@ -219,9 +231,9 @@ INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
 ('1', '1'),
 ('2', '1'),
 ('3', '2'),
-('4', '3'),
-('5', '4'),
-('6', '4');
+('4', '2'),
+('5', '3'),
+('6', '3');
 
 --
 -- Indices de la tabla `compra`
@@ -347,34 +359,34 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `compra`
 --
 ALTER TABLE `compra`
-  ADD CONSTRAINT `fkcompra_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkcompra_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `compraestado`
 --
 ALTER TABLE `compraestado`
-  ADD CONSTRAINT `fkcompraestado_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkcompraestado_2` FOREIGN KEY (`idcompraestadotipo`) REFERENCES `compraestadotipo` (`idcompraestadotipo`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkcompraestado_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `fkcompraestado_2` FOREIGN KEY (`idcompraestadotipo`) REFERENCES `compraestadotipo` (`idcompraestadotipo`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `compraitem`
 --
 ALTER TABLE `compraitem`
-  ADD CONSTRAINT `fkcompraitem_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkcompraitem_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkcompraitem_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `fkcompraitem_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `menu`
 --
 ALTER TABLE `menu`
-  ADD CONSTRAINT `fkmenu_1` FOREIGN KEY (`idpadre`) REFERENCES `menu` (`idmenu`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkmenu_1` FOREIGN KEY (`idpadre`) REFERENCES `menu` (`idmenu`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `menurol`
 --
 ALTER TABLE `menurol`
-  ADD CONSTRAINT `fkmenurol_1` FOREIGN KEY (`idmenu`) REFERENCES `menu` (`idmenu`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkmenurol_2` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkmenurol_1` FOREIGN KEY (`idmenu`) REFERENCES `menu` (`idmenu`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `fkmenurol_2` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuariorol`

@@ -63,13 +63,21 @@ $listadoUsuarios = $abmUsuario->buscar(null);
                                         <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
                                     </td>
                                 </form>
-
-                                <form method='post' action='deshabilitarUsuario.php'>
-                                    <td class='text-center'>
-                                        <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
-                                        <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
-                                    </td>
-                                </form>
+                                <?php if ($iduser != $id) { ?>
+                                    <form method='post' action='deshabilitarUsuario.php'>
+                                        <td class='text-center'>
+                                            <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
+                                            <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
+                                        </td>
+                                    </form>
+                                <?php } else { ?>
+                                    <form method='post' action='deshabilitarUsuario.php'>
+                                        <td class='text-center'>
+                                            <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
+                                            <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button' disabled><i class='fas fa-ban'></i></button>
+                                        </td>
+                                    </form>
+                                <?php } ?>
                             </tr>
                         <?php
                         }

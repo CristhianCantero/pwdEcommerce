@@ -78,7 +78,7 @@ class AbmRol
         $where = " true ";
         if ($param != null) {
             if (isset($param['idrol'])) {
-                $where .= " and idrol = '" . $param['idrol'] . "'";
+                $where .= " and idrol = " . $param['idrol'];
             }
 
             if (isset($param['rodescripcion'])) {
