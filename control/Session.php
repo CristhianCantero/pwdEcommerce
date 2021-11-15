@@ -27,19 +27,19 @@ class Session
     }
 
     // Setters
-    public function setIdUsuario($idUser)
+    public function setIdUsuario($idUsuario)
     {
-        $_SESSION['idusuario'] = $idUser;
+        $_SESSION['idusuario'] = $idUsuario;
     }
 
-    public function setUsNombre($userName)
+    public function setUsNombre($usNombre)
     {
-        $_SESSION['usnombre'] = $userName;
+        $_SESSION['usnombre'] = $usNombre;
     }
 
-    public function setUsPass($pass)
+    public function setUsPass($usPass)
     {
-        $_SESSION['uspass'] = $pass;
+        $_SESSION['uspass'] = $usPass;
     }
 
     // Metodos

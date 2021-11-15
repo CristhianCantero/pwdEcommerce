@@ -18,12 +18,12 @@ $id = $datos['idUsuario'];
             <h5 class="card-title">¿Desea eliminar de forma permanente al usuario?</h5>
             <p class="card-text">Nombre del usuario: <?php echo $objUsuario[0]->getUsnombre() ?></p>
             <p class="card-text">Correo electronico del usuario: <?php echo $objUsuario[0]->getUsmail() ?></p>
-            <?php
-            echo "<form action='../acciones/accionEliminarUsuario.php' method='post'>";
-            echo "<input name='idusuario' id='idusuario' type='hidden' value='$id'>";
-            echo "<button class='btn btn-danger btn-sm' type='submit' value='$id' name='idusuario' id='idusuario' role='button' formaction='../acciones/accionEliminarUsuario.php'>Eliminar</button>";
-            echo "</form>";
-            ?>
+
+            <form action='../acciones/accionEliminarUsuario.php' method='post'>
+                <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
+                <button class='btn btn-danger btn-sm' type='submit' value='<?php echo $id ?>' name='idusuario' id='idusuario' role='button' formaction='../acciones/accionEliminarUsuario.php'>Eliminar</button>
+            </form>
+
         </div>
     </div>
 </div>

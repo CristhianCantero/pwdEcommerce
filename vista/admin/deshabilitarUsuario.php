@@ -13,12 +13,13 @@ $arrayBusqueda = ["idusuario" => $datos['idusuario']];
 
     <?php
     $respuestaDeshabilitado = $abmUsuario->deshabilitarUsuario($arrayBusqueda);
+
     if ($respuestaDeshabilitado) {
         $message = "Deshabilitacion exitosa";
-        header('Location: ../pages/administrarUsuarios.php?Message=' . urlencode($message));
+        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
     } else {
         $message = "Deshabilitacion erronea";
-        header('Location: ../pages/administrarUsuarios.php?Message=' . urlencode($message));
+        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
     }
     ?>
 

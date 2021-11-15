@@ -15,10 +15,10 @@ $arrayBusqueda = ["idproducto" => $datos['id']];
     $respuestaDeshabilitado = $abmProducto->deshabilitarProd($arrayBusqueda);
     if ($respuestaDeshabilitado) {
         $message = "Deshabilitacion exitosa";
-        header('Location: ../pages/administrarProductos.php?Message=' . urlencode($message));
+        header('Location: ../managerDeposito/administrarProductos.php?Message=' . urlencode($message));
     } else {
         $message = "Deshabilitacion erronea";
-        header('Location: ../pages/administrarProductos.php?Message=' . urlencode($message));
+        header('Location: ../managerDeposito/administrarProductos.php?Message=' . urlencode($message));
     }
     ?>
 
