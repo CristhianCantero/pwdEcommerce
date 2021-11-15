@@ -42,13 +42,13 @@ class Session
         $_SESSION['uspass'] = $usPass;
     }
 
+
     // Metodos
     public function iniciar($nombreUsuario, $passUsuario)
     {
         $this->setUsNombre($nombreUsuario);
         $this->setUsPass($passUsuario);
     }
-
 
     /**
      * Valida la existencia de un usuario en la bd
@@ -144,6 +144,27 @@ class Session
         return $rol;
     }
 
+    public function getRolActivo(){
+        $abmRol = new AbmRol();
+        $rol = $abmRol->buscar(["idrol"=>$_SESSION['usuarioRolActivo']]);
+        return $rol[0];
+    }
+
+    public function setRolActivo($idrol){
+        $ret = false;
+        $roles = $this->getRol();
+        foreach($roles as $rol) {
+            print_r($rol);
+        }
+        // while($i<count($roles) && !$ret){
+        //     if($roles[$i]->getObjRol()->getIdrol() == $idrol){
+        //         $_SESSION['usuarioRolActivo'] = $idrol;
+        //         $ret = true;
+        //     }
+        //     $i++;
+        // }
+    }
+
     /**
      * Destruye la session creada.
      */
@@ -156,8 +177,8 @@ class Session
 
     /*---------------- MOSTRAR VALORES DE SESSION ----------------*/
 
-    /*public function mostrarValorVariables()
-    {
-        print_object($_SESSION);
-    }*/
+    // public function mostrarValorVariables()
+    // {
+    //     print_r($_SESSION);
+    // }
 }

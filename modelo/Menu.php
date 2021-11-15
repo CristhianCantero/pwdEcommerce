@@ -119,7 +119,7 @@ class Menu
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO menu (menombre, medescripcion, idpadre, medeshabilitado) VALUES ('" . $this->getMeNombre() . "','" . $this->getMeDescripcion() . "','" . $this->getIdPadre() . "','" . $this->getMeDeshabilitado() . "');";
+        $sql = "INSERT INTO menu (menombre, medescripcion, idpadre, medeshabilitado) VALUES ('" . $this->getMeNombre() . "','" . $this->getMeDescripcion() . "','" . $this->getIdPadre() . "','0000-00-00 00:00:00');";
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdMenu($base);
@@ -137,7 +137,7 @@ class Menu
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE menu SET idmenu='" . $this->getIdMenu() . "', menombre='" . $this->getMeNombre() . "', medescripcion='" . $this->getMeDescripcion() . "', idpadre='" . $this->getIdPadre() . "', medeshabilitado='" . $this->getMeDeshabilitado() . "' WHERE idmenu='" . $this->getIdMenu() . "'";
+        $sql = "UPDATE menu SET menombre='" . $this->getMeNombre() . "', medescripcion='" . $this->getMeDescripcion() . "', idpadre=" . $this->getIdPadre() . ", medeshabilitado='" . $this->getMeDeshabilitado() . "' WHERE idmenu='" . $this->getIdMenu() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;

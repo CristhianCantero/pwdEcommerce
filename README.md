@@ -11,9 +11,8 @@
   - CristhianCantero - Criis2021!
 - Manager Deposito
   - RoGalecio - Rogal2021!
-- Deposito
   - RuFus - Fusroda2012!
-  - PepPerez - Pepito450!
 - Cliente
+  - PepPerez - Pepito450!
   - JuanCarlos - Espiritu2021! 
     
