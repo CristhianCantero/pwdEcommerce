@@ -16,10 +16,10 @@ $arrayBusqueda = ["idmenu" => $datos['idmenu']];
 
     if ($respuestaDeshabilitado) {
         $message = "Deshabilitacion exitosa";
-        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+        header('Location: ../admin/administrarMenus.php?Message=' . urlencode($message));
     } else {
         $message = "Deshabilitacion erronea";
-        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+        header('Location: ../admin/administrarMenus.php?Message=' . urlencode($message));
     }
     ?>
 

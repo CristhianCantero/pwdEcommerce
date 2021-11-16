@@ -139,11 +139,11 @@ class AbmMenu
         if (count($listadoMenus) > 0) {
             $estadoMenu = $listadoMenus[0]->getMeDeshabilitado();
             if ($estadoMenu == '0000-00-00 00:00:00') {
-                if ($estadoMenu->estado(date("Y-m-d H:i:s"))) {
+                if ($objMenu->estado(date("Y-m-d H:i:s"))) {
                     $resp = true;
                 }
             } else {
-                if ($estadoMenu->estado()) {
+                if ($objMenu->estado()) {
                     $resp = true;
                 }
             }

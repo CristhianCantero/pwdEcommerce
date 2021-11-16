@@ -80,30 +80,36 @@ if ($sesion->activa()) {
                     <?php
                     if ($sesion->activa()) {
                         foreach ($arrayMenus as $menu) {
+                            if ($menu->getMeDeshabilitado() == "0000-00-00 00:00:00") {
                     ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $menu->getMeNombre(); ?></a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <?php
-                                    foreach ($arraySubMenus as $subMenu) {
-                                        switch ($idRol[0]) {
-                                            case '1':
-                                                $enlace .= "../admin/";
-                                                break;
-                                            case '2':
-                                                $enlace .= "../managerDeposito/";
-                                                break;
-                                            case '3':
-                                                $enlace .= "../cliente/";
-                                                break;
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $menu->getMeNombre(); ?></a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <?php
+                                        foreach ($arraySubMenus as $subMenu) {
+                                            if ($subMenu->getMeDeshabilitado() == "0000-00-00 00:00:00") {
+                                                switch ($idRol[0]) {
+                                                    case '1':
+                                                        $enlace .= "../admin/";
+                                                        break;
+                                                    case '2':
+                                                        $enlace .= "../managerDeposito/";
+                                                        break;
+                                                    case '3':
+                                                        $enlace .= "../cliente/";
+                                                        break;
+                                                }
+                                        ?>
+                                                <li><a class="dropdown-item" href="<?php echo $enlace .= $subMenu->getMeDescripcion() . '.php' ?>"><?php echo $subMenu->getMeNombre(); ?></a></li>
+                                        <?php
+                                                $enlace = "";
+                                            }
                                         }
-                                    ?>
-                                        <li><a class="dropdown-item" href="<?php echo $enlace .= $subMenu->getMeDescripcion() . '.php' ?>"><?php echo $subMenu->getMeNombre(); ?></a></li>
-                                    <?php $enlace = "";
-                                    } ?>
-                                </ul>
-                            </li>
+                                        ?>
+                                    </ul>
+                                </li>
                     <?php
+                            }
                         }
                     }
                     ?>
