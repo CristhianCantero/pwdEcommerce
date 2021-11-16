@@ -1,27 +1,30 @@
 <?php
 include_once '../../configuracion.php';
-class controlIngresoManagerDeposito {
-    public function verificarIngreso($pagina){
+class controlIngresoManagerDeposito
+{
+    public function verificarIngreso($pagina)
+    {
         $sesion = new Session();
 
         if (!$sesion->activa()) {
             header('Location: ../home/index.php');
             exit;
         }
-    
-        $abmUsuario = new AbmUsuario();
-        $listadoUsuarios = $abmUsuario->buscar(null);
-    
-        $abmUsuarioRol = new AbmUsuarioRol();
-        $listadoUsuariosRol = $abmUsuarioRol->buscar(['idusuario'=>$sesion->getIdUsuario()]);
-    
-        if ($listadoUsuariosRol[0]->getObjRol()->getIdRol() != 2) {
+
+        if ($sesion->getUsRoles()[0] != 2) {
+            if (isset($sesion->getUsRoles()[1])) {
+                if ($sesion->getUsRoles()[1] != 2) {
+                    header('Location: ../home/index.php');
+                    exit;
+                }
+                header('Location: ../managerDeposito/' . $pagina . '.php?verificado=1');
+                exit;
+            }
             header('Location: ../home/index.php');
             exit;
         } else {
-            header('Location: ../managerDeposito/' . $pagina . '.php');
+            header('Location: ../managerDeposito/' . $pagina . '.php?verificado=1');
             exit;
         }
-        
     }
 }

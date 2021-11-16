@@ -1,10 +1,17 @@
 <?php
 include_once '../../configuracion.php';
 
+$datos = data_submitted();
+
+if(!isset($datos["verificado"])){
+    $controlIngresoAdmin = new controlIngresoAdmin();
+    $controlIngresoAdmin->verificarIngreso("administrarUsuarios");
+}
+
 $titulo = 'Administración de Usuarios';
 
-$controlIngresoAdmin = new controlIngresoAdmin();
-$controlIngresoAdmin->verificarIngreso("administrarUsuarios");
+$abmUsuario = new AbmUsuario();
+$listadoUsuarios = $abmUsuario->buscar(null);
 
 include_once '../estructura/header.php';
 ?>

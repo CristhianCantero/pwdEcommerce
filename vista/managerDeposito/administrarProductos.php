@@ -1,5 +1,14 @@
 <?php
+include_once '../../configuracion.php';
+
 $titulo = 'Administración de Productos';
+
+$datos = data_submitted();
+
+if(!isset($datos["verificado"])){
+    $controlIngresoManagerDeposito = new controlIngresoManagerDeposito();
+    $controlIngresoManagerDeposito->verificarIngreso("administrarProductos");
+}
 include_once '../estructura/header.php';
 
 $abmProductos = new AbmProducto();

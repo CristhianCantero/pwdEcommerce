@@ -3,7 +3,7 @@
 $titulo = 'MercadoPrivado';
 
 include_once '../estructura/header.php';
-
+$sesion = new Session();
 $abmProductos = new AbmProducto();
 $listaProductos = $abmProductos->buscar(null);
 shuffle($listaProductos);
@@ -58,9 +58,25 @@ shuffle($listaProductos);
                                 </div>
                             </div>
 
-                            <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
-                                <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='#'>Agregar al carrito</a></div>
-                            </div>
+                            <?php
+                            if ($sesion->activa()) {
+                                foreach ($sesion->getUsRoles() as $rol) {
+                                    if ($rol == 3) {
+                            ?>
+                                        <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
+                                            <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='#'>Agregar al carrito</a></div>
+                                        </div>
+                                <?php
+                                    }
+                                }
+                            } else {
+                                ?>
+                                <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
+                                    <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='../login/login.php'>Agregar al carrito</a></div>
+                                </div>
+                            <?php
+                            }
+                            ?>
 
                         </div>
                     </div>

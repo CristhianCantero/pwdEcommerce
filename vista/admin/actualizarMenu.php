@@ -1,10 +1,12 @@
 <?php
-include_once '../../configuracion.php';
+// include_once '../../configuracion.php';
 
 $titulo = 'Actualizar Menú';
 
-$controlIngresoAdmin = new controlIngresoAdmin();
-$controlIngresoAdmin->verificarIngreso("actualizarMenu");
+// if (!isset($datos["verificado"])) {
+//     $controlIngresoAdmin = new controlIngresoAdmin();
+//     $controlIngresoAdmin->verificarIngreso("actualizarMenu");
+// }
 
 include_once '../estructura/header.php';
 

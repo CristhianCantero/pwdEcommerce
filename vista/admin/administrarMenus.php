@@ -3,8 +3,15 @@ include_once '../../configuracion.php';
 
 $titulo = 'Administración de Menus';
 
-$controlIngresoAdmin = new controlIngresoAdmin();
-$controlIngresoAdmin->verificarIngreso("administrarMenus");
+$datos = data_submitted();
+
+if(!isset($datos["verificado"])){
+    $controlIngresoAdmin = new controlIngresoAdmin();
+    $controlIngresoAdmin->verificarIngreso("administrarMenus");
+}
+
+$abmMenu = new AbmMenu();
+$listadoMenus = $abmMenu->buscar(null);
 
 include_once '../estructura/header.php';
 
