@@ -1,7 +1,15 @@
 <?php
 
+include_once '../../configuracion.php';
+
 $titulo = 'Nuevo Producto';
 
+$datos = data_submitted();
+
+if(!isset($datos["verificado"])){
+    $controlIngresoManagerDeposito = new controlIngresoManagerDeposito();
+    $controlIngresoManagerDeposito->verificarIngreso("nuevoProducto");
+}
 include_once '../estructura/header.php';
 
 ?>

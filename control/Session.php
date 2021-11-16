@@ -26,6 +26,11 @@ class Session
         return $_SESSION['uspass'];
     }
 
+    public function getUsRoles()
+    {
+        return $_SESSION['roles'];
+    }
+
     // Setters
     public function setIdUsuario($idUsuario)
     {
@@ -40,6 +45,11 @@ class Session
     public function setUsPass($usPass)
     {
         $_SESSION['uspass'] = $usPass;
+    }
+
+    public function setUsRoles($roles)
+    {
+        $_SESSION['roles'] = $roles;
     }
 
 
@@ -84,6 +94,13 @@ class Session
                 $inicia = true;
                 $this->setIdUsuario($listaUsuarios[0]->getIdUsuario());
             }
+            $abmUsuarioRol = new AbmUsuarioRol();
+            $arrayBusqueda = ["idusuario" => $listaUsuarios[0]->getIdUsuario()];
+            $arrayUsuarioRoles = $abmUsuarioRol->buscar($arrayBusqueda);
+
+            if (count($arrayUsuarioRoles) > 0) {
+                $this->setUsRoles(array($arrayUsuarioRoles[0]->getObjRol()->getIdRol()));
+            }
         }
 
         return array($inicia, $error);
@@ -123,47 +140,26 @@ class Session
     }
 
 
-    /**
-     * Consigue al rol del usuario a loggearse
-     * @return string $rol
-     */
-    public function getRol()
-    {
-        $abmUsuarioRol = new AbmUsuarioRol();
-        $usuario = $this->getUsuario();
-        $idUsuario = $usuario->getIdUsuario();
-        $param = ['idusuario' => $idUsuario];
-        $listaRolesUsu = $abmUsuarioRol->buscar($param);
+    // /**
+    //  * Consigue al rol del usuario a loggearse
+    //  * @return string $rol
+    //  */
+    // public function getRol()
+    // {
+    //     $abmUsuarioRol = new AbmUsuarioRol();
+    //     $usuario = $this->getUsuario();
+    //     $idUsuario = $usuario->getIdUsuario();
+    //     $param = ['idusuario' => $idUsuario];
+    //     $listaRolesUsu = $abmUsuarioRol->buscar($param);
 
-        if ($listaRolesUsu > 1) {
-            $rol = $listaRolesUsu;
-        } else {
-            $rol = $listaRolesUsu[0];
-        }
+    //     if ($listaRolesUsu > 1) {
+    //         $rol = $listaRolesUsu;
+    //     } else {
+    //         $rol = $listaRolesUsu[0];
+    //     }
 
-        return $rol;
-    }
-
-    public function getRolActivo(){
-        $abmRol = new AbmRol();
-        $rol = $abmRol->buscar(["idrol"=>$_SESSION['usuarioRolActivo']]);
-        return $rol[0];
-    }
-
-    public function setRolActivo($idrol){
-        $ret = false;
-        $roles = $this->getRol();
-        foreach($roles as $rol) {
-            print_r($rol);
-        }
-        // while($i<count($roles) && !$ret){
-        //     if($roles[$i]->getObjRol()->getIdrol() == $idrol){
-        //         $_SESSION['usuarioRolActivo'] = $idrol;
-        //         $ret = true;
-        //     }
-        //     $i++;
-        // }
-    }
+    //     return $rol;
+    // }
 
     /**
      * Destruye la session creada.

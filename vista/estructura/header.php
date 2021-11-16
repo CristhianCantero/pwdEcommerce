@@ -2,37 +2,45 @@
 include_once '../../configuracion.php';
 
 $sesion = new Session();
+
+if($sesion->activa()){
+    $user = $sesion->getUsuario();
+    $name = $user->getUsNombre();
+}
 $enlace = "";
 // $datos = data_submitted();
 
-if ($sesion->activa()) {
-    list($sesionValidar, $error) = $sesion->validar();
-    if ($sesionValidar) {
-        $titulo = "MercadoPrivado";
-        $user = $sesion->getUsuario();
-        $iduser = $user->getIdUsuario();
-        $name = $user->getUsNombre();
-        $mail = $user->getUsMail();
+// if ($sesion->activa()) {
+//     list($sesionValidar, $error) = $sesion->validar();
+//     if ($sesionValidar) {
+//         $titulo = "MercadoPrivado";
+//         $user = $sesion->getUsuario();
+//         $iduser = $user->getIdUsuario();
+//         $name = $user->getUsNombre();
+//         $mail = $user->getUsMail();
 
-        $abmUsuarioRol = new AbmUsuarioRol;
-        $idRol = $abmUsuarioRol->buscarRolesUsuario($user);
+//         // $abmUsuarioRol = new AbmUsuarioRol;
+//         // $idRol = $abmUsuarioRol->buscarRolesUsuario($user);
+//         // $roles = $sesion->getUsRoles();
+//         // $idRol = $roles[0];
+//         // print_r($idRol);
 
-        $abmMenuRol = new AbmMenuRol();
-        $arrayMenusRol = $abmMenuRol->buscar(['idrol' => $idRol[0]]);
-        if (count($arrayMenusRol) > 0) {
-            $abmMenu = new AbmMenu();
-            $idMenu = $arrayMenusRol[0]->getIdMenu()->getIdMenu();
-            $arrayMenus = $abmMenu->buscar(["idmenu" => $idMenu]);
-            if (count($arrayMenus) > 0) {
-                $idPadre = $arrayMenus[0]->getIdMenu();
-                $arraySubMenus = $abmMenu->buscar(["idpadre" => $idPadre]);
-            }
-        }
-    } else {
-        header('Location: ../home/index.php');
-        exit();
-    }
-}
+//         // $abmMenuRol = new AbmMenuRol();
+//         // $arrayMenusRol = $abmMenuRol->buscar(['idrol' => $idRol]);
+//         // if (count($arrayMenusRol) > 0) {
+//         //     $abmMenu = new AbmMenu();
+//         //     $idMenu = $arrayMenusRol[0]->getIdMenu()->getIdMenu();
+//         //     $arrayMenus = $abmMenu->buscar(["idmenu" => $idMenu]);
+//         //     if (count($arrayMenus) > 0) {
+//         //         $idPadre = $arrayMenus[0]->getIdMenu();
+//         //         $arraySubMenus = $abmMenu->buscar(["idpadre" => $idPadre]);
+//         //     }
+//         // }
+//     } else {
+//         header('Location: ../home/index.php');
+//         exit();
+//     }
+// }
 ?>
 
 <!DOCTYPE html>
@@ -79,36 +87,51 @@ if ($sesion->activa()) {
                     </li>
                     <?php
                     if ($sesion->activa()) {
-                        foreach ($arrayMenus as $menu) {
-                            if ($menu->getMeDeshabilitado() == "0000-00-00 00:00:00") {
+                        $roles = $sesion->getUsRoles();
+                        foreach ($sesion->getUsRoles() as $rol) {
+                            $abmMenuRol = new AbmMenuRol();
+                            $arrayMenusRol = $abmMenuRol->buscar(['idrol' => $rol]);
+
+                            if (count($arrayMenusRol) > 0) {
+                                $abmMenu = new AbmMenu();
+                                $idMenu = $arrayMenusRol[0]->getIdMenu()->getIdMenu();
+                                $arrayMenus = $abmMenu->buscar(["idmenu" => $idMenu]);
+                                if (count($arrayMenus) > 0) {
+                                    $idPadre = $arrayMenus[0]->getIdMenu();
+                                    $arraySubMenus = $abmMenu->buscar(["idpadre" => $idPadre]);
+                                }
+                            }
+                            foreach ($arrayMenus as $menu) {
+                                if ($menu->getMeDeshabilitado() == "0000-00-00 00:00:00") {
                     ?>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $menu->getMeNombre(); ?></a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <?php
-                                        foreach ($arraySubMenus as $subMenu) {
-                                            if ($subMenu->getMeDeshabilitado() == "0000-00-00 00:00:00") {
-                                                switch ($idRol[0]) {
-                                                    case '1':
-                                                        $enlace .= "../admin/";
-                                                        break;
-                                                    case '2':
-                                                        $enlace .= "../managerDeposito/";
-                                                        break;
-                                                    case '3':
-                                                        $enlace .= "../cliente/";
-                                                        break;
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $menu->getMeNombre(); ?></a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <?php
+                                            foreach ($arraySubMenus as $subMenu) {
+                                                if ($subMenu->getMeDeshabilitado() == "0000-00-00 00:00:00") {
+                                                    switch ($rol) {
+                                                        case '1':
+                                                            $enlace .= "../admin/";
+                                                            break;
+                                                        case '2':
+                                                            $enlace .= "../managerDeposito/";
+                                                            break;
+                                                        case '3':
+                                                            $enlace .= "../cliente/";
+                                                            break;
+                                                    }
+                                            ?>
+                                                    <li><a class="dropdown-item" href="<?php echo $enlace .= $subMenu->getMeDescripcion() . '.php' ?>"><?php echo $subMenu->getMeNombre(); ?></a></li>
+                                            <?php
+                                                    $enlace = "";
                                                 }
-                                        ?>
-                                                <li><a class="dropdown-item" href="<?php echo $enlace .= $subMenu->getMeDescripcion() . '.php' ?>"><?php echo $subMenu->getMeNombre(); ?></a></li>
-                                        <?php
-                                                $enlace = "";
                                             }
-                                        }
-                                        ?>
-                                    </ul>
-                                </li>
+                                            ?>
+                                        </ul>
+                                    </li>
                     <?php
+                                }
                             }
                         }
                     }
@@ -143,7 +166,7 @@ if ($sesion->activa()) {
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
                                 <?php
-                                switch ($idRol[0]) {
+                                switch ($roles[0]) {
                                     case 1: ?>
                                         <a class="dropdown-item" href="#">&nbsp;<span class="fas fa-user-tag" aria-hidden="true" title="Admin"></span>&nbsp;Admin</a>
                                     <?php
@@ -167,10 +190,43 @@ if ($sesion->activa()) {
                                 <a class="dropdown-item logout" href="../login/logout.php"><span class="fas fa-sign-out-alt fa-fw" aria-hidden="true" title="Cerrar sesión"></span>&nbsp;Cerrar sesión</a>
                             </div>
                         </li>
+                        <?php
+                        if ($roles[0] < 3) {
+                        ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Usuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-cog"></i> <span class="d-lg-none">Roles</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
 
+                                    <?php
+                                    for ($i = 3; $i >= $roles[0]; $i--) {
+                                        $idRolAction = md5($i);
+                                        switch ($i) {
+                                            case 1:
+                                                $rol = "<span class='fas fa-user-shield'></span>&nbsp;Administrador";
+                                                break;
+                                            case 2:
+                                                $rol = "<span class='fas fa-dolly'></span>&nbsp;Depósito";
+                                                break;
+                                            case 3:
+                                                $rol = "<span class='fas fa-users'></span>&nbsp;Cliente";
+                                                break;
+                                        }
+                                    ?>
 
+                                        <a class="dropdown-item" href="../../control/controlCambioRoles.php?rol=<?php echo $idRolAction ?>"><?php echo $rol ?></a>
+
+                                    <?php
+                                    }
+                                    ?>
+
+                                </div>
+                            </li>
                     <?php
-                    } ?>
+                        }
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

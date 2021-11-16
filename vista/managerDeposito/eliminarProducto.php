@@ -1,8 +1,18 @@
 <?php
-$titulo = 'Confirmacion de eliminación';
+// include_once '../../configuracion.php';
+
+$titulo = 'Eliminacion de Producto';
+
+
+// if(!isset($datos["verificado"])){
+//     $controlIngresoManagerDeposito = new controlIngresoManagerDeposito();
+//     $controlIngresoManagerDeposito->verificarIngreso("eliminarProducto");
+// }
+
 include_once '../estructura/header.php';
 
 $datos = data_submitted();
+
 $abmProducto = new AbmProducto();
 
 $id = $datos['id'];

@@ -1,7 +1,14 @@
 <?php
 
-$titulo = 'Actualización de Producto';
+// include_once '../../configuracion.php';
 
+$titulo = 'Actualizacion de Productos';
+
+
+// if(!isset($datos["verificado"])){
+//     $controlIngresoManagerDeposito = new controlIngresoManagerDeposito();
+//     $controlIngresoManagerDeposito->verificarIngreso("actualizarProducto");
+// }
 include_once '../estructura/header.php';
 
 $datos = data_submitted();

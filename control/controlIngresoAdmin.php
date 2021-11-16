@@ -9,17 +9,11 @@ class controlIngresoAdmin {
             exit;
         }
     
-        $abmUsuario = new AbmUsuario();
-        $listadoUsuarios = $abmUsuario->buscar(null);
-    
-        $abmUsuarioRol = new AbmUsuarioRol();
-        $listadoUsuariosRol = $abmUsuarioRol->buscar(['idusuario'=>$sesion->getIdUsuario()]);
-    
-        if ($listadoUsuariosRol[0]->getObjRol()->getIdRol() != 1) {
+        if ($sesion->getUsRoles()[0] != 1) {
             header('Location: ../home/index.php');
             exit;
         } else {
-            header('Location: ../admin/' . $pagina . '.php');
+            header('Location: ../admin/' . $pagina . '.php?verificado=1');
             exit;
         }
         

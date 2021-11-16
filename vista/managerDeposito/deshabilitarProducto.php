@@ -1,8 +1,15 @@
 <?php
-$titulo = 'Deshabilitación del producto';
-include_once "../../configuracion.php";
+include_once '../../configuracion.php';
+
+$titulo = 'Deshabilitacion de Productos';
 
 $datos = data_submitted();
+
+if(!isset($datos["verificado"])){
+    $controlIngresoManagerDeposito = new controlIngresoManagerDeposito();
+    $controlIngresoManagerDeposito->verificarIngreso("deshabilitarProducto");
+}
+
 $abmProducto = new AbmProducto();
 
 $arrayBusqueda = ["idproducto" => $datos['id']];

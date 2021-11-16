@@ -3,8 +3,8 @@ include_once '../../configuracion.php';
 
 $titulo = 'Deshabilitar Usuario';
 
-$controlIngresoAdmin = new controlIngresoAdmin();
-$controlIngresoAdmin->verificarIngreso("deshabilitarUsuario");
+// $controlIngresoAdmin = new controlIngresoAdmin();
+// $controlIngresoAdmin->verificarIngreso("deshabilitarUsuario");
 
 $datos = data_submitted();
 
