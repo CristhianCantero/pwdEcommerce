@@ -27,8 +27,8 @@ $objProducto = $listaProductos[0];
             </div>
             <div class="">
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="uspass" name="uspass" type="text" placeholder="Contraseña" value="<?php echo $objProducto->getUspass(); ?>" required>
-                    <label for="uspass">Contraseña: </label>
+                    <input class="form-control" id="uspass" name="uspass" type="text" placeholder="Contraseña Nueva" required>
+                    <label for="uspass">Contraseña Nueva: </label>
                 </div>
             </div>
             <div class="">

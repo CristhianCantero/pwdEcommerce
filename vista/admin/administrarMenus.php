@@ -65,21 +65,12 @@ $listadoMenus = $abmMenu->buscar(null);
                                         <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
                                     </td>
                                 </form>
-                                <?php if ($iduser != $id) { ?>
-                                    <form method='post' action='deshabilitarMenu.php'>
-                                        <td class='text-center'>
-                                            <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
-                                            <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
-                                        </td>
-                                    </form>
-                                <?php } else { ?>
-                                    <form method='post' action='deshabilitarMenu.php'>
-                                        <td class='text-center'>
-                                            <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
-                                            <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button' disabled><i class='fas fa-ban'></i></button>
-                                        </td>
-                                    </form>
-                                <?php } ?>
+                                <form method='post' action='deshabilitarMenu.php'>
+                                    <td class='text-center'>
+                                        <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
+                                        <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
+                                    </td>
+                                </form>
                             </tr>
                         <?php
                         }

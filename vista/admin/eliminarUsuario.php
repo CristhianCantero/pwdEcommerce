@@ -5,7 +5,7 @@ include_once '../estructura/header.php';
 $datos = data_submitted();
 $abmUsuario = new AbmUsuario();
 $objUsuario = $abmUsuario->buscar(["idusuario" => $datos['idusuario']]);
-$id = $datos['idUsuario'];
+$id = $datos['idusuario'];
 
 ?>
 
