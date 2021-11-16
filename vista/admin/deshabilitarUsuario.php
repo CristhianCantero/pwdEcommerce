@@ -1,6 +1,10 @@
 <?php
-$titulo = 'Deshabilitación del usuario';
-include_once "../../configuracion.php";
+include_once '../../configuracion.php';
+
+$titulo = 'Deshabilitar Usuario';
+
+$controlIngresoAdmin = new controlIngresoAdmin();
+$controlIngresoAdmin->verificarIngreso("deshabilitarUsuario");
 
 $datos = data_submitted();
 
@@ -15,29 +19,25 @@ $arrayBusqueda = ["idusuario" => $datos['idusuario']];
 
 ?>
 
-<div class="container mt-5">
+<?php
+$idUsuarioSesion = $sesion->getIdUsuario();
 
-    <?php
-    
-    $idUsuarioSesion = $sesion->getIdUsuario();
-    if (isset($datos)) {
-        if ($datos['idusuario'] == $idUsuarioSesion) {
-            $message = "No se puede deshabilitar a si mismo";
-            header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
-            exit;
-        }
-        $respuestaDeshabilitado = $abmUsuario->deshabilitarUsuario($arrayBusqueda);
-        if ($respuestaDeshabilitado) {
-            $message = "Deshabilitacion exitosa";
-            header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
-        } else {
-            $message = "Deshabilitacion erronea";
-            header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
-        }
+if (isset($datos)) {
+    if ($datos['idusuario'] == $idUsuarioSesion) {
+        $message = "No se puede deshabilitar a si mismo";
+        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+        exit;
     }
-    ?>
-
-</div>
+    $respuestaDeshabilitado = $abmUsuario->deshabilitarUsuario($arrayBusqueda);
+    if ($respuestaDeshabilitado) {
+        $message = "Deshabilitacion exitosa";
+        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+    } else {
+        $message = "Deshabilitacion erronea";
+        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+    }
+}
+?>
 
 <?php
 

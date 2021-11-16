@@ -1,6 +1,10 @@
 <?php
+include_once '../../configuracion.php';
 
-$titulo = 'Modificación de Usuario';
+$titulo = 'Actualizar Usuario';
+
+$controlIngresoAdmin = new controlIngresoAdmin();
+$controlIngresoAdmin->verificarIngreso("actualizarUsuario");
 
 include_once '../estructura/header.php';
 

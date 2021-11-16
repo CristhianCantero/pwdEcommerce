@@ -167,79 +167,10 @@ if ($sesion->activa()) {
                                 <a class="dropdown-item logout" href="../login/logout.php"><span class="fas fa-sign-out-alt fa-fw" aria-hidden="true" title="Cerrar sesión"></span>&nbsp;Cerrar sesión</a>
                             </div>
                         </li>
-                        <?php
-                    }
-                    if ($sesion->activa()) {
-                        $cantRolesUsuario = count($idRol);
-                        if ($cantRolesUsuario > 1) {
-                        ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Vistas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-id-badge"></i><span class="d-lg-none">Ver como...</span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Vistas">
-                                    <?php
-                                    foreach ($idRol as $rol) {
-                                        switch ($rol) {
-                                            case '1':
-                                    ?>
-                                                <form method='post' action=''>
-                                                    <input name='idrol' id='idrol' type='hidden' value='<?php echo $rol ?>'>
-                                                    <button class='dropdown-item' type='submit' value='<?php echo $rol ?>' role='button'><span class="fas fa-users-cog" aria-hidden="true" title="Admin"></span>&nbsp;Admin</button>
-                                                </form>
-                                            <?php
-                                                break;
-                                            case '2':
-                                                // echo '<a class="dropdown-item" href=""><span class="fas fa-tasks" aria-hidden="true" title="Configuración"></span>&nbsp;Manager Deposito</a>';
-                                            ?>
-                                                <form method='post' action=''>
-                                                    <input name='idrol' id='idrol' type='hidden' value='<?php echo $rol ?>'>
-                                                    <button class='dropdown-item' type='submit' value='<?php echo $rol ?>' role='button'><span class="fas fa-tasks" aria-hidden="true" title="ManagerDeposito"></span>&nbsp;Manager Deposito</button>
-                                                </form>
-                                            <?php
-                                                break;
-                                            case '3':
-                                            ?>
-                                                <div class="dropdown-divider"></div>
-                                                <form method='post' action=''>
-                                                    <input name='idrol' id='idrol' type='hidden' value='<?php echo $rol ?>'>
-                                                    <button class='dropdown-item' type='submit' value='<?php echo $rol ?>' role='button'><span class="fas fa-user" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</button>
-                                                </form>
-                                    <?php
-                                                // echo '<a class="dropdown-item" href=""><span class="fas fa-user" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</a>';
-                                                break;
-                                        }
-                                    }
-                                    ?>
-                                    <!-- <a class="dropdown-item" href="#"><span class="fas fa-users-cog" aria-hidden="true" title="Admin"></span>&nbsp;Admin</a>
-                                    <a class="dropdown-item" href="#"><span class="fas fa-tasks" aria-hidden="true" title="Configuración"></span>&nbsp;Manager Deposito</a>
 
-                                    <div class="dropdown-divider"></div>
 
-                                    <a class="dropdown-item" href="#"><span class="fas fa-user" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</a> -->
-                                </div>
-                            </li>
-                        <?php
-                        }
-                        ?>
-                        <!-- Vista de pagina con otro rol -->
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Vistas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-id-badge"></i><span class="d-lg-none">Ver como...</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Vistas">
-                                <a class="dropdown-item" href="#"><span class="fas fa-users-cog" aria-hidden="true" title="Admin"></span>&nbsp;Admin</a>
-                                <a class="dropdown-item" href="#"><span class="fas fa-tasks" aria-hidden="true" title="Configuración"></span>&nbsp;Manager Deposito</a>
-                                <a class="dropdown-item" href="#"><span class="fas fa-people-carry" aria-hidden="true" title="Deposito"></span>&nbsp;Deposito</a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <a class="dropdown-item" href="#"><span class="fas fa-user" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</a>
-                            </div>
-                        </li> -->
                     <?php
-                    }
-                    ?>
+                    } ?>
                 </ul>
             </div>
         </div>

@@ -1,6 +1,10 @@
 <?php
+include_once '../../configuracion.php';
 
-$titulo = 'Actualización de Menú';
+$titulo = 'Actualizar Menú';
+
+$controlIngresoAdmin = new controlIngresoAdmin();
+$controlIngresoAdmin->verificarIngreso("actualizarMenu");
 
 include_once '../estructura/header.php';
 
