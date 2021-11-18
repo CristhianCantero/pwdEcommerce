@@ -4,7 +4,7 @@ class AbmCompraItem
     private function cargarObjeto($param)
     {
         $obj = null;
-        if (array_key_exists('idcompraitem', $param) && array_key_exists('idproducto', $param) && array_key_exists('idcompra', $param) && array_key_exists('cicantidad', $param)) {
+        if (array_key_exists('idproducto', $param) && array_key_exists('idcompra', $param)) {
             $objProducto = new Producto();
             $objProducto->setIdProducto($param['idproducto']);
             $objProducto->cargar();
@@ -53,7 +53,7 @@ class AbmCompraItem
         return $resp;
     }
 
-    /* public function baja($param){
+    public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $objCompraItem = $this->cargarObjetoConClave($param);
@@ -63,7 +63,7 @@ class AbmCompraItem
         }
         
         return $resp;
-    } */
+    }
 
     public function modificacion($param)
     {
@@ -73,6 +73,40 @@ class AbmCompraItem
             $objCompraItem = $this->cargarObjeto($param);
             if ($objCompraItem != null and $objCompraItem->modificar()) {
                 $resp = true;
+            }
+        }
+        return $resp;
+    }
+
+    public function sumarItem($param){
+        $resp = false;
+        if($this->seteadosCamposClaves($param)){
+            $objCompraItem = $this->cargarObjetoConClave($param);
+            $objCompraItem = $this->buscar(['idcompraitem'=>$param['idcompraitem']]);
+            if($objCompraItem[0] != null){
+                $cantItems = $objCompraItem[0]->getCiCantidad();
+                $objCompraItem[0]->setCiCantidad($cantItems+1);
+                if($objCompraItem[0]->modificar()){
+                    $resp = true;
+                }
+            }
+        }
+        return $resp;
+    }
+
+    public function restarItem($param){
+        $resp = false;
+        if($this->seteadosCamposClaves($param)){
+            $objCompraItem = $this->cargarObjetoConClave($param);
+            $objCompraItem = $this->buscar(['idcompraitem'=>$param['idcompraitem']]);
+            if($objCompraItem[0] != null){
+                $cantItems = $objCompraItem[0]->getCiCantidad();
+                if($cantItems > 1){
+                    $objCompraItem[0]->setCiCantidad($cantItems-1);
+                    if($objCompraItem[0]->modificar()){
+                        $resp = true;
+                    }
+                }
             }
         }
         return $resp;

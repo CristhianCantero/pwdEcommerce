@@ -3,6 +3,10 @@ include_once '../../configuracion.php';
 
 $datos = data_submitted();
 $sesion = new Session();
+// $abmUsuarioRol = new AbmUsuarioRol();
+// $abmUsuario = new AbmUsuario();
+
+// $objUserBusqueda = $abmUsuario->buscar(["usnombre"=>$datos['usnombre']]);
 
 $name = $datos['usnombre'];
 $pass = $datos['uspass'];

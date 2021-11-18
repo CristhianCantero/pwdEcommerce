@@ -12,6 +12,7 @@
 <script src="../assets/js/bootstrap/bootstrap.min.js"></script>
 <script src="../assets/js/bootstrap/bootstrapValidator.min.js"></script>
 <script type="text/javascript" src="../assets/js/validator.js"></script>
+<script type="../assets/js/renderProducts.js"></script>
 </body>
 
 </html>

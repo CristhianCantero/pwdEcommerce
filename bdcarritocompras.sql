@@ -45,7 +45,7 @@ CREATE TABLE `compraestado` (
   `idcompra` bigint(11) NOT NULL,
   `idcompraestadotipo` int(11) NOT NULL,
   `cefechaini` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cefechafin` timestamp NULL DEFAULT NULL
+  `cefechafin` timestamp NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -80,7 +80,7 @@ CREATE TABLE `compraitem` (
   `idcompraitem` bigint(20) UNSIGNED NOT NULL,
   `idproducto` varchar(150) NOT NULL,
   `idcompra` bigint(20) NOT NULL,
-  `cicantidad` int(11) NOT NULL
+  `cicantidad` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
