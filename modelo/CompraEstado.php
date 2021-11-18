@@ -130,7 +130,9 @@ class CompraEstado
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin) VALUES ('{$this->getIdCompra()->getIdCompra()}','{$this->getIdCompraEstadoTipo()->getIdCompraEstadoTipo()},'{$this->getCeFechaIni()}','{$this->getCeFechaFin()}');";
+        $objCompra = $this->getIdCompra();
+        $objCompraEstadoTipo = $this->getIdCompraEstadoTipo();
+        $sql = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechafin) VALUES (".$objCompra->getIdCompra().",".$objCompraEstadoTipo->getIdCompraEstadoTipo().", '0000-00-00 00:00:00')";
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdCompraEstado($base);
@@ -148,7 +150,7 @@ class CompraEstado
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compraestado SET idcompraestado='{$this->getIdCompraEstado()}', idcompra='{$this->getIdCompra()->getIdCompra()}', idcompraestadotipo='{$this->getIdCompraEstadoTipo()->getIdCompraEstadoTipo()}', cefechaini='{$this->getCeFechaIni()}', cefechafin='{$this->getCeFechaFin()}' WHERE idcompraestado='{$this->getIdCompraEstado()}'";
+        $sql = "UPDATE compraestado SET idcompra='{$this->getIdCompra()->getIdCompra()}', idcompraestadotipo='{$this->getIdCompraEstadoTipo()->getIdCompraEstadoTipo()}', cefechaini='{$this->getCeFechaIni()}', cefechafin='{$this->getCeFechaFin()}' WHERE idcompraestado='{$this->getIdCompraEstado()}'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -215,5 +217,22 @@ class CompraEstado
         }
 
         return $arreglo;
+    }
+
+    public function estado($param = "")
+    {
+        $resp = false;
+        $base = new BaseDatos();
+        $sql = "UPDATE compraestado SET cefechafin= '" . $param . "' WHERE idcompraestado={$this->getIdCompraEstado()}";
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $resp = true;
+            } else {
+                $this->setmensajeoperacion("CompraEstado->estado: " . $base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("CompraEstado->estado: " . $base->getError());
+        }
+        return $resp;
     }
 }

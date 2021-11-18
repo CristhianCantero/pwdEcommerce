@@ -5,25 +5,20 @@ class AbmCompraEstado
     {
         //print_r ($param);
         $obj = null;
-        if (
-            array_key_exists('idcompraestadotipoestado', $param) and array_key_exists('idcompra', $param)
-            and array_key_exists('idcompraestadotipo', $param) and array_key_exists('cefechaini', $param)
-            and array_key_exists('cefechafin', $param)
-        ) {
-
+        if (array_key_exists('idcompra', $param)) {
             //creo objeto estadotipos
             $objProducto = new Compra();
-            $objProducto->getIdCompra($param['idcompra']);
+            $objProducto->setIdCompra($param['idcompra']);
             $objProducto->cargar();
-
+            
             //creo objeto usuario
-            $objCompra = new CompraEstadoTipo();
-            $objCompra->setIdCompraEstadoTipo($param['idcompraestadotipo']);
-            $objCompra->cargar();
-
+            $objCompraEstadoTipo = new CompraEstadoTipo();
+            $objCompraEstadoTipo->setIdCompraEstadoTipo($param['idcompraestadotipo']);
+            $objCompraEstadoTipo->cargar();
+            
             //agregarle los otros objetos
             $obj = new CompraEstado();
-            $obj->setear($param['idcompraestadotipoestado'], $objProducto, $objCompra, $param['cefechaini'], $param['cefechafin']);
+            $obj->setear('', $objProducto, $objCompraEstadoTipo, '', '');
         }
         return $obj;
     }
@@ -31,9 +26,9 @@ class AbmCompraEstado
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-        if (isset($param['idcompraestadotipoestado'])) {
+        if (isset($param['idcompraestado'])) {
             $obj = new CompraEstado();
-            $obj->setear($param['idcompraestadotipoestado'], null, null, null, null);
+            $obj->setear($param['idcompraestado'], null, null, null, null);
         }
         return $obj;
     }
@@ -41,7 +36,7 @@ class AbmCompraEstado
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idcompraestadotipoestado']))
+        if (isset($param['idcompraestado']))
             $resp = true;
         return $resp;
     }
@@ -49,7 +44,7 @@ class AbmCompraEstado
     public function alta($param)
     {
         $resp = false;
-        $param['idcompraestadotipoestado'] = null;
+        $param['idcompraestado'] = null;
         $objCompraEstado = $this->cargarObjeto($param);
         //print_r($objCompraEstado);
         if ($objCompraEstado != null and $objCompraEstado->insertar()) {
@@ -72,7 +67,6 @@ class AbmCompraEstado
 
     public function modificacion($param)
     {
-        //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $objCompraEstado = $this->cargarObjeto($param);
@@ -83,12 +77,76 @@ class AbmCompraEstado
         return $resp;
     }
 
+    public function aceptarCompra($param)
+    {
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)) {
+            // Busco el estadoCompra actual
+            $arrayBusqueda = ["idcompraestado" => $param['idcompraestado']];
+            $objCompraEstadoBusqueda = $this->buscar($arrayBusqueda);
+            // Busco el estadoTipo de 'aceptada'
+            $abmEstadoTipo = new AbmCompraEstadoTipo;
+            $objCompraEstadoTipo = $abmEstadoTipo->buscar(['idcompraestadotipo' => 2]);
+            // Seteo el compraEstadoTipo 'aceptada'
+            $objCompraEstadoBusqueda[0]->setIdCompraEstadoTipo($objCompraEstadoTipo[0]);
+            // Si la compra no es nula y la fecha de fin de la compraEstado es igual a '0000-00-00 00:00:00' entonces hago la modificacion del estadoTipo
+            if ($objCompraEstadoBusqueda != null and $objCompraEstadoBusqueda[0]->getCeFechaFin() == "0000-00-00 00:00:00") {
+                if ($objCompraEstadoBusqueda[0]->modificar()) {
+                    $resp = true;
+                }
+            }
+        }
+
+        return $resp;
+    }
+
+    public function enviarCompra($param)
+    {
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)) {
+            // Busco el estadoCompra actual
+            $arrayBusqueda = ["idcompraestado" => $param['idcompraestado']];
+            $objCompraEstadoBusqueda = $this->buscar($arrayBusqueda);
+            // Busco el estadoTipo de 'aceptada'
+            $abmEstadoTipo = new AbmCompraEstadoTipo;
+            $objCompraEstadoTipo = $abmEstadoTipo->buscar(['idcompraestadotipo' => 3]);
+            // Seteo el compraEstadoTipo 'aceptada'
+            $objCompraEstadoBusqueda[0]->setIdCompraEstadoTipo($objCompraEstadoTipo[0]);
+            // Si la compra no es nula y la fecha de fin de la compraEstado es igual a '0000-00-00 00:00:00' entonces hago la modificacion del estadoTipo
+            if ($objCompraEstadoBusqueda != null and $objCompraEstadoBusqueda[0]->getCeFechaFin() == "0000-00-00 00:00:00") {
+                if ($objCompraEstadoBusqueda[0]->modificar()) {
+                    $resp = true;
+                }
+            }
+        }
+        return $resp;
+    }
+
+    public function finCompra($param)
+    {
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)) {
+            $objCompraEstado = $this->cargarObjetoConClave($param);
+            $listaCompraEstado = $objCompraEstado->listar("idcompraestado='" . $param['idcompraestado'] . "'");
+            if (count($listaCompraEstado) > 0) {
+                $estadoCompra = $listaCompraEstado[0]->getCeFechaFin();
+                if ($estadoCompra == '0000-00-00 00:00:00') {
+                    if ($listaCompraEstado[0]->estado(date("Y-m-d H:i:s"))) {
+                        $resp = true;
+                    }
+                }
+            }
+        }
+
+        return $resp;
+    }
+
     public function buscar($param)
     {
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idcompraestadotipoestado']))
-                $where .= " and idcompraestadotipoestado =" . $param['idcompraestadotipoestado'];
+            if (isset($param['idcompraestado']))
+                $where .= " and idcompraestado =" . $param['idcompraestado'];
             if (isset($param['idcompra']))
                 $where .= " and idcompra =" . $param['idcompra'];
             if (isset($param['idcompraestadotipo']))

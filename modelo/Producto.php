@@ -150,7 +150,7 @@ class Producto
         $resp = false;
         $base = new BaseDatos();
 
-        $sql = "SELECT * FROM producto WHERE idproducto = " . $this->getIdProducto();
+        $sql = "SELECT * FROM producto WHERE idproducto ='" . $this->getIdProducto() . "'";
 
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);

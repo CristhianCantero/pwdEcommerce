@@ -121,7 +121,7 @@ class CompraItem
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) VALUES ('{$this->getIdProducto()->getIdProducto()}','{$this->getIdCompra()->getIdCompra()}','{$this->getCiCantidad()}');";
+        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) VALUES ('{$this->getIdProducto()->getIdProducto()}','{$this->getIdCompra()->getIdCompra()}','1');";
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdCompraItem($base);

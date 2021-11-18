@@ -1,46 +1,15 @@
 <?php
 include_once '../../configuracion.php';
 
+$cantidadItemsCarrito = 0;
 $sesion = new Session();
 
-if($sesion->activa()){
+if ($sesion->activa()) {
     $user = $sesion->getUsuario();
     $name = $user->getUsNombre();
+    $idUser = $user->getIdUsuario();
 }
 $enlace = "";
-// $datos = data_submitted();
-
-// if ($sesion->activa()) {
-//     list($sesionValidar, $error) = $sesion->validar();
-//     if ($sesionValidar) {
-//         $titulo = "MercadoPrivado";
-//         $user = $sesion->getUsuario();
-//         $iduser = $user->getIdUsuario();
-//         $name = $user->getUsNombre();
-//         $mail = $user->getUsMail();
-
-//         // $abmUsuarioRol = new AbmUsuarioRol;
-//         // $idRol = $abmUsuarioRol->buscarRolesUsuario($user);
-//         // $roles = $sesion->getUsRoles();
-//         // $idRol = $roles[0];
-//         // print_r($idRol);
-
-//         // $abmMenuRol = new AbmMenuRol();
-//         // $arrayMenusRol = $abmMenuRol->buscar(['idrol' => $idRol]);
-//         // if (count($arrayMenusRol) > 0) {
-//         //     $abmMenu = new AbmMenu();
-//         //     $idMenu = $arrayMenusRol[0]->getIdMenu()->getIdMenu();
-//         //     $arrayMenus = $abmMenu->buscar(["idmenu" => $idMenu]);
-//         //     if (count($arrayMenus) > 0) {
-//         //         $idPadre = $arrayMenus[0]->getIdMenu();
-//         //         $arraySubMenus = $abmMenu->buscar(["idpadre" => $idPadre]);
-//         //     }
-//         // }
-//     } else {
-//         header('Location: ../home/index.php');
-//         exit();
-//     }
-// }
 ?>
 
 <!DOCTYPE html>
@@ -139,9 +108,29 @@ $enlace = "";
                 </ul>
                 <ul class="navbar-nav d-flex">
                     <!-- Icon carrito -->
+                    <?php
+                    if (($sesion->activa())) {
+                        $clienteActivo = false;
+                        foreach ($roles as $rol) {
+                            if ($rol == 3) {
+                                $clienteActivo = true;
+                            }
+                        }
+                        if ($clienteActivo) {
+                            $controlVerificarCarrito = new controlVerificarCarritoCliente();
+                            $arrayCarritos = $controlVerificarCarrito->verificarCarrito($idUser);
+                            $carrito = $arrayCarritos['carritoHabilitado'];
+                            if ($carrito <> "") {
+                                $abmItemsCarrito = new AbmCompraItem();
+                                $compraItems = $abmItemsCarrito->buscar(['idcompra' => $carrito->getIdCompra()]);
+                                $cantidadItemsCarrito = count($compraItems);
+                            }
+                        }
+                    }
+                    ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../cliente/carrito.php" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span><span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span><span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cantidadItemsCarrito; ?></span>
                         </a>
                     </li>
 

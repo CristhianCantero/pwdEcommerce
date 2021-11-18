@@ -5,18 +5,17 @@ class AbmCompra
     {
         $obj = null;
         if (
-            array_key_exists('idcompra', $param) and array_key_exists('cofecha', $param)
-            and array_key_exists('idusuario', $param)
+            array_key_exists('idusuario', $param)
         ) {
 
-            //creo objeto estadotipos
+            //creo objeto usuario
             $objUsuario = new Usuario();
-            $objUsuario->getIdUsuario($param['idusuario']);
+            $objUsuario->setIdUsuario($param['idusuario']);
             $objUsuario->cargar();
 
             //agregarle los otros objetos
             $obj = new Compra();
-            $obj->setear($param['idcompra'], $param['cofecha'], $objUsuario);
+            $obj->setear('', '', $objUsuario);
         }
         return $obj;
     }
@@ -42,9 +41,9 @@ class AbmCompra
     public function alta($param)
     {
         $resp = false;
-        $param['idcompra'] = null;
+        // $param['idcompra'] = null;
         $objCompra = $this->cargarObjeto($param);
-        //print_r($objCompra);
+        print_r($objCompra);
         if ($objCompra != null and $objCompra->insertar()) {
             $resp = true;
         }

@@ -15,28 +15,28 @@ class Compra
         $this->idusuario = new Usuario();
         $this->mensajeoperacion = "";
     }
-    
+
     // Getters
     public function getIdCompra()
     {
         return $this->idcompra;
     }
-    
+
     public function getCoFecha()
     {
         return $this->cofecha;
     }
-    
+
     public function getIdUsuario()
     {
         return $this->idusuario;
     }
-    
+
     public function getmensajeoperacion()
     {
         return $this->mensajeoperacion;
     }
-    
+
     // Setters
     public function setIdCompra($idcompra)
     {
@@ -57,7 +57,7 @@ class Compra
     {
         $this->mensajeoperacion = $msj;
     }
-    
+
     // Metodos
     public function setear($idcompra, $cofecha, $idusuario)
     {
@@ -98,7 +98,7 @@ class Compra
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compra (cofecha, idusuario) VALUES ('{$this->getCoFecha()}','{$this->getIdUsuario()->getIdUsuario()}');";
+        $sql = "INSERT INTO compra (idusuario) VALUES (".$this->getIdUsuario()->getIdUsuario().");";
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdCompra($elid);
@@ -116,7 +116,7 @@ class Compra
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compra SET idcompra='{$this->getIdCompra()}', cofecha='{$this->getCoFecha()}', idusuario='{$this->getIdUsuario()->getIdUsuario()}' WHERE idcompra='{$this->getIdCompra()}'";
+        $sql = "UPDATE compra SET cofecha='{$this->getCoFecha()}', idusuario='{$this->getIdUsuario()->getIdUsuario()}' WHERE idcompra='{$this->getIdCompra()}'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -168,7 +168,7 @@ class Compra
                         $objUsuario->cargar();
                     }
 
-                    $obj->setear($row['idcompra'], $row['cofecha'], $objUsuario, $row['idpadre'], $row['medeshabilitado']);
+                    $obj->setear($row['idcompra'], $row['cofecha'], $objUsuario);
                     array_push($arreglo, $obj);
                 }
             }
