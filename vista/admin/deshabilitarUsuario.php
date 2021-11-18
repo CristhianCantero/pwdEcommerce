@@ -3,14 +3,11 @@ include_once '../../configuracion.php';
 
 $titulo = 'Deshabilitar Usuario';
 
-// $controlIngresoAdmin = new controlIngresoAdmin();
-// $controlIngresoAdmin->verificarIngreso("deshabilitarUsuario");
-
 $datos = data_submitted();
 
 $sesion = new Session();
 if (!$sesion->activa()) {
-    $message = "No ha iniciado sesion";
+    $message = "Sesion no iniciada";
     header('Location: ../login/login.php?Message=' . urlencode($message));
 }
 

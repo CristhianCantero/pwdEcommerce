@@ -5,7 +5,7 @@ $titulo = 'Administración de Menus';
 
 $datos = data_submitted();
 
-if(!isset($datos["verificado"])){
+if (!isset($datos["verificado"])) {
     $controlIngresoAdmin = new controlIngresoAdmin();
     $controlIngresoAdmin->verificarIngreso("administrarMenus");
 }
@@ -64,36 +64,36 @@ include_once '../estructura/header.php';
 
                                 <?php
                                 if ($menu->getIdPadre() == $id) { ?>
-                                        <td scope='row' class='text-center'></td>
-                                        <td scope='row' class='text-center'></td>
-                                        <td scope='row' class='text-center'></td>
-                                    </tr>                             
-                                <?php
+                                    <td scope='row' class='text-center'></td>
+                                    <td scope='row' class='text-center'></td>
+                                    <td scope='row' class='text-center'></td>
+                            </tr>
+                        <?php
                                 } else { ?>
-                                        <form method='post' action='actualizarMenu.php'>
-                                            <td class='text-center'>
-                                                <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
-                                                <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i></button>
-                                            </td>
-                                        </form>
+                            <form method='post' action='actualizarMenu.php'>
+                                <td class='text-center'>
+                                    <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
+                                    <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i></button>
+                                </td>
+                            </form>
 
-                                        <form method='post' action='eliminarMenu.php'>
-                                            <td class='text-center'>
-                                                <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
-                                                <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
-                                            </td>
-                                        </form>
-                                        
-                                        <form method='post' action='deshabilitarMenu.php'>
-                                            <td class='text-center'>
-                                                <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
-                                                <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
-                                            </td>
-                                        </form>
-                                    </tr>
-                                    <?php
+                            <form method='post' action='eliminarMenu.php'>
+                                <td class='text-center'>
+                                    <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
+                                    <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
+                                </td>
+                            </form>
+
+                            <form method='post' action='deshabilitarMenu.php'>
+                                <td class='text-center'>
+                                    <input name='idmenu' id='idmenu' type='hidden' value='<?php echo $id ?>'>
+                                    <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
+                                </td>
+                            </form>
+                            </tr>
+                    <?php
                                 }
-                        }?>
+                            } ?>
                     </tbody>
                 </table>
             </div>

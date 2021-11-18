@@ -1,6 +1,4 @@
 <?php
-// include_once '../../configuracion.php';
-
 $titulo = 'Actualizar Menú';
 
 // if (!isset($datos["verificado"])) {

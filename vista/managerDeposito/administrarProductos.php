@@ -5,7 +5,7 @@ $titulo = 'Administración de Productos';
 
 $datos = data_submitted();
 
-if(!isset($datos["verificado"])){
+if (!isset($datos["verificado"])) {
     $controlIngresoManagerDeposito = new controlIngresoManagerDeposito();
     $controlIngresoManagerDeposito->verificarIngreso("administrarProductos");
 }
@@ -81,14 +81,14 @@ $listaProductos = $abmProductos->buscar(null);
 
                                     <form method='post' action='eliminarProducto.php'>
                                         <td class='text-center'>
-                                            <input name='id' id='id' type='hidden' value='<?php echo $id ?>'>
+                                            <input name='idproducto' id='idproducto' type='hidden' value='<?php echo $id ?>'>
                                             <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
                                         </td>
                                     </form>
 
                                     <form method='post' action='deshabilitarProducto.php'>
                                         <td class='text-center'>
-                                            <input name='id' id='id' type='hidden' value='<?php echo $id ?>'>
+                                            <input name='idproducto' id='idproducto' type='hidden' value='<?php echo $id ?>'>
                                             <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
                                         </td>
                                     </form>

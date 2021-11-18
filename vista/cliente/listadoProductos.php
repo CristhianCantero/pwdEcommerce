@@ -4,7 +4,6 @@ include_once '../estructura/header.php';
 $sesion = new Session();
 $abmProductos = new AbmProducto();
 $listaProductos = $abmProductos->buscar(null);
-
 ?>
 <header class="bg-dark py-1">
     <div class="container px-4 px-lg-5 my-2">
@@ -19,7 +18,8 @@ $listaProductos = $abmProductos->buscar(null);
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php
                 if (count($listaProductos) > 0) {
-                    foreach ($listaProductos as $producto) {
+                    for ($cont_prod = 0; $cont_prod <= 7; $cont_prod++) {
+                        $producto = $listaProductos[$cont_prod];
                         $deshabilitado = $producto->getProDeshabilitado();
                         if ($deshabilitado == "0000-00-00 00:00:00") { ?>
                             <div class='col mb-5'>
@@ -30,7 +30,7 @@ $listaProductos = $abmProductos->buscar(null);
                                     <?php
                                     } ?>
 
-                                    <img class='card-img-top' src='https://periodismodelmotor.com/wp-content/uploads/2020/09/bmw-m4-2021--450x300.jpg' alt='Imagen de una autoparte' />
+                                    <img class='card-img-top' src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg' alt='Imagen de una autoparte' />
 
                                     <div class='card-body p-4'>
                                         <div class='text-center'>

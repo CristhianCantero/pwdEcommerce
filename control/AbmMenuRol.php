@@ -68,13 +68,25 @@ class AbmMenuRol
      */
     public function alta($param)
     {
-        // print_r($param);
+        // $resp = false;
+        // //Creo objeto con los datos
+        // $elObj = $this->cargarObjeto($param);
+        // //print_r($elObjtArchivo);
+        // //Verifico que el objeto no sea nulo y lo inserto en BD 
+        // if ($elObj != null and $elObj->insertar()) {
+        //     $resp = true;
+        // }
+        // return $resp;
         $resp = false;
-        //Creo objeto con los datos
-        $elObj = $this->cargarObjeto($param);
-        //print_r($elObjtArchivo);
-        //Verifico que el objeto no sea nulo y lo inserto en BD 
-        if ($elObj != null and $elObj->insertar()) {
+        $objMenuRol = new MenuRol();
+        $abmMenu = new AbmMenu();
+        $listaMenu = $abmMenu->buscar(['idmenu' => $param['idmenu']]);
+        $abmRol = new AbmRol();
+        $objRol = $abmRol->buscar(['idrol' => $param['idrol']]);
+        // var_dump($objRol);
+        $objMenuRol->setear($listaMenu[0], $objRol[0]);
+
+        if ($objMenuRol->insertar()) {
             $resp = true;
         }
         return $resp;

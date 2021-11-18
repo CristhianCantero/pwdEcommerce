@@ -39,10 +39,16 @@ $totalFinalCompra = 0;
     <section>
         <div class="row">
             <div class="col-lg-8">
-                <div class="card wish-list mb-3">
+                <div class="card border-light shadow wish-list mb-3">
                     <div class="card-body">
-                        <h5 class="mb-4">Carrito: <?php echo count($compraItems) ?></h5>
                         <?php
+                        if (count($compraItems) == 0) { ?>
+                            <h5 class="text-center mb-4">Estoy vacío, llename porfis <i class="far fa-sad-tear"></i></h5>
+                        <?php
+                        } else { ?>
+                            <h5 class="mb-4">Carrito: (<?php echo count($compraItems) . " items" ?>)</h5>
+                            <?php
+                        }
                         $subTotalCompra = 0;
                         $iva = 0;
                         $totalFinalCompra = 0;
@@ -57,7 +63,7 @@ $totalFinalCompra = 0;
                                 $subTotalProducto = ($precio * $unidades) - ((($precio * $unidades) * $descuento) / 100);
                                 $subTotalCompra = $subTotalCompra + $subTotalProducto;
 
-                        ?>
+                            ?>
                                 <div class="row mb-4">
                                     <div class="col-md-5 col-lg-3 col-xl-3">
                                         <div>
@@ -89,7 +95,7 @@ $totalFinalCompra = 0;
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <form method='post' action='../acciones/accionEliminarItemCarrito.php'>
                                                     <input name='idcompraitem' id='idcompraitem' type='hidden' value='<?php echo $compraItem->getIdCompraItem() ?>'>
-                                                    <button class='btn btn-danger btn-sm' type='submit' role='button'>Remover item</button>
+                                                    <button class='btn btn-danger btn-sm' type='submit' role='button'><i class="fas fa-trash"></i></button>
                                                 </form>
                                                 <p class="mb-0"><span>Precio x unidad: <strong>$<?php echo $precio ?>.-</strong></span></p>
                                             </div>
@@ -101,12 +107,12 @@ $totalFinalCompra = 0;
                             }
                         }
                         ?>
-                        <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Haga su compra ahora, que esten en el carrito no significa que esten reservados.</p>
+                        <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i>&nbsp;Haga su compra ahora, agregar items al carrito no significa que se reserven.</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card mb-3">
+                <div class="card border-light shadow mb-3">
                     <div class="card-body">
                         <h5 class="mb-3">Detalles compra:</h5>
                         <?php
@@ -125,9 +131,7 @@ $totalFinalCompra = 0;
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                 <div>
                                     <strong>Total Final</strong>
-                                    <strong>
-                                        <p class="mb-0">(Incluyendo IVA)</p>
-                                    </strong>
+                                    <p class="mb-0 text-muted fw-light">(Incluyendo IVA)</p>
                                 </div>
                                 <span><strong>$<?php echo round($totalFinalCompra, 2); ?>.-</strong></span>
                             </li>

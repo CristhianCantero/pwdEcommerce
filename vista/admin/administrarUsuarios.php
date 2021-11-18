@@ -3,7 +3,7 @@ include_once '../../configuracion.php';
 
 $datos = data_submitted();
 
-if(!isset($datos["verificado"])){
+if (!isset($datos["verificado"])) {
     $controlIngresoAdmin = new controlIngresoAdmin();
     $controlIngresoAdmin->verificarIngreso("administrarUsuarios");
 }
@@ -19,7 +19,7 @@ include_once '../estructura/header.php';
 <header class="bg-dark py-1">
     <div class="container px-4 px-lg-5 my-2">
         <div class="text-center text-white">
-            <h4>Listado usuarios</h4>
+            <h4>Listado Usuarios</h4>
         </div>
     </div>
 </header>
@@ -45,7 +45,7 @@ include_once '../estructura/header.php';
                     <tbody>
                         <?php
                         foreach ($listadoUsuarios as $usuario) {
-                            $id = $usuario->getIdusuario();
+                            $id = $usuario->getIdUsuario();
                             $abmUsuarioRol = new AbmUsuarioRol();
                             $datos['idusuario'] = $id;
                             $listaUsuarioRol = $abmUsuarioRol->buscar($datos);
@@ -84,32 +84,32 @@ include_once '../estructura/header.php';
 
                                 <?php
                                 if ($id == $sesion->getIdUsuario()) { ?>
-                                        <td scope='row' class='text-center'></td>
-                                        <td scope='row' class='text-center'></td>
-                                        <td scope='row' class='text-center'></td>
-                                    </tr>
-                                <?php
+                                    <td scope='row' class='text-center'></td>
+                                    <td scope='row' class='text-center'></td>
+                                    <td scope='row' class='text-center'></td>
+                            </tr>
+                        <?php
                                 } else { ?>
-                                        <form method='post' action='actualizarUsuario.php'>
-                                            <td class='text-center'>
-                                                <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
-                                                <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i></button>
-                                            </td>
-                                        </form>
+                            <form method='post' action='actualizarUsuario.php'>
+                                <td class='text-center'>
+                                    <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
+                                    <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i></button>
+                                </td>
+                            </form>
 
-                                        <form method='post' action='eliminarUsuario.php'>
-                                            <td class='text-center'>
-                                                <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
-                                                <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
-                                            </td>
-                                        </form>
-                                        <form method='post' action='deshabilitarUsuario.php'>
-                                            <td class='text-center'>
-                                                <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
-                                                <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
-                                            </td>
-                                        </form>
-                                    </tr>
+                            <form method='post' action='eliminarUsuario.php'>
+                                <td class='text-center'>
+                                    <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
+                                    <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
+                                </td>
+                            </form>
+                            <form method='post' action='deshabilitarUsuario.php'>
+                                <td class='text-center'>
+                                    <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
+                                    <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
+                                </td>
+                            </form>
+                            </tr>
                     <?php
                                 }
                             }

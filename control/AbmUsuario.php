@@ -101,6 +101,7 @@ class AbmUsuario
     {
         $resp = false;
         $objUsuario = $this->cargarObjeto($param);
+        print_r($objUsuario);
 
         if ($objUsuario->insertar()) {
             $resp = true;

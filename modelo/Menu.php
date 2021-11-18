@@ -178,7 +178,6 @@ class Menu
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
-
                 while ($row = $base->Registro()) {
                     $obj = new Menu();
                     $obj->setear($row['idmenu'], $row['menombre'], $row['medescripcion'], $row['idpadre'], $row['medeshabilitado']);
@@ -186,7 +185,7 @@ class Menu
                 }
             }
         } else {
-            // $this->setmensajeoperacion("Menu->listar: " . $base->getError());
+            $this->setmensajeoperacion("Menu->listar: " . $base->getError());
         }
 
         return $arreglo;

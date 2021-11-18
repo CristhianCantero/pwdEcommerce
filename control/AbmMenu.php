@@ -9,15 +9,18 @@ class AbmMenu
      */
     private function cargarObjeto($param)
     {
-        $obj = null;
-        if (
-            array_key_exists('idmenu', $param) and array_key_exists('menombre', $param) and array_key_exists('medescripcion', $param)
-            and array_key_exists('idpadre', $param) and array_key_exists('medeshabilitado', $param)
-        ) {
-            $obj = new Menu();
-            $obj->setear($param['idmenu'], $param['menombre'], $param['medescripcion'], $param['idpadre'], $param['medeshabilitado']);
+        $objMenu = null;
+        if (array_key_exists('menombre', $param) && array_key_exists('medescripcion', $param) && array_key_exists('idpadre', $param)) {
+            $objMenu = new Menu();
+            $objMenu->setear(
+                '',
+                $param['menombre'],
+                $param['medescripcion'],
+                $param['idpadre'],
+                ''
+            );
         }
-        return $obj;
+        return $objMenu;
     }
 
     /**
@@ -62,7 +65,7 @@ class AbmMenu
 
         $objMenu = $this->cargarObjeto($param);
 
-        if ($objMenu != null and $objMenu->insertar()) {
+        if ($objMenu->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -113,7 +116,7 @@ class AbmMenu
     public function buscar($param)
     {
         $where = " true ";
-        if ($param <> NULL) {
+        if ($param != NULL) {
             if (isset($param['idmenu']))
                 $where .= " and idmenu ='" . $param['idmenu'] . "'";
             if (isset($param['menombre']))

@@ -6,7 +6,7 @@ $titulo = 'Nuevo Producto';
 
 $datos = data_submitted();
 
-if(!isset($datos["verificado"])){
+if (!isset($datos["verificado"])) {
     $controlIngresoManagerDeposito = new controlIngresoManagerDeposito();
     $controlIngresoManagerDeposito->verificarIngreso("nuevoProducto");
 }
