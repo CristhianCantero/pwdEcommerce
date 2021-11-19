@@ -169,4 +169,27 @@ class Usuariorol
 
         return $arreglo;
     }
+
+    public function modificar()
+    {
+        $resp = false;
+        $base = new BaseDatos();
+        $idUsuario = $this->getObjUsuario()->getIdusuario();
+        $idRol = $this->getObjRol()->getIdrol();
+        $sql = " UPDATE usuariorol SET ";
+        $sql .= " idrol = " . $idRol;
+        $sql .= " WHERE idusuario =" . $idUsuario;
+
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $resp = true;
+            } else {
+                $this->setMensajeOperacion("UsRolacion->modificar 1: " . $base->getError());
+            }
+        } else {
+            $this->setMensajeOperacion("UsRolacion->modificar 2: " . $base->getError());
+        }
+
+        return $resp;
+    }
 }

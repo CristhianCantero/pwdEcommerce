@@ -8,7 +8,7 @@ if (!isset($datos["verificado"])) {
     $controlIngresoCarrito->verificarIngreso("compras");
 }
 
-$titulo = 'Administración de Compras';
+$titulo = 'Historial de Compras';
 include_once '../estructura/header.php';
 
 $sesion = new Session();
@@ -26,7 +26,7 @@ $compras = $arrayCarritos['arrayCompras'];
 <header class="bg-dark py-1">
     <div class="container px-4 px-lg-5 my-2">
         <div class="text-center text-white">
-            <h4>Listado de Compras</h4>
+            <h4>Historial de Compras</h4>
         </div>
     </div>
 </header>
@@ -84,7 +84,7 @@ $compras = $arrayCarritos['arrayCompras'];
                                     ?>
                                     <td class='text-center'><?php echo $fechaFin ?></td>
                                     <?php
-                                    if ($idEstadoCompraTipo == 1) {
+                                    if ($idEstadoCompraTipo <= 2) {
                                     ?>
                                         <form method='post' action='../acciones/accionFinCompra.php'>
                                             <td class='text-center'>

@@ -13,11 +13,9 @@ function data_submitted()
             if ($valor == "") {
                 $_AAux[$indice] = 'null';
             }
-
         }
     }
     return $_AAux;
-
 }
 
 function verEstructura($e)
@@ -33,12 +31,13 @@ spl_autoload_register(function ($clase) {
         $GLOBALS['ROOT'] . 'modelo/',
         $GLOBALS['ROOT'] . 'modelo/conector/',
         $GLOBALS['ROOT'] . 'control/',
+        $GLOBALS['IMGS']
     );
     //print_r($directorys) ;
     foreach ($directorys as $directory) {
         if (file_exists($directory . $clase . '.php')) {
             //  echo "se incluyo".$directory. $class_name . '.php';
-            require_once ($directory . $clase . '.php');
+            require_once($directory . $clase . '.php');
             return;
         }
     }

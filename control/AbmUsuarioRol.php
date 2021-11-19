@@ -85,6 +85,21 @@ class AbmUsuarioRol
         return $resp;
     }
 
+    public function modificacion($param)
+    {
+        $resp = false;
+        $objUsRol = new UsuarioRol();
+        $abmRol = new AbmRol();
+        $listaRol = $abmRol->buscar(['idrol' => $param['idrol']]);
+        $abmUsuario = new AbmUsuario();
+        $listaUsuario = $abmUsuario->buscar(['idusuario' => $param['idusuario']]);
+        $objUsRol->setear($listaUsuario[0], $listaRol[0]);
+        if ($objUsRol->modificar()) {
+            $resp = true;
+        }
+        return $resp;
+    }
+
 
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null

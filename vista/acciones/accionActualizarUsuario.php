@@ -1,15 +1,26 @@
 <?php
-include_once "../../configuracion.php";
+include_once '../../configuracion.php';
 
 $datos = data_submitted();
+$datosBusqueda['idusuario'] = $datos['idusuario'];
+
 $abmUsuario = new AbmUsuario();
 
-$modificado = $abmUsuario->modificacion($datos);
+$lista = $abmUsuario->buscar($datosBusqueda);
 
-if ($modificado) {
-    $message = "Modificacion exitosa";
-    header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+if (isset($lista)) {
+    $exitoModificacionUsuario = $abmUsuario->modificacion($datos);
+    $abmUsuarioRol = new AbmUsuarioRol();
+    $exitoModificacionUsuarioRol = $abmUsuarioRol->modificacion($datos);
+    if ($exitoModificacionUsuario || $exitoModificacionUsuarioRol) {
+        header('Location: ../admin/administrarUsuarios.php?messageOk=' . urlencode("Usuario modificado correctamente"));
+        exit;
+    } else {
+        header('Location: ../admin/formularioModificarUsuario.php?messageErr=' . urlencode("Error en la modificación"));
+        exit;
+    }
 } else {
-    $message = "Modificacion erronea";
-    header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+    $message = "Usuario no encontrado en la base de datos";
+    header('Location: ../admin/administrarUsuarios.php?messageErr=' . urlencode($message));
+    exit;
 }
