@@ -99,6 +99,7 @@ class Usuario
         $resp = false;
         $base = new BaseDatos();
         $sql = "SELECT * FROM usuario WHERE idusuario=" . $this->getIdUsuario();
+
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -119,6 +120,7 @@ class Usuario
         $resp = false;
         $base = new BaseDatos();
         $sql = "INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) VALUES ('" . $this->getUsNombre() . "','" . $this->getUsPass() . "','" . $this->getUsMail() . "','0000-00-00 00:00:00');";
+
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdUsuario($elid);
@@ -138,6 +140,7 @@ class Usuario
         $resp = false;
         $base = new BaseDatos();
         $sql = "UPDATE usuario SET usnombre= '" . $this->getUsNombre() . "', uspass= '" . $this->getUsPass() . "', usmail= '" . $this->getUsMail() . "', usdeshabilitado= '" . $this->getUsDeshabilitado() . "' WHERE idusuario=" . $this->getIdUsuario();
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -155,6 +158,7 @@ class Usuario
         $resp = false;
         $base = new BaseDatos();
         $sql = "UPDATE usuario SET usdeshabilitado='" . $param . "' WHERE idusuario=" . $this->getIdUsuario();
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -173,6 +177,7 @@ class Usuario
         $resp = false;
         $base = new BaseDatos();
         $sql = "DELETE FROM usuario WHERE idusuario=" . $this->getIdUsuario();
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -191,10 +196,13 @@ class Usuario
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM usuario ";
+
         if ($condicion != "") {
             $sql .= 'WHERE ' . $condicion;
         }
+
         $res = $base->Ejecutar($sql);
+
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {

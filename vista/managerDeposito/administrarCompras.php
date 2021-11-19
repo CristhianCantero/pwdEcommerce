@@ -31,11 +31,12 @@ $listaComprasIniciadas = $abmComprasIniciadas->buscar(null);
                     <thead class='table-dark'>
                         <tr class='align-middle'>
                             <th scope='col' class='text-center'>ID Compra</th>
+                            <th scope='col' class='text-center'>Usuario</th>
                             <th scope='col' class='text-center'>Estado</th>
                             <th scope='col' class='text-center'>Fecha Inicio Compra</th>
                             <th scope='col' class='text-center'>Fecha Fin Compra</th>
-                            <th scope='col' class='text-center'>Aceptar/Enviar Compra</th>
-                            <th scope='col' class='text-center'>Cancelar Compra</th>
+                            <th scope='col' class='text-center'></th>
+                            <th scope='col' class='text-center'></th>
                         </tr>
                     </thead>
 
@@ -43,31 +44,31 @@ $listaComprasIniciadas = $abmComprasIniciadas->buscar(null);
                         <?php
                         if (count($listaComprasIniciadas) > 0) {
                             foreach ($listaComprasIniciadas as $compra) {
-                                $idCompra = $compra->getIdCompra()->getIdCompra(); 
+                                $objCompra = $compra->getIdCompra();
+                                $idCompra = $objCompra->getIdCompra();
                                 $idCompraEstado = $compra->getIdCompraEstado();
-                                ?>
+                                $objCliente = $objCompra->getIdUsuario();
+                        ?>
                                 <tr>
                                     <td class='text-center'><?php echo $idCompra ?></td>
                                     <?php
                                     $idEstadoCompraTipo = $compra->getIdCompraEstadoTipo()->getIdCompraEstadoTipo();
                                     switch ($idEstadoCompraTipo) {
-                                        case '1':
-                                            $estadoCompra = "Iniciada";
-                                            break;
                                         case '2':
-                                            $estadoCompra = "Aceptada";
+                                            $estadoCompra = '<span class="badge rounded-pill bg-warning text-dark">Aceptada</span>';
                                             break;
                                         case '3':
-                                            $estadoCompra = "Enviada";
+                                            $estadoCompra = '<span class="badge rounded-pill bg-success">Enviada</span>';
                                             break;
                                         case '4':
-                                            $estadoCompra = "Cancelada";
+                                            $estadoCompra = '<span class="badge rounded-pill bg-danger">Cancelada</span>';
                                             break;
                                         default:
-                                            # code...
+                                            $estadoCompra = '<span class="badge rounded-pill bg-primary">Iniciada</span>';
                                             break;
                                     }
                                     ?>
+                                    <td class='text-center'><?php echo $objCliente->getUsNombre() ?></td>
                                     <td class='text-center'><?php echo $estadoCompra ?></td>
                                     <td class='text-center'><?php echo $compra->getCeFechaIni() ?></td>
                                     <?php
@@ -83,32 +84,38 @@ $listaComprasIniciadas = $abmComprasIniciadas->buscar(null);
                                         <form method='post' action='../acciones/accionAceptarCompra.php'>
                                             <td class='text-center'>
                                                 <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompra ?>'>
-                                                <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-cart-check-fill'></i></button>
+                                                <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-cart-check-fill'></i>&nbsp;Aceptar</button>
                                             </td>
                                         </form>
                                     <?php
-                                    } else {
-                                        if($idEstadoCompraTipo == 2)
+                                    } else if ($idEstadoCompraTipo == 2) {
                                     ?>
                                         <form method='post' action='../acciones/accionEnviarCompra.php'>
                                             <td class='text-center'>
                                                 <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompra ?>'>
-                                                <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='fas fa-shipping-fast'></i></button>
+                                                <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='fas fa-shipping-fast'></i>&nbsp;Enviar</button>
                                             </td>
                                         </form>
                                     <?php
+                                    } else { ?>
+                                        <td class='text-center'></td>
+                                    <?php
                                     }
-                                    ?>
 
-                                    <form method='post' action='../acciones/accionFinCompra.php'>
-                                        <td class='text-center'>
-                                            <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompra ?>'>
-                                            <button class='btn btn-danger btn-sm' type='submit' role='button'><i class='bi bi-cart-x'></i></button>
-                                        </td>
-                                    </form>
+                                    if ($idEstadoCompraTipo == 1 || $idEstadoCompraTipo == 2) { ?>
+                                        <form method='post' action='../acciones/accionFinCompra.php'>
+                                            <td class='text-center'>
+                                                <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompra ?>'>
+                                                <button class='btn btn-danger btn-sm' type='submit' role='button'><i class='bi bi-cart-x'></i>&nbsp;Cancelar</button>
+                                            </td>
+                                        </form>
+                                    <?php
+                                    } else { ?>
+                                        <td class='text-center'></td>
                             <?php
+                                    }
+                                }
                             }
-                        }
                             ?>
                     </tbody>
                 </table>

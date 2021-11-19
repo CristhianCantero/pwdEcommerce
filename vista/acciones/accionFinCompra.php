@@ -14,8 +14,8 @@ $respuestaFinCompra = $abmComprasIniciadas->finCompra($datos);
 
 if ($respuestaFinCompra) {
     $message = "Compra finalizada exitosamente";
-    header('Location: ../managerDeposito/administrarCompras.php?Message=' . urlencode($message));
+    header('Location: ../home/index.php?Message=' . urlencode($message));
 } else {
     $message = "No se pudo finalizar la compra";
-    header('Location: ../managerDeposito/administrarCompras.php?Message=' . urlencode($message));
+    header('Location: ../home/index.php?Message=' . urlencode($message));
 }

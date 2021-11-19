@@ -15,6 +15,7 @@ if ($carrito == null) {
     $abmCarrito = new AbmCompra();
     $array = ['idusuario' => $idUser];
     $altaCarrito = $abmCarrito->alta($array);
+
     if (!$altaCarrito) {
         $message = 'Hubo un error al agregar el articulo';
         header("Location: ../cliente/listadoProductos.php?Message=" . urlencode($message));
@@ -26,27 +27,24 @@ if ($carrito == null) {
 $idCarrito = $carrito->getIdCompra();
 $arrayCargaItem = ['idproducto' => $datos['codigoProducto'], 'idcompra' => $idCarrito];
 
-?>
+$cargado = false;
+$exito = false;
+$arrayItemsCarrito = $abmCompraItem->buscar(['idcompra' => $carrito->getIdCompra()]);
 
-<div class="container mt-3">
-    <?php
-    $cargado = false;
-    $exito = false;
-    $arrayItemsCarrito = $abmCompraItem->buscar(['idcompra' => $carrito->getIdCompra()]);
-    foreach ($arrayItemsCarrito as $itemCarrito) {
-        if ($itemCarrito->getIdProducto()->getIdProducto() == $datos['codigoProducto']) {
-            $cargado = true;
-        }
+foreach ($arrayItemsCarrito as $itemCarrito) {
+    if ($itemCarrito->getIdProducto()->getIdProducto() == $datos['codigoProducto']) {
+        $cargado = true;
     }
-    if (!$cargado) {
-        $exito = $abmCompraItem->alta($arrayCargaItem);
-    }
-    if ($exito) {
-        $message = 'Agregado correctamente al carrito';
-        header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
-    } else {
-        $message = 'Hubo un error al agregar el articulo';
-        header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
-    }
-    ?>
-</div>
+}
+
+if (!$cargado) {
+    $exito = $abmCompraItem->alta($arrayCargaItem);
+}
+
+if ($exito) {
+    $message = 'Agregado correctamente al carrito';
+    header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
+} else {
+    $message = 'Hubo un error al agregar el articulo';
+    header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
+}

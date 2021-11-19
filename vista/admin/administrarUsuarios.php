@@ -25,7 +25,7 @@ include_once '../estructura/header.php';
 </header>
 <div class="container mt-2">
     <section class="py-2">
-        <div class="container px-4 px-lg-5">
+        <div class="">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <table class="table align-middle">
                     <thead class="table-dark">
@@ -36,9 +36,9 @@ include_once '../estructura/header.php';
                             <th scope='col' class='text-center'>Contraseña</th>
                             <th scope="col" class='text-center'>Email</th>
                             <th scope="col" class='text-center'>Fecha Deshabilitado</th>
-                            <th scope='col' class='text-center'>Editar</th>
-                            <th scope='col' class='text-center'>Eliminar</th>
-                            <th scope='col' class='text-center'>Deshabilitar</th>
+                            <th scope='col' class='text-center'></th>
+                            <th scope='col' class='text-center'></th>
+                            <th scope='col' class='text-center'></th>
                         </tr>
                     </thead>
 
@@ -93,20 +93,30 @@ include_once '../estructura/header.php';
                             <form method='post' action='actualizarUsuario.php'>
                                 <td class='text-center'>
                                     <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
-                                    <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i></button>
+                                    <button class='btn btn-warning btn-sm' type='submit' role='button'><i class='bi bi-pencil-square'></i>&nbsp;Editar</button>
                                 </td>
                             </form>
 
                             <form method='post' action='eliminarUsuario.php'>
                                 <td class='text-center'>
                                     <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
-                                    <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i></button>
+                                    <button class='btn btn-danger btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='bi bi-trash'></i>&nbsp;Eliminar</button>
                                 </td>
                             </form>
+
+
                             <form method='post' action='deshabilitarUsuario.php'>
                                 <td class='text-center'>
                                     <input name='idusuario' id='idusuario' type='hidden' value='<?php echo $id ?>'>
-                                    <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i></button>
+                                    <?php
+                                    if ($usuario->getUsdeshabilitado() == "0000-00-00 00:00:00") { ?>
+                                        <button class='btn btn-secondary btn-sm' type='submit' value='<?php $id ?>' role='button'><i class='fas fa-ban'></i>&nbsp;Deshabilitar</button>
+                                    <?php
+                                    } else { ?>
+                                        <button class='btn btn-success btn-sm' type='submit' value='<?php $id ?>' role='button'><i class="fas fa-check-circle"></i>&nbsp;Habilitar</button>
+                                    <?php
+                                    }
+                                    ?>
                                 </td>
                             </form>
                             </tr>

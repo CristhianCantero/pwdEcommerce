@@ -7,7 +7,6 @@ class CompraEstadoTipo
     private $cetdetalle;
     private $mensajeoperacion;
 
-
     public function __construct()
     {
         $this->idcompraestadotipo = "";
@@ -15,28 +14,28 @@ class CompraEstadoTipo
         $this->cetdetalle = "";
         $this->mensajeoperacion = "";
     }
-    
+
     // Getters
     public function getIdCompraEstadoTipo()
     {
         return $this->idcompraestadotipo;
     }
-    
+
     public function getCetDescripcion()
     {
         return $this->cetdescripcion;
     }
-    
+
     public function getCetDetalle()
     {
         return $this->cetdetalle;
     }
-    
+
     public function getmensajeoperacion()
     {
         return $this->mensajeoperacion;
     }
-    
+
     // Setters
     public function setIdCompraEstadoTipo($idcompraestadotipo)
     {

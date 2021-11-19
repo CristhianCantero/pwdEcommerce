@@ -9,7 +9,6 @@ class Menu
     private $medeshabilitado;
     private $mensajeoperacion;
 
-
     // Constructor
     public function __construct()
     {
@@ -38,20 +37,9 @@ class Menu
         return $this->medescripcion;
     }
 
-
-    public function setIdMenu($idmenu)
-    {
-        $this->idmenu = $idmenu;
-    }
-
     public function getIdPadre()
     {
         return $this->idpadre;
-    }
-
-    public function setMeNombre($menombre)
-    {
-        $this->menombre = $menombre;
     }
 
     public function getMeDeshabilitado()
@@ -65,6 +53,16 @@ class Menu
     }
 
     // Setters
+    public function setIdMenu($idmenu)
+    {
+        $this->idmenu = $idmenu;
+    }
+
+    public function setMeNombre($menombre)
+    {
+        $this->menombre = $menombre;
+    }
+
     public function setMeDescripcion($medescripcion)
     {
         $this->medescripcion = $medescripcion;

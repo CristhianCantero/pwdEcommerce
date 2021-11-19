@@ -185,6 +185,7 @@ class Producto
         } else {
             $this->setMensajeOperacion("Producto->insertar: " . $base->getError());
         }
+
         return $resp;
     }
 
@@ -202,6 +203,7 @@ class Producto
         } else {
             $this->setmensajeoperacion("Producto->modificar: " . $base->getError());
         }
+
         return $resp;
     }
 
@@ -210,6 +212,7 @@ class Producto
         $resp = false;
         $base = new BaseDatos();
         $sql = "DELETE FROM producto WHERE idproducto='" . $this->getIdProducto() . "'";
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -219,6 +222,7 @@ class Producto
         } else {
             $this->setmensajeoperacion("Producto->eliminar: " . $base->getError());
         }
+
         return $resp;
     }
 
@@ -227,10 +231,13 @@ class Producto
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM producto ";
+
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
+
         $res = $base->Ejecutar($sql);
+
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
@@ -252,6 +259,7 @@ class Producto
         $resp = false;
         $base = new BaseDatos();
         $sql = "UPDATE producto SET prodeshabilitado= '" . $param . "' WHERE idproducto='" . $this->getIdProducto() . "'";
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -261,6 +269,7 @@ class Producto
         } else {
             $this->setmensajeoperacion("Producto->estado: " . $base->getError());
         }
+
         return $resp;
     }
 }

@@ -23,6 +23,7 @@ if ($exito) {
 
     $abmUsuarioRol = new AbmUsuarioRol();
     $exitoUsuarioRol = $abmUsuarioRol->alta($arrayRolUsuario);
+
     if ($exitoUsuarioRol) {
         $message = 'Se cargo correctamente el usuario y el rol';
         header("Location: ../home/index.php?Message=" . urlencode($message));

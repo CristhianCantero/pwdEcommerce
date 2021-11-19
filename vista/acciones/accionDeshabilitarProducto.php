@@ -9,6 +9,7 @@ $abmProducto = new AbmProducto();
 $arrayBusqueda = ["idproducto" => $datos['idproducto']];
 
 $respuestaDeshabilitado = $abmProducto->deshabilitarProd($arrayBusqueda);
+
 if ($respuestaDeshabilitado) {
     $message = "Deshabilitacion exitosa";
     header('Location: ../managerDeposito/administrarProductos.php?Message=' . urlencode($message));

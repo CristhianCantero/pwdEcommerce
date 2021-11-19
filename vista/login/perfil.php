@@ -7,7 +7,6 @@ if (!$sesion->activa()) {
     header('Location: ../login.php');
     exit;
 }
-
 $titulo = 'Perfil Usuario';
 
 include_once "../estructura/header.php";

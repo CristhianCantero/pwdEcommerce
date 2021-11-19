@@ -9,7 +9,6 @@ class CompraEstado
     private $cefechafin;
     private $mensajeoperacion;
 
-
     public function __construct()
     {
         $this->idcompraestado = "";
@@ -19,38 +18,38 @@ class CompraEstado
         $this->cefechafin = "";
         $this->mensajeoperacion = "";
     }
-    
+
     // Getters
     public function getIdCompraEstado()
     {
         return $this->idcompraestado;
     }
-    
+
     public function getIdCompra()
     {
         return $this->idcompra;
     }
-    
+
     public function getIdCompraEstadoTipo()
     {
         return $this->idcompraestadotipo;
     }
-    
+
     public function getCeFechaIni()
     {
         return $this->cefechaini;
     }
-    
+
     public function getCeFechaFin()
     {
         return $this->cefechafin;
     }
-    
+
     public function getmensajeoperacion()
     {
         return $this->mensajeoperacion;
     }
-    
+
     // Setters
     public function setIdCompraEstado($idcompraestado)
     {
@@ -81,7 +80,7 @@ class CompraEstado
     {
         $this->mensajeoperacion = $msj;
     }
-    
+
     // Metodos
     public function setear($idcompraestado, $idcompra, $idcompraestadotipo, $cefechaini, $cefechafin)
     {
@@ -132,7 +131,7 @@ class CompraEstado
         $base = new BaseDatos();
         $objCompra = $this->getIdCompra();
         $objCompraEstadoTipo = $this->getIdCompraEstadoTipo();
-        $sql = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechafin) VALUES (".$objCompra->getIdCompra().",".$objCompraEstadoTipo->getIdCompraEstadoTipo().", '0000-00-00 00:00:00')";
+        $sql = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechafin) VALUES (" . $objCompra->getIdCompra() . "," . $objCompraEstadoTipo->getIdCompraEstadoTipo() . ", '0000-00-00 00:00:00')";
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdCompraEstado($base);

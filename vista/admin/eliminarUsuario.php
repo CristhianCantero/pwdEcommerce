@@ -1,10 +1,5 @@
 <?php
-// include_once '../../configuracion.php';
-
 $titulo = 'Confirmación de Eliminación';
-
-// $controlIngresoAdmin = new controlIngresoAdmin();
-// $controlIngresoAdmin->verificarIngreso("eliminarUsuario");
 
 include_once '../estructura/header.php';
 

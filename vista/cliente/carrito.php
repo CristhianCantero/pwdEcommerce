@@ -1,5 +1,4 @@
 <?php
-
 include_once '../../configuracion.php';
 
 $datos = data_submitted();

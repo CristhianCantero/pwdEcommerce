@@ -8,7 +8,6 @@ class CompraItem
     private $cicantidad;
     private $mensajeoperacion;
 
-
     public function __construct()
     {
         $this->idcompraitem = "";
@@ -17,18 +16,18 @@ class CompraItem
         $this->cicantidad = "";
         $this->mensajeoperacion = "";
     }
-    
-    // Setters
+
+    // Getters
     public function getIdCompraItem()
     {
         return $this->idcompraitem;
     }
-    
+
     public function getIdProducto()
     {
         return $this->idproducto;
     }
-    
+
     public function getIdCompra()
     {
         return $this->idcompra;
@@ -38,12 +37,12 @@ class CompraItem
     {
         return $this->cicantidad;
     }
-    
+
     public function getmensajeoperacion()
     {
         return $this->mensajeoperacion;
     }
-    
+
     // Setters
     public function setIdCompraItem($idcompraitem)
     {
@@ -69,7 +68,7 @@ class CompraItem
     {
         $this->mensajeoperacion = $msj;
     }
-    
+
     // Metodos
     public function setear($idcompraitem, $idproducto, $idcompra, $cicantidad)
     {

@@ -1,11 +1,9 @@
 <?php
 $titulo = 'Registro de usuario';
 include_once '../estructura/header.php';
-
 ?>
 
 <div class="container mt-2">
-
     <h4 class="text-center">Registro</h4>
     <div class="col-md-4"></div>
     <div class="offset-md-4">

@@ -11,26 +11,22 @@ if (!$sesion->activa()) {
 
 $abmUsuario = new AbmUsuario();
 
-?>
+$idUsuarioSesion = $sesion->getIdUsuario();
 
-<div class="container mt-3">
-    <?php
-
-    $idUsuarioSesion = $sesion->getIdUsuario();
-    if (isset($datos)) {
-        if ($datos['idusuario'] == $idUsuarioSesion) {
-            $message = "No se puede deshabilitar a si mismo";
-            header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
-            exit;
-        }
-        $exito = $abmUsuario->baja($datos);
-        if ($exito) {
-            $message = 'Eliminacion exitosa';
-            header("Location: ../admin/administrarUsuarios.php?Message=" . urlencode($message));
-        } else {
-            $message = 'Eliminacion erronea';
-            header("Location: ../admin/administrarUsuarios.php?Message=" . urlencode($message));
-        }
+if (isset($datos)) {
+    if ($datos['idusuario'] == $idUsuarioSesion) {
+        $message = "No se puede deshabilitar a si mismo";
+        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
+        exit;
     }
-    ?>
-</div>
+
+    $exito = $abmUsuario->baja($datos);
+
+    if ($exito) {
+        $message = 'Eliminacion exitosa';
+        header("Location: ../admin/administrarUsuarios.php?Message=" . urlencode($message));
+    } else {
+        $message = 'Eliminacion erronea';
+        header("Location: ../admin/administrarUsuarios.php?Message=" . urlencode($message));
+    }
+}

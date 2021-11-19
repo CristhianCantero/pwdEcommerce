@@ -54,6 +54,7 @@ class Rol
         $resp = false;
         $base = new BaseDatos();
         $sql = "SELECT * FROM rol WHERE idrol = " . $this->getIdRol();
+
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -77,6 +78,7 @@ class Rol
         $resp = false;
         $base = new BaseDatos();
         $sql = "UPDATE rol SET rodescripcion = '{$this->getRolDescripcion()}' WHERE idrol = '" . $this->getIdRol() . "'";
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -95,6 +97,7 @@ class Rol
         $resp = false;
         $base = new BaseDatos();
         $sql = "DELETE FROM 'rol' WHERE idrol = '" . $this->getIdRol() . "'";
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;

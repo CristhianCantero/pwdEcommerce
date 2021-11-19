@@ -1,12 +1,5 @@
 <?php
-// include_once '../../configuracion.php';
-
 $titulo = 'Actualizar Usuario';
-
-// if(!isset($datos["verificado"]){
-//     $controlIngresoAdmin = new controlIngresoAdmin();
-//     $controlIngresoAdmin->verificarIngreso("actualizarUsuario");
-// }
 
 include_once '../estructura/header.php';
 

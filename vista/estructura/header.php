@@ -157,15 +157,15 @@ $enlace = "";
                                 <?php
                                 switch ($roles[0]) {
                                     case 1: ?>
-                                        <a class="dropdown-item" href="#">&nbsp;<span class="fas fa-user-tag" aria-hidden="true" title="Admin"></span>&nbsp;Admin</a>
+                                        <a class="dropdown-item" disabled="disabled">&nbsp;<i class="fas fa-id-badge"></i>&nbsp;&nbsp;Rol: Admin</a>
                                     <?php
                                         break;
                                     case 2: ?>
-                                        <a class="dropdown-item" href="#">&nbsp;<span class="fas fa-id-card-alt" aria-hidden="true" title="Manager Deposito"></span>&nbsp;Manager Deposito</a>
+                                        <a class="dropdown-item" disabled="disabled">&nbsp;<i class="fas fa-id-badge"></i>&nbsp;&nbsp;Rol: Depósito</a>
                                     <?php
                                         break;
                                     default: ?>
-                                        <a class="dropdown-item" href="#">&nbsp;<span class="fas fa-id-card-alt" aria-hidden="true" title="Cliente"></span>&nbsp;Cliente</a>
+                                        <a class="dropdown-item" disabled="disabled">&nbsp;<i class="fas fa-id-badge"></i>&nbsp;&nbsp;Rol: Cliente</a>
                                 <?php
                                         break;
                                 }
@@ -183,7 +183,7 @@ $enlace = "";
                         ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Usuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user-cog"></i> <span class="d-lg-none">Roles</span>
+                                    <i class="fas fa-eye"></i> <span class="">Ver Como</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
 

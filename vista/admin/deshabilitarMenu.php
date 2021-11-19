@@ -1,9 +1,6 @@
 <?php
 include_once '../../configuracion.php';
 
-// $controlIngresoAdmin = new controlIngresoAdmin();
-// $controlIngresoAdmin->verificarIngreso("deshabilitarMenu");
-
 $datos = data_submitted();
 $abmMenu = new AbmMenu();
 

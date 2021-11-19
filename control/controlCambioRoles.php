@@ -10,13 +10,11 @@ if (!$sesion->activa()) {
 } else {
     $datos = data_submitted();
     $roles = $sesion->getUsRoles();
-    // print_r($roles);
     $rolesSesion = array($roles[0]);
     switch ($datos['rol']) {
         case md5(1):
             if ($rolesSesion[0] != 1) {
-                $rolesSesion[1] = 1;
-                // print_r($rolesSesion);
+                $rolesSesion[1] = 1;;
                 $sesion->setUsRoles($rolesSesion);
                 print_r($sesion->getUsRoles());
             } else {
@@ -27,7 +25,6 @@ if (!$sesion->activa()) {
         case md5(2):
             if ($rolesSesion[0] != 2) {
                 $rolesSesion[1] = 2;
-                // print_r($rolesSesion);
                 $sesion->setUsRoles($rolesSesion);
                 print_r($sesion->getUsRoles());
             } else {
@@ -38,7 +35,6 @@ if (!$sesion->activa()) {
         case md5(3):
             if ($rolesSesion[0] != 3) {
                 $rolesSesion[1] = 3;
-                // print_r($rolesSesion);
                 $sesion->setUsRoles($rolesSesion);
                 print_r($sesion->getUsRoles());
             } else {

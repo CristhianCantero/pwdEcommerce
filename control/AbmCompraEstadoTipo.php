@@ -59,7 +59,6 @@ class AbmCompraEstadoTipo
 
     public function modificacion($param)
     {
-        //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $objCompraEstadoTipo = $this->cargarObjeto($param);

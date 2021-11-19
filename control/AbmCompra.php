@@ -8,12 +8,12 @@ class AbmCompra
             array_key_exists('idusuario', $param)
         ) {
 
-            //creo objeto usuario
+            // Creo objeto usuario
             $objUsuario = new Usuario();
             $objUsuario->setIdUsuario($param['idusuario']);
             $objUsuario->cargar();
 
-            //agregarle los otros objetos
+            // Agregarle los otros objetos
             $obj = new Compra();
             $obj->setear('', '', $objUsuario);
         }
@@ -41,7 +41,6 @@ class AbmCompra
     public function alta($param)
     {
         $resp = false;
-        // $param['idcompra'] = null;
         $objCompra = $this->cargarObjeto($param);
         print_r($objCompra);
         if ($objCompra != null and $objCompra->insertar()) {
@@ -50,21 +49,8 @@ class AbmCompra
         return $resp;
     }
 
-    /* public function baja($param){
-        $resp = false;
-        if ($this->seteadosCamposClaves($param)){
-            $objCompra = $this->cargarObjetoConClave($param);
-            if ($objCompra!=null and $objCompra->eliminar()){
-                $resp = true;
-            }
-        }
-        
-        return $resp;
-    } */
-
     public function modificacion($param)
     {
-        //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $objCompra = $this->cargarObjeto($param);

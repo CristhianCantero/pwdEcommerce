@@ -1,11 +1,6 @@
 <?php
 $titulo = 'Actualizar Menú';
 
-// if (!isset($datos["verificado"])) {
-//     $controlIngresoAdmin = new controlIngresoAdmin();
-//     $controlIngresoAdmin->verificarIngreso("actualizarMenu");
-// }
-
 include_once '../estructura/header.php';
 
 $datos = data_submitted();

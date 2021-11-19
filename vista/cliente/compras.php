@@ -42,7 +42,7 @@ $compras = $arrayCarritos['arrayCompras'];
                             <th scope='col' class='text-center'>Estado</th>
                             <th scope='col' class='text-center'>Fecha Inicio Compra</th>
                             <th scope='col' class='text-center'>Fecha Fin Compra</th>
-                            <th scope='col' class='text-center'>Cancelar Compra</th>
+                            <th scope='col' class='text-center'></th>
                         </tr>
                     </thead>
 
@@ -50,7 +50,6 @@ $compras = $arrayCarritos['arrayCompras'];
                         <?php
                         if (count($compras) > 0) {
                             foreach ($compras as $compra) {
-                                // print_r($compra->getIdCompra());
                                 $idCompra = $compra->getIdCompra();
                                 $abmCompraEstado = new AbmCompraEstado();
                                 $compraEstado = $abmCompraEstado->buscar(['idcompra' => $idCompra]);
@@ -61,20 +60,17 @@ $compras = $arrayCarritos['arrayCompras'];
                                     <?php
                                     $idEstadoCompraTipo = $compraEstado[0]->getIdCompraEstadoTipo()->getIdCompraEstadoTipo();
                                     switch ($idEstadoCompraTipo) {
-                                        case '1':
-                                            $estadoCompra = "Iniciada";
-                                            break;
                                         case '2':
-                                            $estadoCompra = "Aceptada";
+                                            $estadoCompra = '<span class="badge rounded-pill bg-warning text-dark">Aceptada</span>';
                                             break;
                                         case '3':
-                                            $estadoCompra = "Enviada";
+                                            $estadoCompra = '<span class="badge rounded-pill bg-success">Enviada</span>';
                                             break;
                                         case '4':
-                                            $estadoCompra = "Cancelada";
+                                            $estadoCompra = '<span class="badge rounded-pill bg-danger">Cancelada</span>';
                                             break;
                                         default:
-                                            # code...
+                                            $estadoCompra = '<span class="badge rounded-pill bg-primary">Iniciada</span>';
                                             break;
                                     }
                                     ?>
@@ -93,7 +89,7 @@ $compras = $arrayCarritos['arrayCompras'];
                                         <form method='post' action='../acciones/accionFinCompra.php'>
                                             <td class='text-center'>
                                                 <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompraEstado ?>'>
-                                                <button class='btn btn-danger btn-sm' type='submit' role='button'><i class='bi bi-cart-x'></i></button>
+                                                <button class='btn btn-danger btn-sm' type='submit' role='button'><i class='bi bi-cart-x'></i>&nbsp;Cancelar</button>
                                             </td>
                                         </form>
                                     <?php

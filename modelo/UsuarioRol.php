@@ -46,7 +46,7 @@ class Usuariorol
         $this->mensajeoperacion = $mensajeoperacion;
     }
 
-    /** SETEAR **/
+    // Metodos
     public function setear($idusuario, $idrol)
     {
         $this->setobjusuario($idusuario);
@@ -59,6 +59,7 @@ class Usuariorol
         $resp = false;
         $base = new BaseDatos();
         $sql = "SELECT * FROM usuariorol WHERE idusuario = " . $this->getObjUsuario() . "and idrol =" . $this->getObjRol();
+
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -82,6 +83,7 @@ class Usuariorol
         } else {
             $this->setmensajeoperacion("usuariorol->listar: " . $base->getError());
         }
+
         return $resp;
     }
 
@@ -92,6 +94,7 @@ class Usuariorol
         $resp = false;
         $base = new BaseDatos();
         $sql = "INSERT INTO usuariorol (idusuario,idrol)  VALUES ('" . $this->getObjUsuario()->getIdUsuario() . "','" . $this->getObjRol()->getIdRol() . "')";
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -101,6 +104,7 @@ class Usuariorol
         } else {
             $this->setmensajeoperacion("usuariorol->insertar: " . $base->getError());
         }
+
         return $resp;
     }
 
@@ -111,6 +115,7 @@ class Usuariorol
         $resp = false;
         $base = new BaseDatos();
         $sql = "DELETE FROM usuariorol WHERE idusuario = " . $this->getObjUsuario() . "and idrol =" . $this->getObjRol();
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -120,6 +125,7 @@ class Usuariorol
         } else {
             $this->setmensajeoperacion("usuariorol->eliminar: " . $base->getError());
         }
+
         return $resp;
     }
 
@@ -130,10 +136,13 @@ class Usuariorol
         $arreglo = array();
         $base = new BaseDatos();
         $consultasql = "SELECT * FROM usuariorol ";
+
         if ($parametro != "") {
             $consultasql .= 'WHERE ' . $parametro;
         }
+
         $res = $base->Ejecutar($consultasql);
+
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
@@ -155,8 +164,9 @@ class Usuariorol
                 }
             }
         } else {
-            // $this->setmensajeoperacion("Auto->listar: ".$base->getError());
+            $this->setmensajeoperacion("Auto->listar: " . $base->getError());
         }
+
         return $arreglo;
     }
 }
