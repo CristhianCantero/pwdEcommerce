@@ -35,6 +35,8 @@ class controlCargaImagenes
         $nombreArchivoImagen = md5($idProducto) . ".jpeg";
         $dir = $GLOBALS['IMGS'] . $nombreArchivoImagen;
 
-        unlink($dir);
+        if (!is_null($dir)) {
+            unlink($dir);
+        }
     }
 }

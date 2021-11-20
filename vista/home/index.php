@@ -29,12 +29,14 @@ shuffle($listaProductos);
                 for ($cont_prod = 0; $cont_prod <= 7; $cont_prod++) {
                     $producto = $listaProductos[$cont_prod];
                     $deshabilitado = $producto->getProDeshabilitado();
+                    $idHash = md5($producto->getIdProducto());
+                    $idHashImg = strtolower($idHash);
                     if ($deshabilitado == "0000-00-00 00:00:00" && $producto->getProCantStock() > 0) { ?>
                         <div class='col mb-5'>
                             <div class='card shadow h-100'>
                                 <?php
                                 if ($producto->getProCantStock() == 1) { ?>
-                                    <div class='badge rounded-pill bg-danger position-absolute' style='top: 0.5rem; left: 0.5rem'><i class="fas fa-box"></i></i>&nbsp;Último en stock</span></div>
+                                    <div class='badge rounded-pill bg-danger position-absolute' style='top: 0.5rem; left: 0.5rem'><i class="fas fa-box"></i>&nbsp;Último en stock</span></div>
                                 <?php
                                 } else if ($producto->getProCantStock() > 1 && $producto->getProCantStock() <= 4) { ?>
                                     <div class='badge rounded-pill bg-warning position-absolute' style='top: 0.5rem; left: 0.5rem'><i class="fas fa-boxes"></i>&nbsp;Últimos en stock: <?php echo $producto->getProCantStock() ?></span></div>
@@ -46,7 +48,7 @@ shuffle($listaProductos);
                                 <?php
                                 } ?>
 
-                                <img class='card-img-top' src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg' alt='Imagen de una autoparte' />
+                                <img class='card-img-top img-producto-listado' src='../../uploads/img/<?php echo $idHashImg . ".jpeg"; ?>' alt='Imagen de una autoparte' />
 
                                 <div class='card-body p-4'>
                                     <div class='text-center'>
