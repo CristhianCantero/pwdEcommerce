@@ -98,6 +98,20 @@ $totalFinalCompra = 0;
                                                 </form>
                                                 <p class="mb-0"><span>Precio x unidad: <strong>$<?php echo $precio ?>.-</strong></span></p>
                                             </div>
+                                            <?php
+                                            $stockFinal = $producto->getProCantStock() - $unidades;
+                                            if ($stockFinal == 0) {
+                                            ?>
+                                                <span class="badge rounded-pill bg-warning text-black">STOCK MINIMO</span>
+                                                <?php
+                                            } else {
+                                                if ($stockFinal < 0) {
+                                                ?>
+                                                    <span class="badge rounded-pill bg-danger">SIN STOCK</span>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>

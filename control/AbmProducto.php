@@ -98,6 +98,21 @@ class AbmProducto
         return $resp;
     }
 
+    public function chequearStock($param)
+    {
+        $resp = false;
+        $idProducto = $param->getIdProducto()->getIdProducto();
+        $objProducto = $this->cargarObjetoConClave(["idproducto"=>$idProducto]);
+        $listadoProductos = $objProducto->listar("idproducto='" . $idProducto . "'");
+        if (count($listadoProductos) > 0) {
+            $stock = $listadoProductos[0]->getProCantStock();
+            if($stock>=$param->getCiCantidad()){
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+
     public function buscar($param)
     {
         $where = " true ";

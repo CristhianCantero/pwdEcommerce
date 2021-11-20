@@ -193,7 +193,7 @@ class Producto
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE producto SET idproducto='" . $this->getIdProducto() . "', proprecio=" . $this->getProPrecio() . ", prodescuento=" . $this->getProDescuento() . ", pronombre='" . $this->getProNombre() . "', prodetalle='" . $this->getProDetalle() . "', provecescomprado=" . $this->getProVecesComprado() . ", procantstock=" . $this->getProCantStock() . ", prodeshabilitado='0000-00-00 00:00:00' WHERE idproducto='" . $this->getIdProducto() . "'";
+        $sql = "UPDATE producto SET proprecio=" . $this->getProPrecio() . ", prodescuento=" . $this->getProDescuento() . ", pronombre='" . $this->getProNombre() . "', prodetalle='" . $this->getProDetalle() . "', provecescomprado=" . $this->getProVecesComprado() . ", procantstock=" . $this->getProCantStock() . ", prodeshabilitado='0000-00-00 00:00:00' WHERE idproducto='" . $this->getIdProducto() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;

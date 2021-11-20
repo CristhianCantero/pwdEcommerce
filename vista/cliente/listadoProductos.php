@@ -18,7 +18,7 @@ $listaProductos = $abmProductos->buscar(null);
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php
                 if (count($listaProductos) > 0) {
-                    for ($cont_prod = 0; $cont_prod <= 7; $cont_prod++) {
+                    for ($cont_prod = 0; $cont_prod <= count($listaProductos) - 1; $cont_prod++) {
                         $producto = $listaProductos[$cont_prod];
                         $deshabilitado = $producto->getProDeshabilitado();
                         if ($deshabilitado == "0000-00-00 00:00:00") { ?>
@@ -36,7 +36,6 @@ $listaProductos = $abmProductos->buscar(null);
                                         <div class='text-center'>
                                             <h5 class='fw-bolder'><?php echo $producto->getProNombre() ?></h5>
                                             <p><?php echo $producto->getProDetalle() ?></p>
-
                                             <?php
                                             if ($producto->getProDescuento() > 0) {
                                                 $precio = $producto->getProPrecio();
@@ -46,6 +45,27 @@ $listaProductos = $abmProductos->buscar(null);
                                                 <span>$<?php echo $producto->getProPrecio() ?></span>
                                             <?php
                                             } ?>
+                                            <!-- <br> -->
+                                            <div class="mt-4">
+                                                <?php
+                                                if ($producto->getProCantStock() <= 1) {
+                                                ?>
+                                                    <img class="align-middle" src="../assets/img/semaforo-stock-rojo.jpg" width="70" height="33" alt="Sin/Muy poco stock" title="Sin/Muy poco stock">
+                                                    <?php
+                                                } else {
+                                                    if ($producto->getProCantStock() > 1 && $producto->getProCantStock() <= 4) {
+                                                    ?>
+                                                        <img class="align-middle" src="../assets/img/semaforo-stock-amarillo.jpg" width="70" height="33" alt="Poco stock" title="Poco stock">
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <img class="align-middle" src="../assets/img/semaforo-stock-verde.jpg" width="70" height="33" alt="En stock" title="En stock">
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+
+                                            </div>
                                         </div>
                                     </div>
                                     <?php
