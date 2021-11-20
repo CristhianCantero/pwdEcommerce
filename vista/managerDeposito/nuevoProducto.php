@@ -24,7 +24,7 @@ include_once '../estructura/header.php';
 <div class="container mt-3">
     <div class="col-md-4"></div>
     <div class="offset-md-4">
-        <form action="../acciones/accionNuevoProducto.php" method="post" class="col-md-6 mt-3 " id="productoNuevo" name="productoNuevo">
+        <form action="../acciones/accionNuevoProducto.php" method="post" enctype="multipart/form-data" class="col-md-6 mt-3 " id="productoNuevo" name="productoNuevo">
             <div class="">
                 <div class="form-floating mb-3">
                     <input class="form-control" id="idproducto" name="idproducto" type="text" placeholder="Codigo producto" required>
@@ -67,8 +67,15 @@ include_once '../estructura/header.php';
                 </div>
             </div>
 
+            <div class="col-md-6">
+                <div class="mt-3">
+                    <label class="mb-2" for="imagen">Imagen de producto</label>
+                    <input type="file" name="imagen" id="imagen" required>
+                </div>
+            </div>
+
             <input class="form-control" id="provecescomprado" name="provecescomprado" type="number" value="0" hidden>
-            <div class=" mb-3">
+            <div class="mt-4">
                 <div class="d-grid">
                     <button class="btn btn-primary" type="submit">Enviar</button>
                 </div>

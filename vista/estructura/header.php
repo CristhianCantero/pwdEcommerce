@@ -111,29 +111,33 @@ $enlace = "";
                     <?php
                     if (($sesion->activa())) {
                         $clienteActivo = false;
+
                         foreach ($roles as $rol) {
                             if ($rol == 3) {
                                 $clienteActivo = true;
                             }
                         }
+
                         if ($clienteActivo) {
                             $controlVerificarCarrito = new controlVerificarCarritoCliente();
                             $arrayCarritos = $controlVerificarCarrito->verificarCarrito($idUser);
                             $carrito = $arrayCarritos['carritoHabilitado'];
+
                             if ($carrito <> "") {
                                 $abmItemsCarrito = new AbmCompraItem();
                                 $compraItems = $abmItemsCarrito->buscar(['idcompra' => $carrito->getIdCompra()]);
                                 $cantidadItemsCarrito = count($compraItems);
                             }
                         }
-                    }
-                    if ($rol == 3) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../cliente/carrito.php" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span><span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cantidadItemsCarrito; ?></span>
-                            </a>
-                        </li>
-                    <?php
+
+                        if ($rol == 3) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../cliente/carrito.php" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span><span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cantidadItemsCarrito; ?></span>
+                                </a>
+                            </li>
+                        <?php
+                        }
                     }
                     if (!$sesion->activa()) { ?>
                         <!-- Visitante -->

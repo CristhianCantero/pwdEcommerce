@@ -21,16 +21,26 @@ $listaProductos = $abmProductos->buscar(null);
                     for ($cont_prod = 0; $cont_prod <= count($listaProductos) - 1; $cont_prod++) {
                         $producto = $listaProductos[$cont_prod];
                         $deshabilitado = $producto->getProDeshabilitado();
-                        if ($deshabilitado == "0000-00-00 00:00:00") { ?>
+                        $idHash = md5($producto->getIdProducto());
+                        $idHashImg = strtolower($idHash);
+                        if ($deshabilitado == "0000-00-00 00:00:00" && $producto->getProCantStock() > 0) { ?>
                             <div class='col mb-5'>
                                 <div class='card shadow h-100'>
                                     <?php
+                                    if ($producto->getProCantStock() == 1) { ?>
+                                        <div class='badge rounded-pill bg-danger position-absolute' style='top: 0.5rem; left: 0.5rem'><i class="fas fa-box"></i>&nbsp;Último en stock</span></div>
+                                    <?php
+                                    } else if ($producto->getProCantStock() > 1 && $producto->getProCantStock() <= 4) { ?>
+                                        <div class='badge rounded-pill bg-warning position-absolute' style='top: 0.5rem; left: 0.5rem'><i class="fas fa-boxes"></i>&nbsp;Últimos en stock: <?php echo $producto->getProCantStock() ?></span></div>
+                                    <?php
+                                    }
+
                                     if ($producto->getProDescuento() > 0) { ?>
                                         <div class='badge bg-dark text-white position-absolute' style='top: 0.5rem; right: 0.5rem'>Oferta<span>&nbsp;<?php echo $producto->getProDescuento() ?>%</span></div>
                                     <?php
                                     } ?>
 
-                                    <img class='card-img-top' src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg' alt='Imagen de una autoparte' />
+                                    <img class='card-img-top' src='../../uploads/img/<?php echo $idHashImg . ".jpeg"; ?>' alt='Imagen de una autoparte' />
 
                                     <div class='card-body p-4'>
                                         <div class='text-center'>
@@ -45,27 +55,6 @@ $listaProductos = $abmProductos->buscar(null);
                                                 <span>$<?php echo $producto->getProPrecio() ?></span>
                                             <?php
                                             } ?>
-                                            <!-- <br> -->
-                                            <div class="mt-4">
-                                                <?php
-                                                if ($producto->getProCantStock() <= 1) {
-                                                ?>
-                                                    <img class="align-middle" src="../assets/img/semaforo-stock-rojo.jpg" width="70" height="33" alt="Sin/Muy poco stock" title="Sin/Muy poco stock">
-                                                    <?php
-                                                } else {
-                                                    if ($producto->getProCantStock() > 1 && $producto->getProCantStock() <= 4) {
-                                                    ?>
-                                                        <img class="align-middle" src="../assets/img/semaforo-stock-amarillo.jpg" width="70" height="33" alt="Poco stock" title="Poco stock">
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <img class="align-middle" src="../assets/img/semaforo-stock-verde.jpg" width="70" height="33" alt="En stock" title="En stock">
-                                                <?php
-                                                    }
-                                                }
-                                                ?>
-
-                                            </div>
                                         </div>
                                     </div>
                                     <?php
