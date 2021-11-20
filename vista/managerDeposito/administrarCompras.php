@@ -102,7 +102,7 @@ $listaComprasIniciadas = $abmComprasIniciadas->buscar(null);
                                     <?php
                                     }
 
-                                    if ($idEstadoCompraTipo == 1 || $idEstadoCompraTipo == 2) { ?>
+                                    if ($idEstadoCompraTipo <= 3) { ?>
                                         <form method='post' action='../acciones/accionFinCompra.php'>
                                             <td class='text-center'>
                                                 <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompra ?>'>

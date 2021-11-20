@@ -127,14 +127,14 @@ $enlace = "";
                             }
                         }
                     }
-                    ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../cliente/carrito.php" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span><span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cantidadItemsCarrito; ?></span>
-                        </a>
-                    </li>
-
+                    if ($rol == 3) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../cliente/carrito.php" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span><span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cantidadItemsCarrito; ?></span>
+                            </a>
+                        </li>
                     <?php
+                    }
                     if (!$sesion->activa()) { ?>
                         <!-- Visitante -->
                         <li class="nav-item dropdown">

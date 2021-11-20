@@ -23,7 +23,7 @@ $listaProductos = $abmProductos->buscar(null);
                         $deshabilitado = $producto->getProDeshabilitado();
                         if ($deshabilitado == "0000-00-00 00:00:00") { ?>
                             <div class='col mb-5'>
-                                <div class='card h-100'>
+                                <div class='card shadow h-100'>
                                     <?php
                                     if ($producto->getProDescuento() > 0) { ?>
                                         <div class='badge bg-dark text-white position-absolute' style='top: 0.5rem; right: 0.5rem'>Oferta<span>&nbsp;<?php echo $producto->getProDescuento() ?>%</span></div>
