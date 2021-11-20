@@ -141,8 +141,8 @@ $enlace = "";
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Visitante" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sign-in-alt"></i><span class="d-lg-none">Usuario</span></a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Visitante">
-                                <a class="dropdown-item" href="../login/login.php"><span class="fas fa-sign-in-alt fa-fw" aria-hidden="true" title="Log in"></span>&nbsp;Entrar</a>
-                                <a class="dropdown-item" href="../login/registrar.php"><span class="fas fa-pencil-alt fa-fw" aria-hidden="true" title="Sign up"></span>&nbsp;Registrarse</a>
+                                <a class="dropdown-item" href="../login/login.php"><i class="fas fa-sign-in-alt fa-fw"></i>&nbsp;Entrar</a>
+                                <a class="dropdown-item" href="../login/registrar.php"><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;Registrarse</a>
                             </div>
                         </li>
                     <?php
@@ -171,11 +171,11 @@ $enlace = "";
                                 }
                                 ?>
 
-                                <a class="dropdown-item" href="../login/perfil.php"><span class="fas fa-user fa-fw" aria-hidden="true" title="Perfil"></span>&nbsp;Perfil</a>
+                                <a class="dropdown-item" href="../login/perfil.php"><i class="fas fa-user-cog"></i>&nbsp;Modificar Perfil</a>
 
                                 <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item logout" href="../login/logout.php"><span class="fas fa-sign-out-alt fa-fw" aria-hidden="true" title="Cerrar sesión"></span>&nbsp;Cerrar sesión</a>
+                                <a class="dropdown-item logout" href="../login/logout.php"><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Cerrar sesión</a>
                             </div>
                         </li>
                         <?php
@@ -183,7 +183,7 @@ $enlace = "";
                         ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Usuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-eye"></i> <span class="">Ver Como</span>
+                                    <i class="fas fa-eye"></i>&nbsp;Ver Como
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
 
@@ -192,13 +192,13 @@ $enlace = "";
                                         $idRolAction = md5($i);
                                         switch ($i) {
                                             case 1:
-                                                $rol = "<span class='fas fa-user-shield'></span>&nbsp;Administrador";
+                                                $rol = "<i class='fas fa-user-shield'></i>&nbsp;Administrador";
                                                 break;
                                             case 2:
-                                                $rol = "<span class='fas fa-dolly'></span>&nbsp;Depósito";
+                                                $rol = "<i class='fas fa-dolly'></i>&nbsp;Depósito";
                                                 break;
                                             case 3:
-                                                $rol = "<span class='fas fa-users'></span>&nbsp;Cliente";
+                                                $rol = "<i class='fas fa-users'></i>&nbsp;Cliente";
                                                 break;
                                         }
                                     ?>

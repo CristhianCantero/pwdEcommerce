@@ -84,7 +84,7 @@ $compras = $arrayCarritos['arrayCompras'];
                                     ?>
                                     <td class='text-center'><?php echo $fechaFin ?></td>
                                     <?php
-                                    if ($idEstadoCompraTipo <= 2) {
+                                    if ($idEstadoCompraTipo == 1) {
                                     ?>
                                         <form method='post' action='../acciones/accionFinCompra.php'>
                                             <td class='text-center'>

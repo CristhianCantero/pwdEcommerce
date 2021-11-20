@@ -1,8 +1,8 @@
 <?php
 
-class controlSubaArchivos
+class controlArchivos
 {
-    public function control_portada()
+    public function controlImagenProducto($nombreImg)
     {
         $dir = "../../../uploads/";
         $nombre = $_FILES['imagen']['name'];
@@ -14,6 +14,12 @@ class controlSubaArchivos
 
         /* Reemplazamos los espacios vacios por _ para evitar problemas al subir el archivo */
         $nombre = str_replace(" ", "_", $nombre);
+        /* Obtenemos la extensión para reemplazar el nombre por el que entra por parametro */
+        $pos = mb_strripos($nombre, ".");
+        $cant = strlen($nombre);
+        $tipo = substr($nombre, $pos - $cant);
+        //echo $tipo;
+        $nombre = $nombreImg . $tipo;
 
         /* Veamos si se pudo subir a la carpeta temporal */
         if ($_FILES['imagen']['error'] <= 0) {
@@ -38,15 +44,15 @@ class controlSubaArchivos
             $image_width = $image_info[0];
             $image_height = $image_info[1];
 
-            /* Verifico que el ancho sea mayor o igual a 400 */
+            /* Verifico que el ancho sea igual a 400px */
             $ancho_limite = false;
-            if ($image_width >= 400) {
+            if ($image_width == 450) {
                 $ancho_limite = true;
             }
 
-            /* Verifico que el alto sea de (1.5)*(ancho) */
+            /* Verifico que el alto sea igual a 350px */
             $alto_limite = false;
-            if ($image_height == ($image_width * 1.5)) {
+            if ($image_height == 300) {
                 $alto_limite = true;
             }
 
@@ -70,66 +76,31 @@ class controlSubaArchivos
             $retorno['imagen']['error'] = $error;
         }
 
-        /* Busco la posicion del punto de la extensión del archivo, para reemplazar con la extensión .txt, 
-        Con esto creo un nuevo arhicvo .txt con el mismo nombre */
-        $pos = mb_strripos($nombre, ".");
-        $texto = $this->verInformacion($_POST);
-        $name = substr($nombre, 0, $pos) . ".txt";
-        $name = $dir . $name;
-        /* fopen crea un nuevo archivo con nombre $name y con "w" reemplaza la información si ya existia */
-        $ar = fopen($name, "w") or die("error al crear");
-        fwrite($ar, $texto);
-        fclose($ar);
-
         return $retorno;
     }
-
-
-    public function verInformacion($datos)
-    {
-        $titulo = $datos["titulo"];
-        $actores = $datos["actores"];
-        $director = $datos["director"];
-        $guion = $datos["guion"];
-        $produccion = $datos["produccion"];
-        $year = $datos["year"];
-        $nacion = $datos["nacion"];
-        $genero = $datos["genero"];
-        $minutos = $datos["minutos"];
-        $edad = $datos["edad"];
-        $sinopsis = $datos["sinopsis"];
-
-        if ($edad == "md") {
-            $rEdad = "Mayores de 18 A&ntilde;os";
-        } elseif ($edad == "ms") {
-            $rEdad = "Mayores de 7 A&ntilde;os";
-        } else {
-            $rEdad = "Apta para todo público";
-        }
-
-        $texto = "<h3>Información de la película</h3>
-                          <p><b>Título:</b> $titulo <br />
-                          <b>Actores:</b> $actores <br />
-                          <b>Director:</b> $director <br />
-                          <b>Guión:</b> $guion <br />
-                          <b>Producción:</b> $produccion <br />
-                          <b>A&ntilde;o:</b> $year <br />
-                          <b>Nacionalidad:</b> $nacion <br />
-                          <b>Genero:</b> $genero <br />
-                          <b>Duración:</b> $minutos minutos<br />
-                          <b>Restricciones de edad:</b> $rEdad <br />
-                          <b>Sinopsis:</b> $sinopsis <br />";
-
-        return $texto;
-    }
-
 
     public function obtenerArchivos()
     {
         $directorio = "../../../uploads/";
         $archivos = scandir($directorio, 1);
-
         return $archivos;
+    }
+
+    public function borrarArchivos($nombre)
+    {
+        $directorio = "../../../uploads/";
+        $archivos = scandir($directorio, 1);
+        $nombre = str_replace(" ", "_", $nombre);
+        foreach ($archivos as $unArchivo) {
+            $pos = strpos($unArchivo, $nombre . ".");
+            if ($pos === 0) {
+                $pos2 = mb_strripos($unArchivo, ".");
+                $cant = strlen($unArchivo);
+                $tipo = substr($unArchivo, $pos2 - $cant);
+                $directorio2 = $directorio . $nombre . $tipo;
+                unlink($directorio2);
+            }
+        }
     }
 
     public function obtenerUnaImg($nombre)
@@ -140,7 +111,7 @@ class controlSubaArchivos
         $imagen = "";
         /* Reemplazamos los espacios vacios por _ para evitar problemas al subir el archivo */
         $nombreImg = str_replace(" ", "_", $nombre);
-        for ($i = 0; $i < count($archivos) && !$bandera; $i++) {
+        for ($i = 0; $i < count($archivos) - 2 && !$bandera; $i++) {
             $pos = strpos($archivos[$i], $nombreImg);
             if ($pos !== false) {
                 /* Verificamos que el tipo de archivo sea de tipo imagen */
@@ -150,10 +121,8 @@ class controlSubaArchivos
                 }
             }
         }
-
         return $imagen;
     }
-
 
     public function obtenerInfoDeArchivo($datos)
     {
@@ -188,8 +157,6 @@ class controlSubaArchivos
 
         ];
 
-        //finfo_close($finfo);
-
         return $datosArch;
     }
 
@@ -216,20 +183,5 @@ class controlSubaArchivos
         ];
 
         return $datosTexto;
-    }
-
-    public function controlDirectorio($objProducto, $param)
-    {
-        $imagenCargada = false;
-        $directorio = md5($objProducto->getIdProducto());
-        $directorioCreado = mkdir($GLOBALS['IMAGENES'] . $directorio, 0777, true);
-        $imagen = $param['imagenproducto'];
-
-        if ($directorioCreado) {
-
-            $imagenCargada = true;
-        }
-
-        return $imagenCargada;
     }
 }
