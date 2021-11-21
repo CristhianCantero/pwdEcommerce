@@ -45,7 +45,7 @@ $totalFinalCompra = 0;
                             <h5 class="text-center mb-4">Estoy vacío, llename porfis <i class="far fa-sad-tear"></i></h5>
                         <?php
                         } else { ?>
-                            <h5 class="mb-4">Carrito: (<?php echo count($compraItems) . " items" ?>)</h5>
+                            <h5 class="mb-4"><a href="listadoProductos.php"><i class="fas fa-arrow-left"></i>&nbsp;Continuar Comprando</button></a></h5>
                             <?php
                         }
                         $subTotalCompra = 0;
@@ -160,8 +160,6 @@ $totalFinalCompra = 0;
                                 <?php
                                 } ?>
                             </form>
-                            <a href="listadoProductos.php"><button type="button" class="btn btn-primary btn-block waves-effect waves-light">Continuar Comprando</button></a>
-                            <!-- <button type="button" class="btn btn-success">Confirmar Pedido</button> -->
                         </div>
                     </div>
                 </div>
