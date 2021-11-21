@@ -44,7 +44,7 @@ $objMenu = $listaMenus[0];
             </div>
             <div class=" mb-3">
                 <div class="d-grid">
-                    <button class="btn btn-primary" type="submit">Enviar</button>
+                    <button class="btn btn-primary" type="submit">Modificar</button>
                 </div>
             </div>
         </form>

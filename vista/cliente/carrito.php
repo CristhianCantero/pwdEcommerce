@@ -61,12 +61,14 @@ $totalFinalCompra = 0;
                                 $unidades = $compraItem->getCiCantidad();
                                 $subTotalProducto = ($precio * $unidades) - ((($precio * $unidades) * $descuento) / 100);
                                 $subTotalCompra = $subTotalCompra + $subTotalProducto;
+                                $idHash = md5($producto->getIdProducto());
+                                $idHashImg = strtolower($idHash);
 
                             ?>
                                 <div class="row mb-4">
                                     <div class="col-md-5 col-lg-3 col-xl-3">
                                         <div>
-                                            ACA VA LA IMAGEN
+                                            <img class='card-img-top img-producto-listado' src='../../uploads/img/<?php echo $idHashImg . ".jpeg"; ?>' alt='Imagen de una autoparte' />
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-lg-9 col-xl-9">
