@@ -40,7 +40,7 @@ $listaProductos = $abmProductos->buscar(null);
                                     <?php
                                     } ?>
 
-                                    <img class='card-img-top img-producto-listado' src='../../uploads/img/<?php echo $idHashImg . ".jpeg"; ?>' alt='Imagen de una autoparte' />
+                                    <img class='card-img-top' src='../../uploads/img/<?php echo $idHashImg . ".jpeg"; ?>' alt='Imagen de una autoparte' />
 
                                     <div class='card-body p-4'>
                                         <div class='text-center'>

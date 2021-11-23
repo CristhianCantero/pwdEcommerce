@@ -104,12 +104,12 @@ $totalFinalCompra = 0;
                                             $stockFinal = $producto->getProCantStock() - $unidades;
                                             if ($stockFinal == 0) {
                                             ?>
-                                                <span class="badge rounded-pill bg-warning text-black">STOCK MINIMO</span>
+                                                <div class='badge rounded-pill bg-danger text-white position-absolute mt-3'><i class="fas fa-box"></i>&nbsp;Último en stock</span></div>
                                                 <?php
                                             } else {
                                                 if ($stockFinal < 0) {
                                                 ?>
-                                                    <span class="badge rounded-pill bg-danger">SIN STOCK</span>
+                                                    <div class='badge rounded-pill bg-dark text-white position-absolute mt-3'><i class="fas fa-ban"></i>&nbsp;Sin stock</span></div>
                                             <?php
                                                 }
                                             }
