@@ -78,13 +78,16 @@ class AbmCompraEstado
 
         if ($this->seteadosCamposClaves($param)) {
             // Busco el estadoCompra actual
-            $arrayBusqueda = ["idcompraestado" => $param['idcompraestado']];
+            $arreglo = ["idcompra" => $param['idcompraestado']];
+            $arrayBusqueda = ["idcompra" => $arreglo['idcompra']];
             $objCompraEstadoBusqueda = $this->buscar($arrayBusqueda);
             // Busco el estadoTipo de 'aceptada'
             $abmEstadoTipo = new AbmCompraEstadoTipo;
             $objCompraEstadoTipo = $abmEstadoTipo->buscar(['idcompraestadotipo' => 2]);
+            // print_r($objCompraEstadoBusqueda);
             // Seteo el compraEstadoTipo 'aceptada'
             $objCompraEstadoBusqueda[0]->setIdCompraEstadoTipo($objCompraEstadoTipo[0]);
+            // print_r($objCompraEstadoTipo[0]->getIdCompraEstadoTipo());
             // Si la compra no es nula y la fecha de fin de la compraEstado es igual a '0000-00-00 00:00:00' entonces hago la modificacion del estadoTipo
 
             if ($objCompraEstadoBusqueda != null and $objCompraEstadoBusqueda[0]->getCeFechaFin() == "0000-00-00 00:00:00") {
@@ -103,7 +106,8 @@ class AbmCompraEstado
 
         if ($this->seteadosCamposClaves($param)) {
             // Busco el estadoCompra actual
-            $arrayBusqueda = ["idcompraestado" => $param['idcompraestado']];
+            $arreglo = ["idcompra" => $param['idcompraestado']];
+            $arrayBusqueda = ["idcompra" => $arreglo['idcompra']];
             $objCompraEstadoBusqueda = $this->buscar($arrayBusqueda);
             // Busco el estadoTipo de 'aceptada'
             $abmEstadoTipo = new AbmCompraEstadoTipo;
@@ -127,8 +131,10 @@ class AbmCompraEstado
         $resp = false;
 
         if ($this->seteadosCamposClaves($param)) {
+            // echo "aca estoy";
             $objCompraEstado = $this->cargarObjetoConClave($param);
             $listaCompraEstado = $objCompraEstado->listar("idcompraestado='" . $param['idcompraestado'] . "'");
+            // print_r($listaCompraEstado);
             if (count($listaCompraEstado) > 0) {
                 $estadoCompra = $listaCompraEstado[0]->getCeFechaFin();
                 if ($estadoCompra == '0000-00-00 00:00:00') {

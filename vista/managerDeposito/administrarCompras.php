@@ -105,7 +105,7 @@ $listaComprasIniciadas = $abmComprasIniciadas->buscar(null);
                                     if ($idEstadoCompraTipo <= 3) { ?>
                                         <form method='post' action='../acciones/accionFinCompra.php'>
                                             <td class='text-center'>
-                                                <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompra ?>'>
+                                                <input name='idcompraestado' id='idcompraestado' type='hidden' value='<?php echo $idCompraEstado ?>'>
                                                 <button class='btn btn-danger btn-sm' type='submit' role='button'><i class='bi bi-cart-x'></i>&nbsp;Cancelar</button>
                                             </td>
                                         </form>

@@ -2,7 +2,7 @@
 include_once "../../configuracion.php";
 
 $datos = data_submitted();
-$exito = false;
+// $exito = false;
 $abmCompraEstado = new AbmCompraEstado();
 $abmCompraItem = new AbmCompraItem();
 $abmProducto = new AbmProducto();
@@ -26,6 +26,9 @@ if($stockDisponible){
             $stockActual = $producto[0]->getProCantStock();
             $stockActualizado = $stockActual - $item->getCiCantidad();
             $producto[0]->setProStock($stockActualizado);
+            $vecesCompradoActual = $producto[0]->getProVecesComprado();
+            $vecesCompradoActualizado = $vecesCompradoActual + $item->getCiCantidad();
+            $producto[0]->setProVecesComprado($vecesCompradoActualizado);
             $respModificar = $producto[0]->modificar();
             if(!$respModificar){
                 $exito = false;
