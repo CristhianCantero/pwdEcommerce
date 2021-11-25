@@ -86,10 +86,16 @@ class AbmCompraItem
             $objCompraItem = $this->cargarObjetoConClave($param);
             $objCompraItem = $this->buscar(['idcompraitem' => $param['idcompraitem']]);
             if ($objCompraItem[0] != null) {
+                $idProducto = $objCompraItem[0]->getIdProducto()->getIdProducto();
+                $abmProducto = new AbmProducto();
+                $objProducto = $abmProducto->buscar(['idproducto' => $idProducto]);
+                $stockActual = $objProducto[0]->getProCantStock();
                 $cantItems = $objCompraItem[0]->getCiCantidad();
-                $objCompraItem[0]->setCiCantidad($cantItems + 1);
-                if ($objCompraItem[0]->modificar()) {
-                    $resp = true;
+                if ($stockActual > $cantItems) {
+                    $objCompraItem[0]->setCiCantidad($cantItems + 1);
+                    if ($objCompraItem[0]->modificar()) {
+                        $resp = true;
+                    }
                 }
             }
         }
