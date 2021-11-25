@@ -9,7 +9,9 @@ $sumado = $abmCompraItem->sumarItem($datos);
 if ($sumado) {
     $message = "Item modificado";
     header('Location: ../cliente/carrito.php?Message=' . urlencode($message));
+    exit;
 } else {
     $message = "Error al modificar el item";
     header('Location: ../cliente/carrito.php?Message=' . urlencode($message));
+    exit;
 }

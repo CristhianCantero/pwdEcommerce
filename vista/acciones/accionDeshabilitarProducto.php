@@ -13,7 +13,9 @@ $respuestaDeshabilitado = $abmProducto->deshabilitarProd($arrayBusqueda);
 if ($respuestaDeshabilitado) {
     $message = "Deshabilitacion exitosa";
     header('Location: ../managerDeposito/administrarProductos.php?Message=' . urlencode($message));
+    exit;
 } else {
     $message = "Deshabilitacion erronea";
     header('Location: ../managerDeposito/administrarProductos.php?Message=' . urlencode($message));
+    exit;
 }

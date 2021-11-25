@@ -7,19 +7,19 @@ $abmCompraEstado = new AbmCompraEstado();
 $abmCompraItem = new AbmCompraItem();
 $abmProducto = new AbmProducto();
 
-$listadoItems = $abmCompraItem->buscar(['idcompra'=>$datos['idcompraitem']]);
+$listadoItems = $abmCompraItem->buscar(['idcompra' => $datos['idcompraitem']]);
 $stockDisponible = true;
 foreach ($listadoItems as $item) {
     $respStock = $abmProducto->chequearStock($item);
-    if(!$respStock){
+    if (!$respStock) {
         $stockDisponible = false;
     }
 }
 $exito = true;
-if($stockDisponible){
+if ($stockDisponible) {
     $arrayCarrito = ['idcompra' => $datos['idcompraitem'], 'idcompraestadotipo' => 1];
     $exitoAltaCarrito = $abmCompraEstado->alta($arrayCarrito);
-    if($exitoAltaCarrito){
+    if ($exitoAltaCarrito) {
         foreach ($listadoItems as $item) {
             $objProducto = new Producto();
             $producto = $objProducto->listar("idproducto ='" . $item->getIdProducto()->getIdProducto() . "'");
@@ -30,7 +30,7 @@ if($stockDisponible){
             $vecesCompradoActualizado = $vecesCompradoActual + $item->getCiCantidad();
             $producto[0]->setProVecesComprado($vecesCompradoActualizado);
             $respModificar = $producto[0]->modificar();
-            if(!$respModificar){
+            if (!$respModificar) {
                 $exito = false;
             }
         }
@@ -40,7 +40,9 @@ if($stockDisponible){
 if ($exito) {
     $message = 'Se envio el carrito correctamente';
     header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
+    exit;
 } else {
     $message = 'Hubo un error al enviar su carrito';
     header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
+    exit;
 }

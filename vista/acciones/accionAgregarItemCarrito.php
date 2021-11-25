@@ -19,6 +19,7 @@ if ($carrito == null) {
     if (!$altaCarrito) {
         $message = 'Hubo un error al agregar el articulo';
         header("Location: ../cliente/listadoProductos.php?Message=" . urlencode($message));
+        exit;
     } else {
         $arrayCarritos = $controlVerificarCarrito->verificarCarrito($idUser);
         $carrito = $arrayCarritos['carritoHabilitado'];
@@ -44,7 +45,9 @@ if (!$cargado) {
 if ($exito) {
     $message = 'Agregado correctamente al carrito';
     header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
+    exit;
 } else {
     $message = 'Hubo un error al agregar el articulo';
     header("Location: ../cliente/carrito.php?Message=" . urlencode($message));
+    exit;
 }

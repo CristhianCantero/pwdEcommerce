@@ -73,22 +73,6 @@ $(document).ready(function() {
                     }
                 }
             },
-            uspass: {
-                message: ' Contraseña no valida',
-                validators: {
-                    notEmpty: {
-                        message: ' La contraseña es obligatoria'
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,}$/,
-                        message: ' Longitud mínima de 8 caracteres. Al menos una mayúscula o minúscula y un número.\n'
-                    },
-                    different: {
-                        field: 'usnombre',
-                        message: ' La contraseña y el nombre de usuario no pueden ser iguales'
-                    }
-                }
-            },
             usmail: {
                 message: ' Correo electronico no valido',
                 validators: {

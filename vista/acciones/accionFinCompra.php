@@ -15,7 +15,7 @@ $exito = true;
 if ($respuestaFinCompra) {
     $abmCompraItem = new AbmCompraItem();
     $abmProducto = new AbmProducto();
-    $listadoItems = $abmCompraItem->buscar(['idcompra'=>$datos['idcompraestado']]);
+    $listadoItems = $abmCompraItem->buscar(['idcompra' => $datos['idcompraestado']]);
 
     foreach ($listadoItems as $item) {
         $objProducto = new Producto();
@@ -27,7 +27,7 @@ if ($respuestaFinCompra) {
         $vecesCompradoActualizado = $vecesCompradoActual - $item->getCiCantidad();
         $producto[0]->setProVecesComprado($vecesCompradoActualizado);
         $respModificar = $producto[0]->modificar();
-        if(!$respModificar){
+        if (!$respModificar) {
             $exito = false;
         }
     }
@@ -36,7 +36,9 @@ if ($respuestaFinCompra) {
 if ($exito) {
     $message = "Compra finalizada exitosamente";
     header('Location: ../home/index.php?Message=' . urlencode($message));
+    exit;
 } else {
     $message = "No se pudo finalizar la compra";
     header('Location: ../home/index.php?Message=' . urlencode($message));
+    exit;
 }

@@ -29,6 +29,7 @@ if (isset($listaUsuarios)) {
                     <label for="usnombre">Nombre de usuario: </label>
                 </div>
             </div>
+
             <div class="">
                 <div class="form-floating mb-3">
                     <input class="form-control" id="uspass" name="uspass" type="text" placeholder="Contraseña Nueva">
