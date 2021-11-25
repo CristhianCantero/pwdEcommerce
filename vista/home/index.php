@@ -13,9 +13,9 @@ shuffle($listaProductos);
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Lo bueno, nos lo guardamos</h1>
+            <h1 class="display-4 fw-bolder">Tu solución en autopartes</h1>
             <p class="lead fw-normal text-white-50 mb-0">
-            <div class="bi bi-heart-fill"></div>
+            <h4><i class="fas fa-car-crash"></i></h4>
             </p>
         </div>
     </div>
