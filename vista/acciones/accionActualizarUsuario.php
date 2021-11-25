@@ -16,7 +16,7 @@ if (isset($lista)) {
         header('Location: ../admin/administrarUsuarios.php?messageOk=' . urlencode("Usuario modificado correctamente"));
         exit;
     } else {
-        header('Location: ../admin/formularioModificarUsuario.php?messageErr=' . urlencode("Error en la modificación"));
+        header('Location: ../admin/administrarUsuarios.php?messageErr=' . urlencode("Error en la modificación"));
         exit;
     }
 } else {

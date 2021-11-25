@@ -3,11 +3,6 @@ include_once '../../configuracion.php';
 
 $datos = data_submitted();
 
-if (!isset($datos["verificado"])) {
-    $controlIngresoCarrito = new controlIngresoCliente();
-    $controlIngresoCarrito->verificarIngreso("carrito");
-}
-
 $sesion = new Session();
 
 if ($sesion->activa()) {
@@ -15,20 +10,12 @@ if ($sesion->activa()) {
     $idUser = $user->getIdUsuario();
 }
 
-$titulo = 'Carrito de compra';
+$titulo = 'Compra';
 
 include_once "../estructura/header.php";
 
-$controlVerificarCarrito = new controlVerificarCarritoCliente();
-$arrayCarritos = $controlVerificarCarrito->verificarCarrito($idUser);
-$carrito = $arrayCarritos['carritoHabilitado'];
-
-if ($carrito == null) {
-    $carrito = new Compra();
-}
-// print_r($carrito->getIdCompra());
-$abmItemsCarrito = new AbmCompraItem();
-$compraItems = $abmItemsCarrito->buscar(['idcompra' => $carrito->getIdCompra()]);
+$abmItemsCompra = new AbmCompraItem();
+$compraItems = $abmItemsCompra->buscar(['idcompra' => $datos['idcompra']]);
 $subTotalCompra = 0;
 $iva = 0;
 $totalFinalCompra = 0;
@@ -41,18 +28,10 @@ $totalFinalCompra = 0;
                 <div class="card border-light shadow wish-list mb-3">
                     <div class="card-body">
                         <?php
-                        if (count($compraItems) == 0) { ?>
-                            <h5 class="text-center mb-4">Estoy vacío, llename porfis <i class="far fa-sad-tear"></i></h5>
-                        <?php
-                        } else { ?>
-                            <h5 class="mb-4"><a href="listadoProductos.php"><i class="fas fa-arrow-left"></i>&nbsp;Continuar Comprando</button></a></h5>
-                            <?php
-                        }
                         $subTotalCompra = 0;
                         $iva = 0;
                         $totalFinalCompra = 0;
                         if (count($compraItems)) {
-
                             foreach ($compraItems as $compraItem) {
                                 $producto = $compraItem->getIdProducto();
                                 $id = $producto->getIdProducto();
@@ -64,7 +43,7 @@ $totalFinalCompra = 0;
                                 $idHash = md5($producto->getIdProducto());
                                 $idHashImg = strtolower($idHash);
 
-                            ?>
+                        ?>
                                 <div class="row mb-4">
                                     <div class="col-md-5 col-lg-3 col-xl-3">
                                         <div>
@@ -81,38 +60,23 @@ $totalFinalCompra = 0;
                                                 </div>
                                                 <div class='text-center'>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <form method='post' action='../acciones/accionRestarCantidadCompra.php'>
-                                                            <input name='idcompraitem' id='idcompraitem' type='hidden' value='<?php echo $compraItem->getIdCompraItem() ?>'>
-                                                            <button class='btn btn-dark mx-1' type='submit' role='button'><i class='fas fa-minus'></i></button>
-                                                        </form>
-                                                        <span class="input-group-text" id="basic-addon1"><?php echo $unidades ?></span>
-                                                        <form method='post' action='../acciones/accionSumarCantidadCompra.php'>
-                                                            <input name='idcompraitem' id='idcompraitem' type='hidden' value='<?php echo $compraItem->getIdCompraItem() ?>'>
-                                                            <button class='btn btn-dark mx-1' type='submit' role='button'><i class='fas fa-plus'></i></button>
-                                                        </form>
+                                                        <?php
+                                                        if ($unidades == 1) { ?>
+                                                            <span class="input-group-text" id="basic-addon1">Unidad: <?php echo $unidades ?></span>
+                                                        <?php
+                                                        } else { ?>
+                                                            <span class="input-group-text" id="basic-addon1">Unidades: <?php echo $unidades ?></span>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <form method='post' action='../acciones/accionEliminarItemCarrito.php'>
-                                                    <input name='idcompraitem' id='idcompraitem' type='hidden' value='<?php echo $compraItem->getIdCompraItem() ?>'>
-                                                    <button class='btn btn-danger btn-sm' type='submit' role='button'><i class="fas fa-trash"></i></button>
-                                                </form>
                                                 <p class="mb-0"><span>Precio x unidad: <strong>$<?php echo $precio ?>.-</strong></span></p>
                                             </div>
                                             <?php
                                             $stockFinal = $producto->getProCantStock() - $unidades;
-                                            if ($stockFinal == 0) {
-                                            ?>
-                                                <div class='badge rounded-pill bg-danger text-white position-absolute mt-3'><i class="fas fa-box"></i>&nbsp;Último en stock</span></div>
-                                                <?php
-                                            } else {
-                                                if ($stockFinal < 0) {
-                                                ?>
-                                                    <div class='badge rounded-pill bg-dark text-white position-absolute mt-3'><i class="fas fa-ban"></i>&nbsp;Sin stock</span></div>
-                                            <?php
-                                                }
-                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -122,7 +86,6 @@ $totalFinalCompra = 0;
                             }
                         }
                         ?>
-                        <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i>&nbsp;Haga su compra ahora, agregar items al carrito no significa que se reserven.</p>
                     </div>
                 </div>
             </div>
@@ -152,14 +115,7 @@ $totalFinalCompra = 0;
                             </li>
                         </ul>
                         <div class="text-center">
-                            <form method='post' action='../acciones/accionEnviarCarrito.php'>
-                                <input name='idcompraitem' id='idcompraitem' type='hidden' value='<?php echo $carrito->getIdCompra(); ?>'>
-                                <?php if (count($compraItems) > 0) {
-                                ?>
-                                    <button class='btn btn-success m-1' type='submit' role='button'>Confirmar Pedido</button>
-                                <?php
-                                } ?>
-                            </form>
+                            <a href="compras.php"><button class='btn btn-success m-1' type='submit' role='button'>Volver al historial</button></a>
                         </div>
                     </div>
                 </div>
