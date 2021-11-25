@@ -80,8 +80,12 @@ $(document).ready(function() {
                         message: ' La contraseña es obligatoria'
                     },
                     regexp: {
-                        regexp: /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/,
-                        message: ' La primer letra en mayúscula. Solo letras.'
+                        regexp: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,}$/,
+                        message: ' Longitud mínima de 8 caracteres. Al menos una mayúscula o minúscula y un número.\n'
+                    },
+                    different: {
+                        field: 'usnombre',
+                        message: ' La contraseña y el nombre de usuario no pueden ser iguales'
                     }
                 }
             },
@@ -184,8 +188,8 @@ $(document).ready(function() {
                         message: ' La contraseña es obligatoria'
                     },
                     regexp: {
-                        regexp: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                        message: ' Longitud minima de 8 caracteres. Al menos una mayúscula o minúscula y un número.\n'
+                        regexp: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,}$/,
+                        message: ' Longitud mínima de 8 caracteres. Al menos una mayúscula o minúscula y un número.\n'
                     },
                     different: {
                         field: 'usnombre',
@@ -436,7 +440,7 @@ $(document).ready(function() {
                         message: ' La contraseña es obligatoria'
                     },
                     regexp: {
-                        regexp: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                        regexp: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,}$/,
                         message: ' Longitud mínima de 8 caracteres. Al menos una mayúscula o minúscula y un número.\n'
                     },
                     different: {
@@ -478,7 +482,7 @@ $(document).ready(function() {
                         message: ' La contraseña es obligatoria'
                     },
                     regexp: {
-                        regexp: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                        regexp: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,}$/,
                         message: ' Longitud mínima de 8 caracteres. Al menos una mayúscula o minúscula y un número.\n'
                     },
                     different: {
