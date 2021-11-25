@@ -51,7 +51,6 @@ $enlace = "";
                                 <hr class="dropdown-divider" />
                             </li>
                             <li><a class="dropdown-item" href="../cliente/productosPopulares.php">Items Populares</a></li>
-                            <li><a class="dropdown-item" href="../cliente/nuevosIngresos.php">Nuevos Ingresos</a></li>
                         </ul>
                     </li>
                     <?php
