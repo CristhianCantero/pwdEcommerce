@@ -27,7 +27,4 @@ class controlIngresoCliente
             exit;
         }
     }
-    public function verificarCompras($pagina){
-
-    }
 }

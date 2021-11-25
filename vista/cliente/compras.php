@@ -43,6 +43,7 @@ $compras = $arrayCarritos['arrayCompras'];
                             <th scope='col' class='text-center'>Fecha Inicio Compra</th>
                             <th scope='col' class='text-center'>Fecha Fin Compra</th>
                             <th scope='col' class='text-center'></th>
+                            <th scope='col' class='text-center'></th>
                         </tr>
                     </thead>
 
@@ -83,6 +84,12 @@ $compras = $arrayCarritos['arrayCompras'];
                                     }
                                     ?>
                                     <td class='text-center'><?php echo $fechaFin ?></td>
+                                    <form method='post' action='verCompra.php'>
+                                        <td class='text-center'>
+                                            <input name='idcompra' id='idcompra' type='hidden' value='<?php echo $idCompra ?>'>
+                                            <button class='btn btn-warning btn-sm' type='submit' role='button'><i class="fas fa-shopping-cart"></i>&nbsp;Ver Items</button>
+                                        </td>
+                                    </form>
                                     <?php
                                     if ($idEstadoCompraTipo == 1) {
                                     ?>
@@ -99,6 +106,7 @@ $compras = $arrayCarritos['arrayCompras'];
                                     <?php
                                     }
                                     ?>
+
                                 </tr>
                         <?php
                             }
