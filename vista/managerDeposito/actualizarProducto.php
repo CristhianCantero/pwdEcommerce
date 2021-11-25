@@ -63,7 +63,7 @@ $objProducto = $listaProductos[0];
             <div class="">
                 <div class="form-floating mb-3">
                     <input class="form-control" id="provecescomprado" name="provecescomprado" type="text" placeholder="Veces comprado" value="<?php echo $objProducto->getProVecesComprado() ?>" required>
-                    <label for="procantstock">Veces comprado: </label>
+                    <label for="provecescomprado">Veces comprado: </label>
                 </div>
             </div>
 

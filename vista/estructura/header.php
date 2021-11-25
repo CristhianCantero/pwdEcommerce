@@ -142,7 +142,7 @@ $enlace = "";
                     if (!$sesion->activa()) { ?>
                         <!-- Visitante -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Visitante" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sign-in-alt"></i><span class="d-lg-none">Usuario</span></a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Visitante" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sign-in-alt"></i></a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Visitante">
                                 <a class="dropdown-item" href="../login/login.php"><i class="fas fa-sign-in-alt fa-fw"></i>&nbsp;Entrar</a>
