@@ -10,30 +10,8 @@ if (!$sesion->activa()) {
 $datos = data_submitted();
 $abmComprasIniciadas = new AbmCompraEstado();
 $respuestaFinCompra = $abmComprasIniciadas->finCompra($datos);
-$exito = true;
 
 if ($respuestaFinCompra) {
-    $abmCompraItem = new AbmCompraItem();
-    $abmProducto = new AbmProducto();
-    $listadoItems = $abmCompraItem->buscar(['idcompra' => $datos['idcompraestado']]);
-
-    foreach ($listadoItems as $item) {
-        $objProducto = new Producto();
-        $producto = $objProducto->listar("idproducto ='" . $item->getIdProducto()->getIdProducto() . "'");
-        $stockActual = $producto[0]->getProCantStock();
-        $stockActualizado = $stockActual + $item->getCiCantidad();
-        $producto[0]->setProStock($stockActualizado);
-        $vecesCompradoActual = $producto[0]->getProVecesComprado();
-        $vecesCompradoActualizado = $vecesCompradoActual - $item->getCiCantidad();
-        $producto[0]->setProVecesComprado($vecesCompradoActualizado);
-        $respModificar = $producto[0]->modificar();
-        if (!$respModificar) {
-            $exito = false;
-        }
-    }
-}
-
-if ($exito) {
     $message = "Compra finalizada exitosamente";
     header('Location: ../home/index.php?Message=' . urlencode($message));
     exit;

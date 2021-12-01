@@ -73,12 +73,15 @@ class AbmUsuario
     public function modificacion($param)
     {
         $resp = false;
-        $objUs = new Usuario();
-        $pass = md5($param['uspass']);
-        $objUs->setear($param['idusuario'], $param['usnombre'], $pass, $param['usmail'], $param['usdeshabilitado']);
+        $lista = $this->buscar(['idusuario' => $param['idusuario']]);
+        if ($lista != null) {
+            $objUs = new Usuario();
+            $pass = md5($param['uspass']);
+            $objUs->setear($param['idusuario'], $param['usnombre'], $pass, $param['usmail'], $param['usdeshabilitado']);
 
-        if ($objUs->modificar()) {
-            $resp = true;
+            if ($objUs->modificar()) {
+                $resp = true;
+            }
         }
 
         return $resp;
@@ -88,10 +91,16 @@ class AbmUsuario
     public function baja($param)
     {
         $resp = false;
-        if ($this->seteadosCamposClaves($param)) {
-            $objUsuario = $this->cargarObjetoConClave($param);
-            if ($objUsuario != null and $objUsuario->eliminar()) {
-                $resp = true;
+        $usuarioActual = false;
+        if ($param['idusuario'] == $param['idusuariosesion']) {
+            $usuarioActual = true;
+        }
+        if (!$usuarioActual) {
+            if ($this->seteadosCamposClaves($param)) {
+                $objUsuario = $this->cargarObjetoConClave($param);
+                if ($objUsuario != null and $objUsuario->eliminar()) {
+                    $resp = true;
+                }
             }
         }
         return $resp;
@@ -100,11 +109,25 @@ class AbmUsuario
     public function alta($param)
     {
         $resp = false;
-        $objUsuario = $this->cargarObjeto($param);
-        print_r($objUsuario);
+        $busquedaUsuario = ["usnombre" => $param['usnombre']];
+        $busquedaCorreo = ["usmail" => $param['usmail']];
+        $existeUsuario = $this->buscar($busquedaUsuario);
+        $existeCorreo = $this->buscar($busquedaCorreo);
+        if (($existeUsuario == null && $existeCorreo == null)) {
+            $objUsuario = $this->cargarObjeto($param);
+            if ($objUsuario->insertar()) {
+                $resp = true;
+            }
+        }
+        if ($resp) {
+            $usuarioNuevo = $this->buscar($busquedaUsuario);
+            $idUsuario = $usuarioNuevo[0]->getIdUsuario();
+            $idRolUsuario = $param['idrol'];
 
-        if ($objUsuario->insertar()) {
-            $resp = true;
+            $arrayRolUsuario = ["idrol" => $idRolUsuario, "idusuario" => $idUsuario];
+
+            $abmUsuarioRol = new AbmUsuarioRol();
+            $abmUsuarioRol->alta($arrayRolUsuario);
         }
         return $resp;
     }

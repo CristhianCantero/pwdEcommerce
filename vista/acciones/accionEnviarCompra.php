@@ -3,7 +3,6 @@ include_once "../../configuracion.php";
 
 $datos = data_submitted();
 $abmComprasIniciadas = new AbmCompraEstado();
-
 $respuestaEnviarCompra = $abmComprasIniciadas->enviarCompra($datos);
 
 if ($respuestaEnviarCompra) {

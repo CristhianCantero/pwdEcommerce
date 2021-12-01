@@ -8,18 +8,10 @@ if (!$sesion->activa()) {
     $message = "No ha iniciado sesion";
     header('Location: ../login/login.php?Message=' . urlencode($message));
 }
-
 $abmUsuario = new AbmUsuario();
-
 $idUsuarioSesion = $sesion->getIdUsuario();
-
 if (isset($datos)) {
-    if ($datos['idusuario'] == $idUsuarioSesion) {
-        $message = "No se puede deshabilitar a si mismo";
-        header('Location: ../admin/administrarUsuarios.php?Message=' . urlencode($message));
-        exit;
-    }
-
+    $datos['idusuariosesion'] = $idUsuarioSesion;
     $exito = $abmUsuario->baja($datos);
 
     if ($exito) {
