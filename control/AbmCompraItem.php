@@ -44,11 +44,43 @@ class AbmCompraItem
     public function alta($param)
     {
         $resp = false;
-        $param['idcompraitem'] = null;
-        $objCompraItem = $this->cargarObjeto($param);
-        //print_r($objCompraItem);
-        if ($objCompraItem != null and $objCompraItem->insertar()) {
-            $resp = true;
+        // Traigo los carritos que tiene el usuario
+        $controlVerificarCarrito = new controlVerificarCarritoCliente();
+        $arrayCarritos = $controlVerificarCarrito->verificarCarrito($param['iduser']);
+        // Carrito habilitado (que seria el que tiene activo)
+        $carrito = $arrayCarritos['carritoHabilitado'];
+        // Si el carrito no existe entonces crea un carrito nuevo
+        if ($carrito == null) {
+            $abmCarrito = new AbmCompra();
+            $array = ['idusuario' => $param['iduser']];
+            // alta carrito para el usuario actual
+            $altaCarrito = $abmCarrito->alta($array);
+            if ($altaCarrito) {
+                // Aca traigo el carrito activo de vuelta
+                $arrayCarritos = $controlVerificarCarrito->verificarCarrito($param['iduser']);
+                $carrito = $arrayCarritos['carritoHabilitado'];
+            }
+        }
+        // saco el id del carrito actual
+        $idCarrito = $carrito->getIdCompra();
+        // establezco los datos de interes, en este caso el idProducto y el idCarrito
+        $arrayCargaItem = ['idproducto' => $param['codigoProducto'], 'idcompra' => $idCarrito];
+        $cargado = false;
+        // listado de items cargados en el carrito
+        $arrayItemsCarrito = $this->buscar(['idcompra' => $carrito->getIdCompra()]);
+        // verifico que no este cargado ya el item actual en el carrito
+        foreach ($arrayItemsCarrito as $itemCarrito) {
+            if ($itemCarrito->getIdProducto()->getIdProducto() == $param['codigoProducto']) {
+                $cargado = true;
+            }
+        }
+        // sino esta cargado entonces se inserta en la bd 
+        if (!$cargado) {
+            // inserto item
+            $objCompraItem = $this->cargarObjeto($arrayCargaItem);
+            if ($objCompraItem != null and $objCompraItem->insertar()) {
+                $resp = true;
+            }
         }
         return $resp;
     }

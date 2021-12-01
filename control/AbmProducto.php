@@ -45,11 +45,19 @@ class AbmProducto
     public function alta($param)
     {
         $resp = false;
-
-        $ObjProducto = $this->cargarObjeto($param);
-
-        if ($ObjProducto != null and $ObjProducto->insertar()) {
-            $resp = true;
+        $existe = false;
+        $datosBusqueda['idproducto'] = $param['idproducto'];
+        $listaProductos = $this->buscar($param);
+        if (isset($listaProductos[0])) {
+            $existe = true;
+        }
+        if (!$existe) {
+            $ObjProducto = $this->cargarObjeto($param);
+            if ($ObjProducto != null and $ObjProducto->insertar()) {
+                $resp = true;
+            }
+            $controlCargaImagen = new controlCargaImagenes();
+            $controlCargaImagen->cargarImagen($param['files'], $param['idproducto']);
         }
         return $resp;
     }
@@ -69,10 +77,20 @@ class AbmProducto
     public function modificacion($param)
     {
         $resp = false;
+        print_r($param);
         if ($this->seteadosCamposClaves($param)) {
-            $ObjProducto = $this->cargarObjeto($param);
-            if ($ObjProducto != null and $ObjProducto->modificar()) {
-                $resp = true;
+            $listadoProductos = $this->buscar(['idproducto'=>$param['idproducto']]);
+            if ($listadoProductos != null) {
+                $ObjProducto = $this->cargarObjeto($param);
+                if($ObjProducto->modificar()){
+                    $resp = true;
+                    $controlCargaImagen = new controlCargaImagenes();
+                    $nombreImagen = $param['files']['imagen']['name'];
+                    if($nombreImagen != ""){
+                        $controlCargaImagen->eliminarImagen($param['idproducto']);
+                        $controlCargaImagen->cargarImagen($param['files'], $param['idproducto']);
+                    }
+                }
             }
         }
         return $resp;
@@ -102,11 +120,11 @@ class AbmProducto
     {
         $resp = false;
         $idProducto = $param->getIdProducto()->getIdProducto();
-        $objProducto = $this->cargarObjetoConClave(["idproducto"=>$idProducto]);
+        $objProducto = $this->cargarObjetoConClave(["idproducto" => $idProducto]);
         $listadoProductos = $objProducto->listar("idproducto='" . $idProducto . "'");
         if (count($listadoProductos) > 0) {
             $stock = $listadoProductos[0]->getProCantStock();
-            if($stock>=$param->getCiCantidad()){
+            if ($stock >= $param->getCiCantidad()) {
                 $resp = true;
             }
         }

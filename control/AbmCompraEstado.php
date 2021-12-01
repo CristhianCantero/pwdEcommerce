@@ -48,13 +48,44 @@ class AbmCompraEstado
     public function alta($param)
     {
         $resp = false;
-        $param['idcompraestado'] = null;
-        $objCompraEstado = $this->cargarObjeto($param);
-
-        if ($objCompraEstado != null and $objCompraEstado->insertar()) {
-            $resp = true;
+        // $param['idcompraestado'] = null;
+        $abmCompraItem = new AbmCompraItem();
+        $abmProducto = new AbmProducto();
+        // busco los items pertenecientes al carrito
+        $listadoItems = $abmCompraItem->buscar(['idcompra' => $param['idcompra']]);
+        print_r($listadoItems);
+        $stockDisponible = true;
+        // chequeo que haya stock del producto en la bd
+        foreach ($listadoItems as $item) {
+            $respStock = $abmProducto->chequearStock($item);
+            if (!$respStock) {
+                $stockDisponible = false;
+            }
         }
-
+        // si hay stock dispomible entonces envio el carrito
+        if ($stockDisponible) {
+            $objCompraEstado = $this->cargarObjeto($param);
+            if ($objCompraEstado != null and $objCompraEstado->insertar()) {
+                $resp = true;
+            }
+            // si se cargo el carrito entonces paso a modificar el stock y vecesComprado del producto
+            if ($resp) {
+                foreach ($listadoItems as $item) {
+                    $objProducto = new Producto();
+                    $producto = $objProducto->listar("idproducto ='" . $item->getIdProducto()->getIdProducto() . "'");
+                    $stockActual = $producto[0]->getProCantStock();
+                    $stockActualizado = $stockActual - $item->getCiCantidad();
+                    $producto[0]->setProStock($stockActualizado);
+                    $vecesCompradoActual = $producto[0]->getProVecesComprado();
+                    $vecesCompradoActualizado = $vecesCompradoActual + $item->getCiCantidad();
+                    $producto[0]->setProVecesComprado($vecesCompradoActualizado);
+                    $respModificar = $producto[0]->modificar();
+                    if (!$respModificar) {
+                        $exito = false;
+                    }
+                }
+            }
+        }
         return $resp;
     }
 
@@ -129,12 +160,10 @@ class AbmCompraEstado
     public function finCompra($param)
     {
         $resp = false;
-
         if ($this->seteadosCamposClaves($param)) {
-            // echo "aca estoy";
             $objCompraEstado = $this->cargarObjetoConClave($param);
             $listaCompraEstado = $objCompraEstado->listar("idcompraestado='" . $param['idcompraestado'] . "'");
-            // print_r($listaCompraEstado);
+            print_r($listaCompraEstado);
             if (count($listaCompraEstado) > 0) {
                 $estadoCompra = $listaCompraEstado[0]->getCeFechaFin();
                 if ($estadoCompra == '0000-00-00 00:00:00') {
@@ -148,8 +177,23 @@ class AbmCompraEstado
                     }
                 }
             }
+            if ($resp) {
+                $abmCompraItem = new AbmCompraItem();
+                $listadoItems = $abmCompraItem->buscar(['idcompra' => $param['idcompraestado']]);
+                foreach ($listadoItems as $item) {
+                    $abmProducto = new AbmProducto();
+                    $objProducto = $item->getIdProducto();
+                    $producto = $abmProducto->buscar(['idproducto' => $objProducto->getIdProducto()]);
+                    $stockActual = $producto[0]->getProCantStock();
+                    $stockActualizado = $stockActual + $item->getCiCantidad();
+                    $producto[0]->setProStock($stockActualizado);
+                    $vecesCompradoActual = $producto[0]->getProVecesComprado();
+                    $vecesCompradoActualizado = $vecesCompradoActual - $item->getCiCantidad();
+                    $producto[0]->setProVecesComprado($vecesCompradoActualizado);
+                    $producto[0]->modificar();
+                }
+            }
         }
-
         return $resp;
     }
 

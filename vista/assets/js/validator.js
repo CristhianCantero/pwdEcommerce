@@ -157,11 +157,11 @@ $(document).ready(function() {
                 message: ' Nombre de usuario no valido',
                 validators: {
                     notEmpty: {
-                        message: ' El nombre es obligatorio'
+                        message: ' El nombre de usuario es obligatorio'
                     },
                     regexp: {
-                        regexp: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/,
-                        message: ' Longitud mínima de 8 caracteres. Al menos una mayúscula. Al menos una minúscula. Al menos un número'
+                        regexp: /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/,
+                        message: ' La primer letra en mayúscula. Solo letras.'
                     }
                 }
             },
@@ -296,7 +296,7 @@ $(document).ready(function() {
 
 // Nuevo producto
 $(document).ready(function() {
-    $('#actualizarProducto').bootstrapValidator({
+    $('#productoNuevo').bootstrapValidator({
         message: 'Este valor no es valido',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',

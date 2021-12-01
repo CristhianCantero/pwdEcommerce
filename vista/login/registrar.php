@@ -7,7 +7,7 @@ include_once '../estructura/header.php';
     <h4 class="text-center">Registro</h4>
     <div class="col-md-4"></div>
     <div class="offset-md-4">
-        <form action="../acciones/accionRegistroUsuario.php" method="post" class="col-md-6 mt-3 " id="usuarioNuevo" name="usuarioNuevo">
+        <form action="../acciones/accionNuevoUsuario.php" method="post" class="col-md-6 mt-3 " id="usuarioNuevo" name="usuarioNuevo">
             <div class="">
                 <div class="form-floating mb-3">
                     <input class="form-control" id="usnombre" name="usnombre" type="text" placeholder="Nombre de usuario" required>
@@ -26,6 +26,7 @@ include_once '../estructura/header.php';
                     <label for="usmail">Correo Electronico: </label>
                 </div>
             </div>
+            <input id="idrol" name="idrol" type="text" value="3" hidden>
             <div class=" mb-3">
                 <div class="d-grid">
                     <button class="btn btn-primary" type="submit">Registrarme</button>

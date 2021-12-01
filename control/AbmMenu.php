@@ -62,11 +62,22 @@ class AbmMenu
     public function alta($param)
     {
         $resp = false;
-
-        $objMenu = $this->cargarObjeto($param);
-
-        if ($objMenu->insertar()) {
-            $resp = true;
+        $existe = false;
+        $datosBusqueda['menombre'] = $param['menombre'];
+        $listaMenu = $this->buscar($datosBusqueda);
+        if (isset($listaMenu[0])) {
+            $existe = true;
+        }
+        if(!$existe){
+            $objMenu = $this->cargarObjeto($param);
+            if ($objMenu->insertar()) {
+                $resp = true;
+            }
+            $listaMenu = $this->buscar($datosBusqueda);
+            $datos['idmenu'] = $listaMenu[0]->getIdMenu();
+            $abmMenuRol = new AbmMenuRol();
+            $datos['idrol'] = $datos['idpadre'];
+            $abmMenuRol->alta($datos);
         }
         return $resp;
     }
